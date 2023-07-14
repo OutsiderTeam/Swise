@@ -1,0 +1,468 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		88299FFF2A6029AA00C1A8BA /* SwiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88299FFE2A6029AA00C1A8BA /* SwiseApp.swift */; };
+		8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0002A6029AA00C1A8BA /* ContentView.swift */; };
+		8829A0032A6029AB00C1A8BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8829A0022A6029AB00C1A8BA /* Assets.xcassets */; };
+		8829A0062A6029AB00C1A8BA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8829A0052A6029AB00C1A8BA /* Preview Assets.xcassets */; };
+		8829A0082A6029AB00C1A8BA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0072A6029AB00C1A8BA /* Persistence.swift */; };
+		8829A00B2A6029AB00C1A8BA /* Swise.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0092A6029AB00C1A8BA /* Swise.xcdatamodeld */; };
+		8829A0162A602A7200C1A8BA /* Foods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0152A602A7200C1A8BA /* Foods.swift */; };
+		8829A0182A602AEF00C1A8BA /* FoodsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0172A602AEF00C1A8BA /* FoodsViewModel.swift */; };
+		8829A01A2A602B1800C1A8BA /* FoodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0192A602B1800C1A8BA /* FoodService.swift */; };
+		8829A01C2A602B3700C1A8BA /* FoodStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A01B2A602B3700C1A8BA /* FoodStore.swift */; };
+		8829A01F2A602B6A00C1A8BA /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8829A01E2A602B6A00C1A8BA /* CryptoSwift */; };
+		8829A0222A602D5A00C1A8BA /* URLComponents+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0212A602D5A00C1A8BA /* URLComponents+Utils.swift */; };
+		8829A0242A602D9200C1A8BA /* CharacterSet+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0232A602D9200C1A8BA /* CharacterSet+Utils.swift */; };
+		8829A0262A602DB000C1A8BA /* Array+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0252A602DB000C1A8BA /* Array+Utils.swift */; };
+		8829A0282A602DC700C1A8BA /* String+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0272A602DC700C1A8BA /* String+Utils.swift */; };
+		8829A02A2A602E0400C1A8BA /* FoodParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0292A602E0400C1A8BA /* FoodParams.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		88299FFB2A6029AA00C1A8BA /* Swise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88299FFE2A6029AA00C1A8BA /* SwiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiseApp.swift; sourceTree = "<group>"; };
+		8829A0002A6029AA00C1A8BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8829A0022A6029AB00C1A8BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8829A0052A6029AB00C1A8BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8829A0072A6029AB00C1A8BA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		8829A00A2A6029AB00C1A8BA /* Swise.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Swise.xcdatamodel; sourceTree = "<group>"; };
+		8829A0152A602A7200C1A8BA /* Foods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foods.swift; sourceTree = "<group>"; };
+		8829A0172A602AEF00C1A8BA /* FoodsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsViewModel.swift; sourceTree = "<group>"; };
+		8829A0192A602B1800C1A8BA /* FoodService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodService.swift; sourceTree = "<group>"; };
+		8829A01B2A602B3700C1A8BA /* FoodStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodStore.swift; sourceTree = "<group>"; };
+		8829A0212A602D5A00C1A8BA /* URLComponents+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLComponents+Utils.swift"; sourceTree = "<group>"; };
+		8829A0232A602D9200C1A8BA /* CharacterSet+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Utils.swift"; sourceTree = "<group>"; };
+		8829A0252A602DB000C1A8BA /* Array+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Utils.swift"; sourceTree = "<group>"; };
+		8829A0272A602DC700C1A8BA /* String+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utils.swift"; sourceTree = "<group>"; };
+		8829A0292A602E0400C1A8BA /* FoodParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodParams.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		88299FF82A6029AA00C1A8BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8829A01F2A602B6A00C1A8BA /* CryptoSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		88299FF22A6029AA00C1A8BA = {
+			isa = PBXGroup;
+			children = (
+				88299FFD2A6029AA00C1A8BA /* Swise */,
+				88299FFC2A6029AA00C1A8BA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		88299FFC2A6029AA00C1A8BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88299FFB2A6029AA00C1A8BA /* Swise.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		88299FFD2A6029AA00C1A8BA /* Swise */ = {
+			isa = PBXGroup;
+			children = (
+				8829A0202A602D3700C1A8BA /* Extension */,
+				8829A0142A602A1B00C1A8BA /* Services */,
+				8829A0132A602A0200C1A8BA /* ViewModel */,
+				8829A0122A6029FB00C1A8BA /* Model */,
+				8829A0112A6029EF00C1A8BA /* View */,
+				88299FFE2A6029AA00C1A8BA /* SwiseApp.swift */,
+				8829A0022A6029AB00C1A8BA /* Assets.xcassets */,
+				8829A0072A6029AB00C1A8BA /* Persistence.swift */,
+				8829A0042A6029AB00C1A8BA /* Preview Content */,
+			);
+			path = Swise;
+			sourceTree = "<group>";
+		};
+		8829A0042A6029AB00C1A8BA /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8829A0052A6029AB00C1A8BA /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8829A0112A6029EF00C1A8BA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8829A0002A6029AA00C1A8BA /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8829A0122A6029FB00C1A8BA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8829A0092A6029AB00C1A8BA /* Swise.xcdatamodeld */,
+				8829A0152A602A7200C1A8BA /* Foods.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8829A0132A602A0200C1A8BA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8829A0172A602AEF00C1A8BA /* FoodsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8829A0142A602A1B00C1A8BA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8829A0192A602B1800C1A8BA /* FoodService.swift */,
+				8829A01B2A602B3700C1A8BA /* FoodStore.swift */,
+				8829A0292A602E0400C1A8BA /* FoodParams.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		8829A0202A602D3700C1A8BA /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8829A0212A602D5A00C1A8BA /* URLComponents+Utils.swift */,
+				8829A0232A602D9200C1A8BA /* CharacterSet+Utils.swift */,
+				8829A0252A602DB000C1A8BA /* Array+Utils.swift */,
+				8829A0272A602DC700C1A8BA /* String+Utils.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		88299FFA2A6029AA00C1A8BA /* Swise */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8829A00E2A6029AB00C1A8BA /* Build configuration list for PBXNativeTarget "Swise" */;
+			buildPhases = (
+				88299FF72A6029AA00C1A8BA /* Sources */,
+				88299FF82A6029AA00C1A8BA /* Frameworks */,
+				88299FF92A6029AA00C1A8BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Swise;
+			packageProductDependencies = (
+				8829A01E2A602B6A00C1A8BA /* CryptoSwift */,
+			);
+			productName = Swise;
+			productReference = 88299FFB2A6029AA00C1A8BA /* Swise.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		88299FF32A6029AA00C1A8BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					88299FFA2A6029AA00C1A8BA = {
+						CreatedOnToolsVersion = 14.3;
+					};
+				};
+			};
+			buildConfigurationList = 88299FF62A6029AA00C1A8BA /* Build configuration list for PBXProject "Swise" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 88299FF22A6029AA00C1A8BA;
+			packageReferences = (
+				8829A01D2A602B6A00C1A8BA /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+			);
+			productRefGroup = 88299FFC2A6029AA00C1A8BA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				88299FFA2A6029AA00C1A8BA /* Swise */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		88299FF92A6029AA00C1A8BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8829A0062A6029AB00C1A8BA /* Preview Assets.xcassets in Resources */,
+				8829A0032A6029AB00C1A8BA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		88299FF72A6029AA00C1A8BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8829A0242A602D9200C1A8BA /* CharacterSet+Utils.swift in Sources */,
+				8829A0162A602A7200C1A8BA /* Foods.swift in Sources */,
+				8829A0082A6029AB00C1A8BA /* Persistence.swift in Sources */,
+				8829A00B2A6029AB00C1A8BA /* Swise.xcdatamodeld in Sources */,
+				8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */,
+				8829A0182A602AEF00C1A8BA /* FoodsViewModel.swift in Sources */,
+				88299FFF2A6029AA00C1A8BA /* SwiseApp.swift in Sources */,
+				8829A01A2A602B1800C1A8BA /* FoodService.swift in Sources */,
+				8829A02A2A602E0400C1A8BA /* FoodParams.swift in Sources */,
+				8829A0282A602DC700C1A8BA /* String+Utils.swift in Sources */,
+				8829A01C2A602B3700C1A8BA /* FoodStore.swift in Sources */,
+				8829A0262A602DB000C1A8BA /* Array+Utils.swift in Sources */,
+				8829A0222A602D5A00C1A8BA /* URLComponents+Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8829A00C2A6029AB00C1A8BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8829A00D2A6029AB00C1A8BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8829A00F2A6029AB00C1A8BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Swise/Preview Content\"";
+				DEVELOPMENT_TEAM = 9UX8BMAVFK;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agfiddprsty.Swise;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8829A0102A6029AB00C1A8BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Swise/Preview Content\"";
+				DEVELOPMENT_TEAM = 9UX8BMAVFK;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agfiddprsty.Swise;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		88299FF62A6029AA00C1A8BA /* Build configuration list for PBXProject "Swise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8829A00C2A6029AB00C1A8BA /* Debug */,
+				8829A00D2A6029AB00C1A8BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8829A00E2A6029AB00C1A8BA /* Build configuration list for PBXNativeTarget "Swise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8829A00F2A6029AB00C1A8BA /* Debug */,
+				8829A0102A6029AB00C1A8BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8829A01D2A602B6A00C1A8BA /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8829A01E2A602B6A00C1A8BA /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8829A01D2A602B6A00C1A8BA /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		8829A0092A6029AB00C1A8BA /* Swise.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8829A00A2A6029AB00C1A8BA /* Swise.xcdatamodel */,
+			);
+			currentVersion = 8829A00A2A6029AB00C1A8BA /* Swise.xcdatamodel */;
+			path = Swise.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 88299FF32A6029AA00C1A8BA /* Project object */;
+}
