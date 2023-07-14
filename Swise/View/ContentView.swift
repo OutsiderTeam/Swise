@@ -10,6 +10,9 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
+
+    @State private var search: String = ""
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
@@ -27,6 +30,11 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: deleteItems)
+                if !viewModel.resultSearch.isEmpty {
+                    ForEach(viewModel.resultSearch, id: \.foodId) { food in
+                        Text(food.foodName)
+                    }
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -40,6 +48,11 @@ struct ContentView: View {
             }
             Text("Select an item")
         }
+        .searchable(text: $search)
+        .onSubmit(of: .search) {
+            viewModel.searchFood(query: search)
+        }
+
     }
 
     private func addItem() {

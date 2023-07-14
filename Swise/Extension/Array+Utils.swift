@@ -20,7 +20,7 @@ internal extension Array {
                 array.append((key: key, value: value))
             }
 
-            for (key,value) in FoodParams.fatSecret {
+            for (key,value) in FoodParams.params {
                 array.append((key: key, value: value))
             }
 
