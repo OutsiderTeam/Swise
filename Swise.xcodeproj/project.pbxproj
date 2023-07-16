@@ -13,8 +13,8 @@
 		8829A0062A6029AB00C1A8BA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8829A0052A6029AB00C1A8BA /* Preview Assets.xcassets */; };
 		8829A0082A6029AB00C1A8BA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0072A6029AB00C1A8BA /* Persistence.swift */; };
 		8829A00B2A6029AB00C1A8BA /* Swise.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0092A6029AB00C1A8BA /* Swise.xcdatamodeld */; };
-		8829A0162A602A7200C1A8BA /* Foods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0152A602A7200C1A8BA /* Foods.swift */; };
-		8829A0182A602AEF00C1A8BA /* FoodsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0172A602AEF00C1A8BA /* FoodsViewModel.swift */; };
+		8829A0162A602A7200C1A8BA /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0152A602A7200C1A8BA /* Food.swift */; };
+		8829A0182A602AEF00C1A8BA /* FoodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0172A602AEF00C1A8BA /* FoodViewModel.swift */; };
 		8829A01A2A602B1800C1A8BA /* FoodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0192A602B1800C1A8BA /* FoodService.swift */; };
 		8829A01C2A602B3700C1A8BA /* FoodStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A01B2A602B3700C1A8BA /* FoodStore.swift */; };
 		8829A01F2A602B6A00C1A8BA /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8829A01E2A602B6A00C1A8BA /* CryptoSwift */; };
@@ -33,8 +33,8 @@
 		8829A0052A6029AB00C1A8BA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8829A0072A6029AB00C1A8BA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		8829A00A2A6029AB00C1A8BA /* Swise.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Swise.xcdatamodel; sourceTree = "<group>"; };
-		8829A0152A602A7200C1A8BA /* Foods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foods.swift; sourceTree = "<group>"; };
-		8829A0172A602AEF00C1A8BA /* FoodsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodsViewModel.swift; sourceTree = "<group>"; };
+		8829A0152A602A7200C1A8BA /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		8829A0172A602AEF00C1A8BA /* FoodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewModel.swift; sourceTree = "<group>"; };
 		8829A0192A602B1800C1A8BA /* FoodService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodService.swift; sourceTree = "<group>"; };
 		8829A01B2A602B3700C1A8BA /* FoodStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodStore.swift; sourceTree = "<group>"; };
 		8829A0212A602D5A00C1A8BA /* URLComponents+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLComponents+Utils.swift"; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				8829A0092A6029AB00C1A8BA /* Swise.xcdatamodeld */,
-				8829A0152A602A7200C1A8BA /* Foods.swift */,
+				8829A0152A602A7200C1A8BA /* Food.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -116,7 +116,7 @@
 		8829A0132A602A0200C1A8BA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				8829A0172A602AEF00C1A8BA /* FoodsViewModel.swift */,
+				8829A0172A602AEF00C1A8BA /* FoodViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -219,11 +219,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8829A0242A602D9200C1A8BA /* CharacterSet+Utils.swift in Sources */,
-				8829A0162A602A7200C1A8BA /* Foods.swift in Sources */,
+				8829A0162A602A7200C1A8BA /* Food.swift in Sources */,
 				8829A0082A6029AB00C1A8BA /* Persistence.swift in Sources */,
 				8829A00B2A6029AB00C1A8BA /* Swise.xcdatamodeld in Sources */,
 				8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */,
-				8829A0182A602AEF00C1A8BA /* FoodsViewModel.swift in Sources */,
+				8829A0182A602AEF00C1A8BA /* FoodViewModel.swift in Sources */,
 				88299FFF2A6029AA00C1A8BA /* SwiseApp.swift in Sources */,
 				8829A01A2A602B1800C1A8BA /* FoodService.swift in Sources */,
 				8829A02A2A602E0400C1A8BA /* FoodParams.swift in Sources */,
