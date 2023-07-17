@@ -26,9 +26,12 @@ class FoodViewModel: ObservableObject {
         queue.async(group: group) {
             group.enter()
             self.foodService.fetchFood(id: id) { response in
-                Task {
-                    await self.setFood(food: response.food)
+                DispatchQueue.main.async {
+                    self.food = response.food
                 }
+//                Task {
+//                    await self.setFood(food: response.food)
+//                }
                 group.leave()
             } errorHandler: { error in
                 print(error.localizedDescription)
@@ -49,9 +52,12 @@ class FoodViewModel: ObservableObject {
         queue.async(group: group) {
             group.enter()
             self.foodService.searchFood(query: query) { response in
-                Task {
-                    await self.setSearchResult(results: response.foods.food ?? [])
+                DispatchQueue.main.async {
+                    self.resultSearch = response.foods.food ?? []
                 }
+//                Task {
+//                    await self.setSearchResult(results: response.foods.food ?? [])
+//                }
                 group.leave()
             } errorHandler: { error in
                 print(error.localizedDescription)
@@ -64,11 +70,11 @@ class FoodViewModel: ObservableObject {
         }
     }
     
-    @MainActor func setFood(food: FoodDetail) {
-        self.food = food
-    }
+//    @MainActor func setFood(food: FoodDetail) {
+//        self.food = food
+//    }
     
-    @MainActor func setSearchResult(results: [Food]) {
-        resultSearch = results
-    }
+//    @MainActor func setSearchResult(results: [Food]) {
+//        resultSearch = results
+//    }
 }

@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
+    <entity name="DataItem" representedClassName="DataItem" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="totalCalories" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="totalSugar" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="eatenFoods" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EatenFoods" inverseName="eatenFoods" inverseEntity="EatenFoods"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="date"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="EatenFoods" representedClassName="EatenFoods" syncable="YES">
+        <attribute name="brandName" optional="YES" attributeType="String"/>
+        <attribute name="foodId" optional="YES" attributeType="String"/>
+        <attribute name="foodName" optional="YES" attributeType="String"/>
+        <attribute name="foodType" optional="YES" attributeType="String"/>
+        <attribute name="foodUrl" optional="YES" attributeType="String"/>
+        <relationship name="eatenFoods" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DataItem" inverseName="eatenFoods" inverseEntity="DataItem"/>
+        <relationship name="servingFood" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ServingFood" inverseName="servingFood" inverseEntity="ServingFood"/>
+    </entity>
+    <entity name="ServingFood" representedClassName="ServingFood" syncable="YES">
+        <attribute name="addedSugars" optional="YES" attributeType="String"/>
+        <attribute name="calcium" optional="YES" attributeType="String"/>
+        <attribute name="calories" optional="YES" attributeType="String"/>
+        <attribute name="carbohydrate" optional="YES" attributeType="String"/>
+        <attribute name="cholesterol" optional="YES" attributeType="String"/>
+        <attribute name="fat" optional="YES" attributeType="String"/>
+        <attribute name="fiber" optional="YES" attributeType="String"/>
+        <attribute name="iron" optional="YES" attributeType="String"/>
+        <attribute name="measurementDescription" optional="YES" attributeType="String"/>
+        <attribute name="metricServingAmount" optional="YES" attributeType="String"/>
+        <attribute name="metricServingUnit" optional="YES" attributeType="String"/>
+        <attribute name="monounsaturatedFat" optional="YES" attributeType="String"/>
+        <attribute name="numberOfUnits" optional="YES" attributeType="String"/>
+        <attribute name="polyunsaturatedFat" optional="YES" attributeType="String"/>
+        <attribute name="potassium" optional="YES" attributeType="String"/>
+        <attribute name="protein" optional="YES" attributeType="String"/>
+        <attribute name="saturatedFat" optional="YES" attributeType="String"/>
+        <attribute name="servingDescription" optional="YES" attributeType="String"/>
+        <attribute name="servingId" optional="YES" attributeType="String"/>
+        <attribute name="servingUrl" optional="YES" attributeType="String"/>
+        <attribute name="sodium" optional="YES" attributeType="String"/>
+        <attribute name="sugar" optional="YES" attributeType="String"/>
+        <attribute name="transFat" optional="YES" attributeType="String"/>
+        <attribute name="vitaminA" optional="YES" attributeType="String"/>
+        <attribute name="vitaminC" optional="YES" attributeType="String"/>
+        <attribute name="vitaminD" optional="YES" attributeType="String"/>
+        <relationship name="servingFood" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EatenFoods" inverseName="servingFood" inverseEntity="EatenFoods"/>
     </entity>
 </model>
