@@ -11,6 +11,7 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
+    @StateObject private var healthKitHelper = HealthKitHelper()
 
     @State private var search: String = ""
     @State var isPresented: Bool = false
@@ -74,7 +75,14 @@ struct ContentView: View {
                 }
             }
 
-            Text("Select an item")
+            Text("Height = \(healthKitHelper.height)")
+            Text("Weight = \(healthKitHelper.weight)")
+            Text("Sex = \(healthKitHelper.sex)")
+            Text("Age = \(healthKitHelper.age)")
+            
+        }
+        .onAppear{
+            healthKitHelper.requestAuthorization()
         }
         .environmentObject(viewModel)
         .searchable(text: $search)
