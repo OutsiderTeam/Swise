@@ -13,62 +13,75 @@ struct ContentView: View {
     @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
 
     @State private var search: String = ""
+    @State var isPresented: Bool = false
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var items: FetchedResults<DataItem>
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+        NavigationStack {
+            VStack {
+                if search == "" {
+                    List {
+                        ForEach(items) { item in
+                            
+                            VStack {
+                                HStack {
+                                    Text("TotalSugar")
+                                    Spacer()
+                                    Text(item.totalSugar.description)
+                                }
+                                HStack {
+                                    Text("TotalCalories")
+                                    Spacer()
+                                    Text(item.totalCalories.description)
+                                }
+                                Section(item.wrappedDate) {
+                                    ForEach(item.eatenFoodsArray, id:\.self) { food in
+                                        VStack {
+                                            Text(food.wrappedFoodName)
+                                            Text(food.wrappedFoodType)
+                                            Text(food.servingFood?.servingDescription ?? "")
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                        .onDelete(perform: deleteItems)
                     }
-                }
-                .onDelete(perform: deleteItems)
-                if !viewModel.resultSearch.isEmpty {
-                    ForEach(viewModel.resultSearch, id: \.foodId) { food in
-                        Text(food.foodName)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            EditButton()
+                        }
+                    }
+                } else {
+                    if !viewModel.resultSearch.isEmpty {
+                        List {
+                            ForEach(viewModel.resultSearch, id: \.foodId) { food in
+                                Text(food.foodName).onTapGesture {
+                                    viewModel.getFood(id: Int(food.foodId)!)
+                                    isPresented = true
+                                }
+                            }
+                        }
+                        .navigationDestination(isPresented: $isPresented) {
+                            DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories )
+                        }
                     }
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
+
             Text("Select an item")
         }
+        .environmentObject(viewModel)
         .searchable(text: $search)
         .onSubmit(of: .search) {
             viewModel.searchFood(query: search)
         }
 
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
     }
 
     private func deleteItems(offsets: IndexSet) {
@@ -86,13 +99,6 @@ struct ContentView: View {
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
