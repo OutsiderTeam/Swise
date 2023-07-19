@@ -31,6 +31,8 @@
 		8842AA7F2A64D628001E703E /* DataItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8842AA792A64D628001E703E /* DataItem+CoreDataProperties.swift */; };
 		8842AA822A64D7A3001E703E /* FoodHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8842AA812A64D7A3001E703E /* FoodHelper.swift */; };
 		8842AA842A64D815001E703E /* DetailFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8842AA832A64D815001E703E /* DetailFoodView.swift */; };
+		B31F7B5E2A65413F00F0B507 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31F7B5D2A65413F00F0B507 /* SummaryView.swift */; };
+		B31F7B602A65453100F0B507 /* TabNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31F7B5F2A65453100F0B507 /* TabNavView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		8842AA792A64D628001E703E /* DataItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8842AA812A64D7A3001E703E /* FoodHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodHelper.swift; sourceTree = "<group>"; };
 		8842AA832A64D815001E703E /* DetailFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFoodView.swift; sourceTree = "<group>"; };
+		B31F7B5D2A65413F00F0B507 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		B31F7B5F2A65453100F0B507 /* TabNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 			children = (
 				8829A0002A6029AA00C1A8BA /* ContentView.swift */,
 				8842AA832A64D815001E703E /* DetailFoodView.swift */,
+				B31F7B5D2A65413F00F0B507 /* SummaryView.swift */,
+				B31F7B5F2A65453100F0B507 /* TabNavView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -270,7 +276,9 @@
 				8829A01C2A602B3700C1A8BA /* FoodStore.swift in Sources */,
 				8829A0262A602DB000C1A8BA /* Array+Utils.swift in Sources */,
 				8842AA7A2A64D628001E703E /* ServingFood+CoreDataClass.swift in Sources */,
+				B31F7B602A65453100F0B507 /* TabNavView.swift in Sources */,
 				8829A0222A602D5A00C1A8BA /* URLComponents+Utils.swift in Sources */,
+				B31F7B5E2A65413F00F0B507 /* SummaryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
