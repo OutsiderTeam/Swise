@@ -12,6 +12,9 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
     @StateObject private var healthKitHelper = HealthKitHelper()
+    @StateObject private var calculationViewModel  = DataCalculationViewModel()
+    
+    let optionsActivityIntensities = ["No Exercise", "Light", "Moderate (3-5 days/week)", "Very active (5-6 days/week)", "Very Active/Physical Job"]
 
     @State private var search: String = ""
     @State var isPresented: Bool = false
@@ -74,11 +77,26 @@ struct ContentView: View {
                     }
                 }
             }
+            Spacer()
+            
+            // Select Activity Intensity for Calculate the calorie requirements
+            VStack {
+                    Section(header: Text("Select an Activity Intensity")) {
+                        Picker(selection: $calculationViewModel.activityIntensity, label: Text("Option")) {
+                            ForEach(optionsActivityIntensities, id: \.self) { option in
+                                Text((option))
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                    }
+                Text("Activity Intensity: \(calculationViewModel.activityIntensity)")
+            }
 
-            Text("Height = \(healthKitHelper.height)")
+            Text("Height = \(Int(healthKitHelper.height))")
             Text("Weight = \(healthKitHelper.weight)")
             Text("Sex = \(healthKitHelper.sex)")
             Text("Age = \(healthKitHelper.age)")
+            Text("Calorie Need = \(calculationViewModel.calorieNeed(heightData: healthKitHelper.height, ageData: healthKitHelper.age, sexData: healthKitHelper.sex))")
             
         }
         .onAppear{

@@ -7,6 +7,7 @@
 
 import Foundation
 import HealthKit
+import SwiftUI
 
 //********************************************************//
 //     This Function used for manage HealthKit Data       //
@@ -18,6 +19,9 @@ class HealthKitHelper: ObservableObject{
     @Published var sex: String = "Not Retrived"
     @Published var weight: Double = 0
     @Published var height: Double = 0
+    
+    @StateObject private var calculationViewModel  = DataCalculationViewModel()
+    
     
     // Request authorization to access Healthkit.
     func requestAuthorization() {
@@ -40,7 +44,9 @@ class HealthKitHelper: ObservableObject{
                     self.readSexData()
                 }
             }
+            
         }
+        
         
     }
     
@@ -58,13 +64,15 @@ class HealthKitHelper: ObservableObject{
                     // Handle the height samples retrieved
                     for heightSample in heightSamples {
                         self.height = heightSample.quantity.doubleValue(for: HKUnit.meter())
-                        print(self.height)
+                        self.height = self.height * 100
                         // Process the height data as needed
                     }
                 } else {
                     // An error occurred while fetching height data
                 }
+            
             }
+            
         }
         healthStore.execute(heightQuery)
     }
@@ -83,7 +91,6 @@ class HealthKitHelper: ObservableObject{
                     // Handle the weight samples retrieved
                     for weightSample in weightSamples {
                         self.weight = weightSample.quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
-                        print(self.weight)
                         // Process the weight data as needed
                     }
                 } else {

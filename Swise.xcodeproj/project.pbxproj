@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5A7AE89B2A657FDB0047F739 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */; };
+		5A7AE89D2A659D290047F739 /* DataCalculationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */; };
 		88299FFF2A6029AA00C1A8BA /* SwiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88299FFE2A6029AA00C1A8BA /* SwiseApp.swift */; };
 		8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0002A6029AA00C1A8BA /* ContentView.swift */; };
 		8829A0032A6029AB00C1A8BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8829A0022A6029AB00C1A8BA /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* Begin PBXFileReference section */
 		5A7AE8992A657E9E0047F739 /* Swise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swise.entitlements; sourceTree = "<group>"; };
 		5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
+		5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCalculationViewModel.swift; sourceTree = "<group>"; };
 		88299FFB2A6029AA00C1A8BA /* Swise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88299FFE2A6029AA00C1A8BA /* SwiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiseApp.swift; sourceTree = "<group>"; };
 		8829A0002A6029AA00C1A8BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			children = (
 				8829A0072A6029AB00C1A8BA /* Persistence.swift */,
 				8829A0172A602AEF00C1A8BA /* FoodViewModel.swift */,
+				5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A7AE89D2A659D290047F739 /* DataCalculationViewModel.swift in Sources */,
 				8829A0242A602D9200C1A8BA /* CharacterSet+Utils.swift in Sources */,
 				8829A0162A602A7200C1A8BA /* Food.swift in Sources */,
 				8842AA842A64D815001E703E /* DetailFoodView.swift in Sources */,
