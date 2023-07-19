@@ -54,7 +54,7 @@ class FoodStore: FoodService {
             guard let data = data else { return }
             let model = self.retrieve(data: data, type: FoodsResponse.self)
             let search = model
-            successHandler(search!)
+            successHandler(search ?? FoodsResponse(foods: Foods(maxResults: "", pageNumber: "", totalResults: "", food: [])))
         }
     }
 }

@@ -18,8 +18,21 @@
         <attribute name="foodName" optional="YES" attributeType="String"/>
         <attribute name="foodType" optional="YES" attributeType="String"/>
         <attribute name="foodUrl" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="eatenFoods" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DataItem" inverseName="eatenFoods" inverseEntity="DataItem"/>
         <relationship name="servingFood" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ServingFood" inverseName="servingFood" inverseEntity="ServingFood"/>
+    </entity>
+    <entity name="HistoryFoods" representedClassName="HistoryFoods" syncable="YES">
+        <attribute name="brandName" optional="YES" attributeType="String"/>
+        <attribute name="foodId" optional="YES" attributeType="String"/>
+        <attribute name="foodName" optional="YES" attributeType="String"/>
+        <attribute name="foodType" optional="YES" attributeType="String"/>
+        <attribute name="foodUrl" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="foodId"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="ServingFood" representedClassName="ServingFood" syncable="YES">
         <attribute name="addedSugars" optional="YES" attributeType="String"/>

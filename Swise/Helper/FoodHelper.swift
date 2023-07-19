@@ -15,12 +15,19 @@ let viewContext = PersistenceController.shared.container.viewContext
 //********************************************************//
 
 func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalories: Double) {
+    let historyFood = HistoryFoods(context: viewContext)
+    historyFood.foodId = food.foodId
+    historyFood.brandName = food.brandName
+    historyFood.foodType = food.foodType
+    historyFood.foodUrl = food.foodUrl
+    historyFood.foodName = food.foodName
     let newItem = EatenFoods(context: viewContext)
     newItem.brandName = food.brandName
     newItem.foodId = food.foodId
     newItem.foodName = food.foodName
     newItem.foodType = food.foodType
     newItem.foodUrl = food.foodUrl
+    newItem.timestamp = Date()
     newItem.eatenFoods = DataItem(context: viewContext)
     newItem.eatenFoods?.date = Date().formatted(date: .complete, time: .omitted)
     newItem.eatenFoods?.timestamp = Date()

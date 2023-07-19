@@ -16,6 +16,7 @@ extension EatenFoods {
         return NSFetchRequest<EatenFoods>(entityName: "EatenFoods")
     }
 
+    @NSManaged public var timestamp: Date?
     @NSManaged public var brandName: String?
     @NSManaged public var foodName: String?
     @NSManaged public var foodId: String?
@@ -24,7 +25,11 @@ extension EatenFoods {
     @NSManaged public var eatenFoods: DataItem?
     @NSManaged public var servingFood: ServingFood?
     
-    public var wrappedDate: String {
+    public var wrappedTimestamp: Date {
+        timestamp ?? Date()
+    }
+    
+    public var wrappedBrandName: String {
         brandName ?? "Unknown Brand Name"
     }
     public var wrappedFoodId: String {
