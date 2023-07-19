@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A7AE89B2A657FDB0047F739 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */; };
 		88299FFF2A6029AA00C1A8BA /* SwiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88299FFE2A6029AA00C1A8BA /* SwiseApp.swift */; };
 		8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0002A6029AA00C1A8BA /* ContentView.swift */; };
 		8829A0032A6029AB00C1A8BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8829A0022A6029AB00C1A8BA /* Assets.xcassets */; };
@@ -36,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A7AE8992A657E9E0047F739 /* Swise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swise.entitlements; sourceTree = "<group>"; };
+		5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
 		88299FFB2A6029AA00C1A8BA /* Swise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88299FFE2A6029AA00C1A8BA /* SwiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiseApp.swift; sourceTree = "<group>"; };
 		8829A0002A6029AA00C1A8BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +98,7 @@
 		88299FFD2A6029AA00C1A8BA /* Swise */ = {
 			isa = PBXGroup;
 			children = (
+				5A7AE8992A657E9E0047F739 /* Swise.entitlements */,
 				8842AA802A64D790001E703E /* Helper */,
 				8829A0202A602D3700C1A8BA /* Extension */,
 				8829A0142A602A1B00C1A8BA /* Services */,
@@ -176,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				8842AA812A64D7A3001E703E /* FoodHelper.swift */,
+				5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 				8842AA7B2A64D628001E703E /* ServingFood+CoreDataProperties.swift in Sources */,
 				8842AA7E2A64D628001E703E /* DataItem+CoreDataClass.swift in Sources */,
 				8842AA7C2A64D628001E703E /* EatenFoods+CoreDataClass.swift in Sources */,
+				5A7AE89B2A657FDB0047F739 /* HealthKitHelper.swift in Sources */,
 				8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */,
 				8829A0182A602AEF00C1A8BA /* FoodViewModel.swift in Sources */,
 				88299FFF2A6029AA00C1A8BA /* SwiseApp.swift in Sources */,
@@ -404,12 +410,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Swise/Swise.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Swise/Preview Content\"";
-				DEVELOPMENT_TEAM = 9UX8BMAVFK;
+				DEVELOPMENT_TEAM = NL23AD7CD7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Allow this app to write your data for calculate your calories and maximum sugar intake";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -433,12 +441,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Swise/Swise.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Swise/Preview Content\"";
-				DEVELOPMENT_TEAM = 9UX8BMAVFK;
+				DEVELOPMENT_TEAM = NL23AD7CD7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Allow this app to write your data for calculate your calories and maximum sugar intake";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
