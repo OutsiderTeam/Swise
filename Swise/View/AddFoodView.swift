@@ -14,7 +14,8 @@ struct AddFoodView: View {
     
        var body: some View {
            VStack{
-               Text("Add Food").bold()
+               Text("Add Food")
+                   .fontWeight(.bold)
                    .font(.title).padding(.trailing, 240)
                HStack{
                    TextField("Search ...", text: $text)
@@ -66,7 +67,9 @@ struct AddFoodView: View {
                    }){
                        HStack{
                            Image(systemName: "plus.circle")
-                           Text("Add your food manually").bold()
+                           Text("Add your food manually")
+                               .font(.headline)
+                               .fontWeight(.semibold)
                        }.foregroundColor(.white).frame(width: 358, height: 50).background(Color("button_color")).cornerRadius(11)
                        
                            
