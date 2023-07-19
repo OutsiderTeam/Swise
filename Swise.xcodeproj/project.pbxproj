@@ -34,6 +34,7 @@
 		8842AA842A64D815001E703E /* DetailFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8842AA832A64D815001E703E /* DetailFoodView.swift */; };
 		B31F7B5E2A65413F00F0B507 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31F7B5D2A65413F00F0B507 /* SummaryView.swift */; };
 		B31F7B602A65453100F0B507 /* TabNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31F7B5F2A65453100F0B507 /* TabNavView.swift */; };
+		B31F7B642A67E73F00F0B507 /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31F7B632A67E73F00F0B507 /* AddFoodView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		8842AA832A64D815001E703E /* DetailFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFoodView.swift; sourceTree = "<group>"; };
 		B31F7B5D2A65413F00F0B507 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		B31F7B5F2A65453100F0B507 /* TabNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavView.swift; sourceTree = "<group>"; };
+		B31F7B632A67E73F00F0B507 /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				8842AA832A64D815001E703E /* DetailFoodView.swift */,
 				B31F7B5D2A65413F00F0B507 /* SummaryView.swift */,
 				B31F7B5F2A65453100F0B507 /* TabNavView.swift */,
+				B31F7B632A67E73F00F0B507 /* AddFoodView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				8842AA7B2A64D628001E703E /* ServingFood+CoreDataProperties.swift in Sources */,
 				8842AA7E2A64D628001E703E /* DataItem+CoreDataClass.swift in Sources */,
 				8842AA7C2A64D628001E703E /* EatenFoods+CoreDataClass.swift in Sources */,
+				B31F7B642A67E73F00F0B507 /* AddFoodView.swift in Sources */,
 				5A7AE89B2A657FDB0047F739 /* HealthKitHelper.swift in Sources */,
 				8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */,
 				8829A0182A602AEF00C1A8BA /* FoodViewModel.swift in Sources */,
