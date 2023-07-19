@@ -61,9 +61,9 @@ struct SummaryView: View {
                 ZStack{
                     HStack{
                         VStack{
-                            Text("🫐🧀").foregroundColor(.black).bold().font(.system(size: 20))
+                            Text("🫐🧀").padding(.top, 10).foregroundColor(.black).bold().font(.system(size: 20))
                             
-                            Text("What have you eaten today? Let us track here!").foregroundColor(.black).font(.system(size: 18)).multilineTextAlignment(.center).padding(.top, 5)
+                            Text("What have you eaten today? Let us track here!").foregroundColor(.black).font(.system(size: 18)).multilineTextAlignment(.center).padding(.top, 1)
                             Button(
                                 action: {
                                     
@@ -101,7 +101,24 @@ struct SummaryView: View {
                     }
                 }.frame(width: 356, height: 69.63).background(Color("bg_yellow")).cornerRadius(15)
                 
-                
+                VStack{
+                    Text("For You").font(.system(size: 22)).padding(.trailing,260)
+                }
+                HStack{
+                    ZStack{
+                        VStack(alignment: .leading){
+                            Text("What is BMI?").bold().padding(.bottom, 9)
+                            Text("Do you know BMI is a measure if your weight is healthy or not.")
+                        }.padding()
+                    }.frame(width: 169, height: 186).background(Color("bg_pink")).cornerRadius(29)
+                    ZStack{
+                        VStack(alignment: .leading){
+                            Text("What is BMI?").bold().padding(.bottom, 9)
+                            Text("Do you know BMI is a measure if your weight is healthy or not.")
+                        }.padding()
+                    }.frame(width: 169, height: 186).background(Color("bg_blue")).cornerRadius(29)
+                }
+               
                 
             }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.white).foregroundColor(.black)
         }
