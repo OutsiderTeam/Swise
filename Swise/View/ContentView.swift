@@ -18,6 +18,7 @@ struct ContentView: View {
 
     @State private var search: String = ""
     @State var isPresented: Bool = false
+    @State var calNeed: Double = 0
 
     @FetchRequest(
         sortDescriptors: [],
@@ -93,14 +94,23 @@ struct ContentView: View {
             }
 
             Text("Height = \(Int(healthKitHelper.height))")
-            Text("Weight = \(healthKitHelper.weight)")
+            Text("Weight = \(healthKitHelper.weight, specifier: "%.2f")")
             Text("Sex = \(healthKitHelper.sex)")
             Text("Age = \(healthKitHelper.age)")
-            Text("Calorie Need = \(calculationViewModel.calorieNeed(heightData: healthKitHelper.height, ageData: healthKitHelper.age, sexData: healthKitHelper.sex))")
+
+            Text("Calorie Need = \(calculationViewModel.calorieNeed(), specifier: "%.f")")
+            Text("Max Sugar Intake = \(calculationViewModel.calculateMaxSugar())")
+            Text("Tea Spoon = \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: calculationViewModel.calorieNeed()))")
             
         }
         .onAppear{
             healthKitHelper.requestAuthorization()
+            
+        }
+        .onChange(of: healthKitHelper.healthApprove) { newValue in
+            calculationViewModel.height = healthKitHelper.height
+            calculationViewModel.age = Double(healthKitHelper.age)
+            calculationViewModel.sex = healthKitHelper.sex
         }
         .environmentObject(viewModel)
         .searchable(text: $search)

@@ -17,14 +17,17 @@ import SwiftUI
 class DataCalculationViewModel: ObservableObject{
     // variable for retrieve user's exercise info
     @Published var activityIntensity: String = ""
+    @Published var height: Double = 0
+    @Published var age: Double = 0
+    @Published var sex: String = ""
+    
+    // Every 1 tea spoon sugar = 5 gram sugar
+    let gramTeaSpoon: Double = 5
+    // Every 1 tea spoon sugar = 16 kkal
+    let caloryTeaSpoon: Double = 16
     
     // Function to calculate the user's calorie needs
-    func calorieNeed(heightData: Double, ageData: Int, sexData: String) -> Double{
-        // Retrieve user info
-        let height = heightData
-        let age = Double(ageData)
-        let sex = sexData
-        
+    func calorieNeed() -> Double{
         // BBI : Berat Badan Ideal
         var BBI: Double = 0
         // BMR : Basal Metabolic Rate / Kalori yang dibutuhkan tubuh
@@ -38,7 +41,7 @@ class DataCalculationViewModel: ObservableObject{
             //1. Calculate BBI
             BBI = (height-100)-((15*(height-100))/100)
             //2. Calculate BMR
-            BMR = 66.5 + (9.6*BBI) + (1.8*height) - (4.7*age)
+            BMR = 665 + (9.6*BBI) + (1.8*height) - (4.7*age)
             //3. Calculate base on user's exercise
             calNeed = calculateByActivityIntensity(BMR: BMR)
             return calNeed
@@ -48,7 +51,7 @@ class DataCalculationViewModel: ObservableObject{
             //1. Calculate BBI
             BBI = (height-100)-((10*(height-100))/100)
             //2. Calculate BMR
-            BMR = 66.5 + (13.7*BBI) + (5*height) - (6.8*age)
+            BMR = 66 + (13.7*BBI) + (5*height) - (6.8*age)
             //3. Calculate base on user's exercise
             calNeed = calculateByActivityIntensity(BMR: BMR)
             return calNeed
@@ -75,15 +78,18 @@ class DataCalculationViewModel: ObservableObject{
         case "Very Active/Physical Job":
             return BMR*1.9
         default :
-            return BMR
+            return BMR*1.2
         }
     }
     
-
-    
     //Function to calculate max sugar intake
-    func calculateMaxSugar(){
-        
+    func calculateMaxSugar()->Int{
+        return Int(calorieNeed()*0.1*gramTeaSpoon/caloryTeaSpoon)
+    }
+    
+    // Function to calculate sugar as a tea spoon
+    func calculateTeaSpoonOfSugar(calorie:Double)->Int{
+        return Int(calorie*0.1/caloryTeaSpoon)
     }
     
 }

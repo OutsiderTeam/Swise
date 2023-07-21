@@ -19,6 +19,7 @@ class HealthKitHelper: ObservableObject{
     @Published var sex: String = "Not Retrived"
     @Published var weight: Double = 0
     @Published var height: Double = 0
+    @Published var healthApprove: Bool = false
     
     @StateObject private var calculationViewModel  = DataCalculationViewModel()
     
@@ -42,6 +43,11 @@ class HealthKitHelper: ObservableObject{
                     self.readWeightData()
                     self.readAgeData()
                     self.readSexData()
+                    if !self.healthApprove {
+                        DispatchQueue.main.async {
+                            self.healthApprove = true
+                        }
+                    }
                 }
             }
             
