@@ -8,30 +8,31 @@
 import SwiftUI
 
 struct TabNavView: View {
+    @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
     var body: some View {
-        TabView {
-            // First Tab
-            SummaryView()
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Summary")
-                }
-            
-            // Second Tab
-            Text("Second Tab")
-                .tabItem {
-                    Image(systemName: "clock")
-                    Text("History")
-                }
-            
-            // Third Tab
-            
-            Text("Second Tab")
-                .tabItem {
-                    Image(systemName: "person.fill")
-                    Text("Profile")
-                }
-        }
+            TabView {
+                // First Tab
+                SummaryView()
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                        Text("Summary")
+                    }.toolbarBackground(Color("bg_yellow"), for: .tabBar)
+                
+                // Second Tab
+                Text("Second Tab")
+                    .tabItem {
+                        Image(systemName: "clock")
+                        Text("History")
+                    }
+                
+                // Third Tab
+                
+                Text("Second Tab")
+                    .tabItem {
+                        Image(systemName: "person.fill")
+                        Text("Profile")
+                    }
+            }.environmentObject(viewModel).accentColor(Color("button_color"))
     }
 }
 

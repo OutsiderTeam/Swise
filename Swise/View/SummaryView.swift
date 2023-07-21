@@ -9,35 +9,55 @@ import SwiftUI
 
 struct SummaryView: View {
     @State var progressValue: Float = 0.65
+    @State var isPresented: Bool = false
     var body: some View {
-        NavigationView{
+        NavigationStack{
             ZStack{
                 ScrollView{
                     ZStack{
                         VStack{
                             HStack{
-                                Text("Today").bold().font(.title).padding(.trailing, 200)
-                                Image(systemName: "info.circle").resizable().frame(width: 25, height: 25).background(Color.white).clipShape(Circle())
-                            }
+                                //                                Text("Today").bold().font(.title).padding(.trailing, 200)
+                                Spacer()
+                                Image(systemName: "info.circle")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .background(Color.white)
+                                    .clipShape(Circle())
+
+                            }.padding(.horizontal)
+                            Spacer()
                             HStack{
                                 VStack{
-                                    Text("You've Consumed").font(.title2)
+                                    Text("You've Consumed").font(.title3)
                                     HStack{
-                                        Text("5 gr").bold().font(.title2)
-                                        Text("/50 gr").font(.title2).padding(.top, 9)
-                                        Text("of sugar today!").font(.title2).padding(.top, 9)
+                                        Text("5 gr")
+                                            .bold()
+                                            .font(.headline)
+                                        Text("/50 gr")
+                                            .font(.headline)
+                                            .padding(.top, 9)
+                                        Text("of sugar today!")
+                                            .font(.headline)
+                                            .padding(.top, 9)
                                     }
                                     Image("spoon")
-                                    Text("or equals 1 teaspoon!").font(.title2)
+                                    Text("or equals 1 teaspoon!")
+                                        .font(.headline)
                                     
                                 }.padding()
                             }
+                            Spacer()
                             
-                        }
+                        }.frame(height: 300)
                     }
                     ZStack{
                         VStack{
-                            Text("Calorie Count").font(.title2).padding(.trailing,210).padding(.top)
+                            Text("Calorie Count")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .padding(.trailing,210)
+                                .padding(.top)
                             ZStack{
                                 HStack{
                                     ProgressBar(progress: $progressValue)
@@ -45,41 +65,71 @@ struct SummaryView: View {
                                         .padding(30.0)
                                     VStack(alignment: .leading){
                                         HStack{
-                                            Text("56 kcal/").fontWeight(.bold).foregroundColor(.black).bold().font(.title2)
+                                            Text("56 kcal/").fontWeight(.bold).foregroundColor(.black)
+                                                .bold()
+                                                .font(.title2)
                                             Text("2200 kcal").font(.body)
                                         }
                                         
-                                        Text("*Based on your BMI, your max. calorie intake is 2200 kcal").foregroundColor(.black).font(.footnote).multilineTextAlignment(.leading).padding(.top, 5)
+                                        Text("*Based on your BMI, your max. calorie intake is 2200 kcal").foregroundColor(.black)
+                                            .font(.footnote)
+                                            .multilineTextAlignment(.leading).padding(.top, 5)
                                     }.padding(.trailing, 15)
                                     
                                 }
-                            }.frame(width: 359, height: 124).background(Color("bg_blue")).cornerRadius(29)
+                            }
+                            .frame(width: 359, height: 124)
+                            .background(Color("bg_blue"))
+                            .cornerRadius(29)
                             
                             VStack{
-                                Text("Food Diary").font(.title2).padding(.trailing,230)
+                                Text("Food Diary")
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .padding(.trailing,230)
                             }
                             ZStack{
                                 HStack{
                                     VStack{
-                                        Text("🫐🧀").padding(.top, 10).foregroundColor(.black).bold().font(.system(size: 20))
+                                        //                                        Text("🫐🧀").font(.title2)
                                         
-                                        Text("What have you eaten today? Let us track here!").fontWeight(.semibold).foregroundColor(.black).font(.headline).multilineTextAlignment(.center).padding(.top, 1)
-                                       NavigationLink(destination: AddFoodView(text: .constant(""))){
-                                           Text("Add your food").font(.headline)
-                                               .fontWeight(.semibold)
-                                               .foregroundColor(.white).frame(width: 288, height: 46).background(Color("button_color")).cornerRadius(11)
+                                        Text("What have you eaten today? Let us track here!")
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(.black)
+                                            .font(.headline)
+                                            .multilineTextAlignment(.center)
+                                            .padding(.top, 1)
+                                        //                                       NavigationLink(destination: AddFoodView()){
+                                        Text("Add your food")
+                                            .font(.headline)
+                                            .fontWeight(.semibold)
+                                            .foregroundColor(.white)
+                                            .frame(width: 288, height: 46)
+                                            .background(Color("button_color")).cornerRadius(11)
+                                            .onTapGesture {
+                                                isPresented = true
                                             }
+                                            .navigationDestination(isPresented: $isPresented) {
+                                                AddFoodView()
+                                            }
+                                        //                                            }
                                     }.padding()
                                     
                                 }
                                 
                                 
-                            }.frame(width: 359, height: 186).background(Color("bg_yellow")).cornerRadius(29).padding(.bottom, 9)
+                            }.frame(width: 359, height: 166).background(Color("bg_yellow")).cornerRadius(29).padding(.bottom, 9)
                             ZStack{
                                 VStack(alignment: .leading){
                                     HStack{
-                                        Text("Bubur Ayam").font(.headline).fontWeight(.semibold).padding(.trailing, 55)
-                                        Text("17 kcal").font(.headline).fontWeight(.semibold).padding(.trailing, 55)
+                                        Text("Bubur Ayam")
+                                            .font(.headline)
+                                            .fontWeight(.semibold)
+                                            .padding(.trailing, 55)
+                                        Text("17 kcal")
+                                            .font(.headline)
+                                            .fontWeight(.semibold)
+                                            .padding(.trailing, 55)
                                         Text("2 gr")
                                             .font(.headline)
                                             .fontWeight(.semibold)
@@ -89,12 +139,22 @@ struct SummaryView: View {
                                         .font(.headline)
                                         .fontWeight(.regular)
                                 }
-                            }.frame(width: 356, height: 69.63).background(Color("bg_yellow")).cornerRadius(15).padding(.bottom, 9)
+                            }
+                            .frame(width: 356, height: 69.63)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                            .padding(.bottom, 9)
                             ZStack{
                                 VStack(alignment: .leading){
                                     HStack{
-                                        Text("Bubur Ayam").font(.headline).fontWeight(.semibold).padding(.trailing, 55)
-                                        Text("17 kcal").font(.headline).fontWeight(.semibold).padding(.trailing, 55)
+                                        Text("Bubur Ayam")
+                                            .font(.headline)
+                                            .fontWeight(.semibold)
+                                            .padding(.trailing, 55)
+                                        Text("17 kcal")
+                                            .font(.headline)
+                                            .fontWeight(.semibold)
+                                            .padding(.trailing, 55)
                                         Text("2 gr")
                                             .font(.headline)
                                             .fontWeight(.semibold)
@@ -104,34 +164,73 @@ struct SummaryView: View {
                                         .font(.headline)
                                         .fontWeight(.regular)
                                 }
-                            }.frame(width: 356, height: 69.63).background(Color("bg_yellow")).cornerRadius(15).padding(.bottom, 9)
-                            Text("Show More").font(.headline).fontWeight(.semibold).padding(.leading, 250).padding(.bottom, 25)
+                            }
+                            .frame(width: 356, height: 69.63)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                            .padding(.bottom, 9)
+                            Text("Show More")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .padding(.leading, 250)
+                                .padding(.bottom, 25)
                             
-                            Text("For You").font(.title2).padding(.trailing,260)
-                        
+                            Text("For You")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .padding(.trailing,260)
+                            
                             HStack{
                                 ZStack{
                                     VStack(alignment: .leading){
-                                        Text("What is BMI?").font(.headline).fontWeight(.semibold).padding(.bottom, 9)
+                                        Text("What is BMI?")
+                                            .font(.headline)
+                                            .fontWeight(.semibold)
+                                            .padding(.bottom, 9)
                                         Text("Do you know BMI is a measure if your weight is healthy or not.")
                                             .font(.body)
                                             .fontWeight(.regular)
                                     }.padding()
-                                }.frame(width: 169, height: 186).background(Color("bg_pink")).cornerRadius(29)
+                                }
+                                .frame(width: 169, height: 186)
+                                .background(Color("bg_pink"))
+                                .cornerRadius(29)
                                 ZStack{
                                     VStack(alignment: .leading){
-                                        Text("What is BMI?").font(.headline).fontWeight(.semibold).padding(.bottom, 9)
+                                        Text("What is BMI?")
+                                            .font(.headline)
+                                            .fontWeight(.semibold)
+                                            .padding(.bottom, 9)
                                         Text("Do you know BMI is a measure if your weight is healthy or not.")
                                             .font(.body)
                                             .fontWeight(.regular)
                                     }.padding()
-                                }.frame(width: 169, height: 186).background(Color("bg_blue")).cornerRadius(29)
+                                }
+                                .frame(width: 169, height: 186)
+                                .background(Color("bg_blue"))
+                                .cornerRadius(29)
                             }
                         }
-                    }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color("bg_white"))
-                }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.white).foregroundColor(.black)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color("bg_white"))
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.white)
+                .foregroundColor(.black)
             }
-        }.navigationBarTitle("Summary")
+            .navigationBarTitle("Summary")
+            .navigationBarHidden(true)
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarLeading) {
+//                    Button(action: {
+//
+//                    }, label: {
+//                        Image(systemName: "plus")
+//                    })
+//                }
+//            }
+        }
         
     }
 }
