@@ -92,6 +92,6 @@ struct DetailFoodView: View {
 
 struct DetailFoodView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailFoodView()
+        DetailFoodView().environmentObject(FoodViewModel(foodService: FoodStore.shared))
     }
 }
