@@ -13,7 +13,7 @@ struct SwiseApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HistoryView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
