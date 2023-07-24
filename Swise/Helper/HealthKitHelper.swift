@@ -7,6 +7,7 @@
 
 import Foundation
 import HealthKit
+import SwiftUI
 
 //********************************************************//
 //     This Function used for manage HealthKit Data       //
@@ -15,9 +16,13 @@ import HealthKit
 class HealthKitHelper: ObservableObject{
     let healthStore = HKHealthStore()
     @Published var age: Int = 0
-    @Published var sex: String = "Not Retrived"
+    @Published var sex: Sex = .notRetrived
     @Published var weight: Double = 0
     @Published var height: Double = 0
+    @Published var healthApprove: Bool = false
+    
+    @StateObject private var calculationViewModel  = DataCalculationViewModel()
+    
     
     // Request authorization to access Healthkit.
     func requestAuthorization() {
@@ -38,9 +43,16 @@ class HealthKitHelper: ObservableObject{
                     self.readWeightData()
                     self.readAgeData()
                     self.readSexData()
+                    if !self.healthApprove {
+                        DispatchQueue.main.async {
+                            self.healthApprove = true
+                        }
+                    }
                 }
             }
+            
         }
+        
         
     }
     
@@ -58,13 +70,15 @@ class HealthKitHelper: ObservableObject{
                     // Handle the height samples retrieved
                     for heightSample in heightSamples {
                         self.height = heightSample.quantity.doubleValue(for: HKUnit.meter())
-                        print(self.height)
+                        self.height = self.height * 100
                         // Process the height data as needed
                     }
                 } else {
                     // An error occurred while fetching height data
                 }
+            
             }
+            
         }
         healthStore.execute(heightQuery)
     }
@@ -83,7 +97,6 @@ class HealthKitHelper: ObservableObject{
                     // Handle the weight samples retrieved
                     for weightSample in weightSamples {
                         self.weight = weightSample.quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
-                        print(self.weight)
                         // Process the weight data as needed
                     }
                 } else {
@@ -125,19 +138,19 @@ class HealthKitHelper: ObservableObject{
                 switch biologicalSex {
                 case .female:
                     // User is female
-                    self.sex = "Female"
+                    self.sex = .female
                     break
                 case .male:
                     // User is male
-                    self.sex = "Male"
+                    self.sex = .male
                     break
                 case .other:
                     // User's biological sex is something other than male or female
-                    self.sex = "Other"
+                    self.sex = .other
                     break
                 case .notSet:
                     // User's biological sex is not set
-                    self.sex = "Not Retrived"
+                    self.sex = .notRetrived
                     break
                 @unknown default:
                     break

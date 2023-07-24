@@ -12,9 +12,11 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
     @StateObject private var healthKitHelper = HealthKitHelper()
+    @StateObject private var calculationViewModel  = DataCalculationViewModel()
 
     @State private var search: String = ""
     @State var isPresented: Bool = false
+    @State var calNeed: Double = 0
 
     @FetchRequest(
         sortDescriptors: [],
@@ -74,15 +76,39 @@ struct ContentView: View {
                     }
                 }
             }
+            Spacer()
+            
+            // Select Activity Intensity for Calculate the calorie requirements
+            VStack {
+                    Section(header: Text("Select an Activity Intensity")) {
+                        Picker(selection: $calculationViewModel.activityIntensity, label: Text("Option")) {
+                            ForEach(Activity.allCases) { activity in
+                                Text((activity.rawValue)).tag(activity)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                    }
+                Text("Activity Intensity: \(calculationViewModel.activityIntensity.rawValue)")
+            }
 
-            Text("Height = \(healthKitHelper.height)")
-            Text("Weight = \(healthKitHelper.weight)")
-            Text("Sex = \(healthKitHelper.sex)")
+            Text("Height = \(Int(healthKitHelper.height))")
+            Text("Weight = \(healthKitHelper.weight, specifier: "%.2f")")
+            Text("Sex = \(healthKitHelper.sex.rawValue)")
             Text("Age = \(healthKitHelper.age)")
+
+            Text("Calorie Need = \(calculationViewModel.calorieNeed(), specifier: "%.f")")
+            Text("Max Sugar Intake = \(calculationViewModel.calculateMaxSugar())")
+            Text("Tea Spoon = \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: calculationViewModel.calorieNeed()))")
             
         }
         .onAppear{
             healthKitHelper.requestAuthorization()
+            
+        }
+        .onChange(of: healthKitHelper.healthApprove) { newValue in
+            calculationViewModel.height = healthKitHelper.height
+            calculationViewModel.age = Double(healthKitHelper.age)
+            calculationViewModel.sex = healthKitHelper.sex
         }
         .environmentObject(viewModel)
         .searchable(text: $search)
