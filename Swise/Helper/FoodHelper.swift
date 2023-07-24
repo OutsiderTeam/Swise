@@ -16,6 +16,7 @@ let viewContext = PersistenceController.shared.container.viewContext
 
 func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalories: Double) {
     let newItem = EatenFoods(context: viewContext)
+    newItem.time = Date().formatted(date: .omitted, time: .shortened)
     newItem.brandName = food.brandName
     newItem.foodId = food.foodId
     newItem.foodName = food.foodName

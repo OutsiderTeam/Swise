@@ -18,6 +18,7 @@
         <attribute name="foodName" optional="YES" attributeType="String"/>
         <attribute name="foodType" optional="YES" attributeType="String"/>
         <attribute name="foodUrl" optional="YES" attributeType="String"/>
+        <attribute name="time" optional="YES" attributeType="String"/>
         <relationship name="eatenFoods" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DataItem" inverseName="eatenFoods" inverseEntity="DataItem"/>
         <relationship name="servingFood" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ServingFood" inverseName="servingFood" inverseEntity="ServingFood"/>
     </entity>
