@@ -16,10 +16,10 @@ import SwiftUI
 
 class DataCalculationViewModel: ObservableObject{
     // variable for retrieve user's exercise info
-    @Published var activityIntensity: String = ""
+    @Published var activityIntensity: Activity = .no
     @Published var height: Double = 0
     @Published var age: Double = 0
-    @Published var sex: String = ""
+    @Published var sex: Sex = .notRetrived
     
     // Every 1 tea spoon sugar = 5 gram sugar
     let gramTeaSpoon: Double = 5
@@ -27,7 +27,7 @@ class DataCalculationViewModel: ObservableObject{
     let caloryTeaSpoon: Double = 16
     
     func healthChecker()-> Bool{
-        if (height == 0 && age == 0 && (sex == "" || sex == "Other")){
+        if (height == 0 && age == 0 && (sex == .notRetrived || sex == .other)){
             return false
         } else {
             return true
@@ -45,7 +45,7 @@ class DataCalculationViewModel: ObservableObject{
         if healthChecker(){
             switch sex{
                 // When user as a female
-            case "Female":
+            case .female:
                 //1. Calculate BBI
                 BBI = (height-100)-((15*(height-100))/100)
                 //2. Calculate BMR
@@ -55,7 +55,7 @@ class DataCalculationViewModel: ObservableObject{
 //                return calNeed
                 
                 //When user as a male
-            case "Male":
+            case .male:
                 //1. Calculate BBI
                 BBI = (height-100)-((10*(height-100))/100)
                 //2. Calculate BMR
@@ -64,11 +64,9 @@ class DataCalculationViewModel: ObservableObject{
                 calNeed = calculateByActivityIntensity(BMR: BMR)
 //                return calNeed
                 
-                //When user gak jelas
+                //When user's sex not detected
             default:
-                print("Tentuin lu Male apa Female bang")
                 calNeed = 0
-//                return BBI
             }
         }
         return calNeed
@@ -77,18 +75,16 @@ class DataCalculationViewModel: ObservableObject{
     // Function to define the calculation base on user exercise routine
     func calculateByActivityIntensity(BMR: Double) -> Double{
         switch activityIntensity{
-        case "No Exercise":
+        case .no:
             return BMR*1.2
-        case "Light":
+        case .light:
             return BMR*1.375
-        case "Moderate (3-5 days/week)":
+        case .moderate:
             return BMR*1.55
-        case "Very active (5-6 days/week)":
+        case .very:
             return BMR*1.725
-        case "Very Active/Physical Job":
+        case .extra:
             return BMR*1.9
-        default :
-            return BMR*1.2
         }
     }
     

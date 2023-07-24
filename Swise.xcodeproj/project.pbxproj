@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5A7AE89B2A657FDB0047F739 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */; };
 		5A7AE89D2A659D290047F739 /* DataCalculationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */; };
+		5AE7754B2A6E89A3003F6325 /* AppEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7754A2A6E89A3003F6325 /* AppEnums.swift */; };
 		88299FFF2A6029AA00C1A8BA /* SwiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88299FFE2A6029AA00C1A8BA /* SwiseApp.swift */; };
 		8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8829A0002A6029AA00C1A8BA /* ContentView.swift */; };
 		8829A0032A6029AB00C1A8BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8829A0022A6029AB00C1A8BA /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		5A7AE8992A657E9E0047F739 /* Swise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swise.entitlements; sourceTree = "<group>"; };
 		5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
 		5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCalculationViewModel.swift; sourceTree = "<group>"; };
+		5AE7754A2A6E89A3003F6325 /* AppEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnums.swift; sourceTree = "<group>"; };
 		88299FFB2A6029AA00C1A8BA /* Swise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88299FFE2A6029AA00C1A8BA /* SwiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiseApp.swift; sourceTree = "<group>"; };
 		8829A0002A6029AA00C1A8BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			children = (
 				8842AA812A64D7A3001E703E /* FoodHelper.swift */,
 				5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */,
+				5AE7754A2A6E89A3003F6325 /* AppEnums.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				8842AA7F2A64D628001E703E /* DataItem+CoreDataProperties.swift in Sources */,
 				8829A01C2A602B3700C1A8BA /* FoodStore.swift in Sources */,
 				8829A0262A602DB000C1A8BA /* Array+Utils.swift in Sources */,
+				5AE7754B2A6E89A3003F6325 /* AppEnums.swift in Sources */,
 				8842AA7A2A64D628001E703E /* ServingFood+CoreDataClass.swift in Sources */,
 				B31F7B602A65453100F0B507 /* TabNavView.swift in Sources */,
 				8829A0222A602D5A00C1A8BA /* URLComponents+Utils.swift in Sources */,

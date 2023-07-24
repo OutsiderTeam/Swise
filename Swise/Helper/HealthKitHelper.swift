@@ -16,7 +16,7 @@ import SwiftUI
 class HealthKitHelper: ObservableObject{
     let healthStore = HKHealthStore()
     @Published var age: Int = 0
-    @Published var sex: String = "Not Retrived"
+    @Published var sex: Sex = .notRetrived
     @Published var weight: Double = 0
     @Published var height: Double = 0
     @Published var healthApprove: Bool = false
@@ -138,19 +138,19 @@ class HealthKitHelper: ObservableObject{
                 switch biologicalSex {
                 case .female:
                     // User is female
-                    self.sex = "Female"
+                    self.sex = .female
                     break
                 case .male:
                     // User is male
-                    self.sex = "Male"
+                    self.sex = .male
                     break
                 case .other:
                     // User's biological sex is something other than male or female
-                    self.sex = "Other"
+                    self.sex = .other
                     break
                 case .notSet:
                     // User's biological sex is not set
-                    self.sex = "Not Retrived"
+                    self.sex = .notRetrived
                     break
                 @unknown default:
                     break

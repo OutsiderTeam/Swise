@@ -13,8 +13,6 @@ struct ContentView: View {
     @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
     @StateObject private var healthKitHelper = HealthKitHelper()
     @StateObject private var calculationViewModel  = DataCalculationViewModel()
-    
-    let optionsActivityIntensities = ["No Exercise", "Light", "Moderate (3-5 days/week)", "Very active (5-6 days/week)", "Very Active/Physical Job"]
 
     @State private var search: String = ""
     @State var isPresented: Bool = false
@@ -84,18 +82,18 @@ struct ContentView: View {
             VStack {
                     Section(header: Text("Select an Activity Intensity")) {
                         Picker(selection: $calculationViewModel.activityIntensity, label: Text("Option")) {
-                            ForEach(optionsActivityIntensities, id: \.self) { option in
-                                Text((option))
+                            ForEach(Activity.allCases) { activity in
+                                Text((activity.rawValue)).tag(activity)
                             }
                         }
                         .pickerStyle(MenuPickerStyle())
                     }
-                Text("Activity Intensity: \(calculationViewModel.activityIntensity)")
+                Text("Activity Intensity: \(calculationViewModel.activityIntensity.rawValue)")
             }
 
             Text("Height = \(Int(healthKitHelper.height))")
             Text("Weight = \(healthKitHelper.weight, specifier: "%.2f")")
-            Text("Sex = \(healthKitHelper.sex)")
+            Text("Sex = \(healthKitHelper.sex.rawValue)")
             Text("Age = \(healthKitHelper.age)")
 
             Text("Calorie Need = \(calculationViewModel.calorieNeed(), specifier: "%.f")")
