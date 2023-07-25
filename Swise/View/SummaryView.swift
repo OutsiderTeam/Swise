@@ -152,15 +152,7 @@ struct SummaryView: View {
                             }
                         }
                     } else {
-                        VStack {
-                            Image("empty_bowl")
-                            Text("Nothing to see here,").font(.body)
-                            Text("You haven’t input your meal.").font(.body)
-                        }
-                        .padding(EdgeInsets(top: 5, leading: 20, bottom: 18, trailing: 20))
-                        .frame(width: UIScreen.main.bounds.width-40)
-                        .background(Color("bg_blue"))
-                        .cornerRadius(29)
+                        EmptyListView()
                     }
                     VStack{
                         HStack {
