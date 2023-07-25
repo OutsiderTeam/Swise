@@ -16,7 +16,7 @@ struct TabNavView: View {
                     .tabItem {
                         Image(systemName: "house.fill")
                         Text("Summary")
-                    }.toolbarBackground(Color("bg_yellow"), for: .tabBar)
+                    }.toolbarBackground(Color.white, for: .tabBar)
                 
                 // Second Tab
                 Text("Second Tab")
