@@ -8,254 +8,253 @@
 import SwiftUI
 
 struct SummaryView: View {
-    @State var progressValue: Float = 0.65
-    @State var isPresented: Bool = false
-    var body: some View {
-        NavigationStack{
-            ZStack{
-                ScrollView{
-                    ZStack{
-                        VStack{
-                            HStack{
-                                //                                Text("Today").bold().font(.title).padding(.trailing, 200)
-                                Spacer()
-                                Image(systemName: "info.circle")
-                                    .resizable()
-                                    .frame(width: 25, height: 25)
-                                    .background(Color.white)
-                                    .clipShape(Circle())
+    @StateObject private var healthKitHelper = HealthKitHelper()
+    @StateObject private var calculationViewModel  = DataCalculationViewModel()
 
-                            }.padding(.horizontal)
-                            Spacer()
-                            HStack{
-                                VStack{
-                                    Text("You've Consumed").font(.title3)
-                                    HStack{
-                                        Text("5 gr")
-                                            .bold()
-                                            .font(.headline)
-                                        Text("/50 gr")
-                                            .font(.headline)
-                                            .padding(.top, 9)
-                                        Text("of sugar today!")
-                                            .font(.headline)
-                                            .padding(.top, 9)
-                                    }
-                                    Image("spoon")
-                                    Text("or equals 1 teaspoon!")
-                                        .font(.headline)
-                                    
-                                }.padding()
-                            }
-                            Spacer()
-                            
-                        }.frame(height: 300)
-                    }
-                    ZStack{
-                        VStack{
-                            Text("Calorie Count")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .padding(.trailing,210)
-                                .padding(.top)
-                            ZStack{
-                                HStack{
-                                    ProgressBar(progress: $progressValue)
-                                        .frame(width: 80.0, height: 80.0)
-                                        .padding(30.0)
-                                    VStack(alignment: .leading){
-                                        HStack{
-                                            Text("56 kcal/").fontWeight(.bold).foregroundColor(.black)
-                                                .bold()
-                                                .font(.title2)
-                                            Text("2200 kcal").font(.body)
-                                        }
-                                        
-                                        Text("*Based on your BMI, your max. calorie intake is 2200 kcal").foregroundColor(.black)
-                                            .font(.footnote)
-                                            .multilineTextAlignment(.leading).padding(.top, 5)
-                                    }.padding(.trailing, 15)
-                                    
-                                }
-                            }
-                            .frame(width: 359, height: 124)
+    @State var progressValue: Float = 1
+    @State var isPresented: Bool = false
+    @State var calNeed: Float = 0.0
+    @State var data: [EatenFoods] = []
+    @State var maxSugar: Int = 0
+    @State var totalSugar: Double = 0
+    @State var sugarCondition: Int = 0
+    @FetchRequest(
+        sortDescriptors: [],
+        predicate: NSPredicate(format: "date == %@", Date().formatted(date: .complete, time: .omitted)),
+        animation: .default)
+    private var items: FetchedResults<DataItem>
+    var body: some View {
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    HStack {
+                        Text("Hi user!").font(.largeTitle)
+                        Spacer()
+                        Image(systemName: "info.circle")
+                            .resizable()
+                            .frame(width: 25, height: 25)
                             .background(Color("bg_blue"))
-                            .cornerRadius(29)
-                            
-                            VStack{
-                                Text("Food Diary")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                    .padding(.trailing,230)
+                            .clipShape(Circle())
+                    }.padding(.top, 20)
+                    HStack(alignment: .top){
+                        VStack(alignment: .leading){
+                            HStack(alignment: .center, spacing: 30) {
+                                VStack(alignment: .leading, spacing: 0) {
+                                    Text("What have you eaten today?").font(.headline).fontWeight(.semibold)
+                                    Text("Add your meal now!").font(.headline).fontWeight(.semibold)
+                                }
+                                Image("bowl")
+                                    .resizable()
+                                    .frame(width: 77, height: 84)
                             }
-                            ZStack{
-                                HStack{
-                                    VStack{
-                                        //                                        Text("🫐🧀").font(.title2)
-                                        
-                                        Text("What have you eaten today? Let us track here!")
-                                            .fontWeight(.semibold)
-                                            .foregroundColor(.black)
-                                            .font(.headline)
-                                            .multilineTextAlignment(.center)
-                                            .padding(.top, 1)
-                                        //                                       NavigationLink(destination: AddFoodView()){
-                                        Text("Add your food")
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                            .foregroundColor(.white)
-                                            .frame(width: 288, height: 46)
-                                            .background(Color("button_color")).cornerRadius(11)
-                                            .onTapGesture {
-                                                isPresented = true
-                                            }
-                                            .navigationDestination(isPresented: $isPresented) {
-                                                AddFoodView()
-                                            }
-                                        //                                            }
-                                    }.padding()
-                                    
+                            Button {
+                                isPresented = true
+                            } label: {
+                                VStack {
+                                    Text("Add your meal").foregroundColor(.white)
                                 }
-                                
-                                
-                            }.frame(width: 359, height: 166).background(Color("bg_yellow")).cornerRadius(29).padding(.bottom, 9)
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    HStack{
-                                        Text("Bubur Ayam")
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                            .padding(.trailing, 55)
-                                        Text("17 kcal")
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                            .padding(.trailing, 55)
-                                        Text("2 gr")
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                    }.padding(.vertical, 0.4).bold()
-                                    
-                                    Text("1 bowl")
-                                        .font(.headline)
-                                        .fontWeight(.regular)
-                                }
-                            }
-                            .frame(width: 356, height: 69.63)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(15)
-                            .padding(.bottom, 9)
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    HStack{
-                                        Text("Bubur Ayam")
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                            .padding(.trailing, 55)
-                                        Text("17 kcal")
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                            .padding(.trailing, 55)
-                                        Text("2 gr")
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                    }.padding(.vertical, 0.4).bold()
-                                    
-                                    Text("1 bowl")
-                                        .font(.headline)
-                                        .fontWeight(.regular)
-                                }
-                            }
-                            .frame(width: 356, height: 69.63)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(15)
-                            .padding(.bottom, 9)
-                            Text("Show More")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                                .padding(.leading, 250)
-                                .padding(.bottom, 25)
-                            
-                            Text("For You")
-                                .font(.title3)
-                                .fontWeight(.bold)
-                                .padding(.trailing,260)
-                            
-                            HStack{
-                                ZStack{
-                                    VStack(alignment: .leading){
-                                        Text("What is BMI?")
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                            .padding(.bottom, 9)
-                                        Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                            .font(.body)
-                                            .fontWeight(.regular)
-                                    }.padding()
-                                }
-                                .frame(width: 169, height: 186)
-                                .background(Color("bg_pink"))
-                                .cornerRadius(29)
-                                ZStack{
-                                    VStack(alignment: .leading){
-                                        Text("What is BMI?")
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                            .padding(.bottom, 9)
-                                        Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                            .font(.body)
-                                            .fontWeight(.regular)
-                                    }.padding()
-                                }
-                                .frame(width: 169, height: 186)
-                                .background(Color("bg_blue"))
-                                .cornerRadius(29)
+                                .padding(.vertical, 12)
+                                .frame(width: UIScreen.main.bounds.width-40)
+                                .background(Color("button_color"))
+                                .cornerRadius(11)
                             }
                         }
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color("bg_white"))
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.white)
-                .foregroundColor(.black)
+                .padding(EdgeInsets(top: 40, leading: 20, bottom: 40, trailing: 20))
+                .background(Color("bg_blue"))
+                .cornerRadius(30)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Sugar Intake Calculation").font(.title3).bold()
+                        Spacer()
+                    }
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .top) {
+                            VStack(alignment: .leading) {
+                                Text("You’ve consumed").font(.body)
+                                HStack {
+                                    Text("\(items.first?.totalSugar ?? 0, specifier: "%.f") gr / \(items.first?.totalCalories ?? 0 > Double(calNeed) ? 50 : maxSugar) gr").font(.title3).bold()
+                                    Text("sugar").font(.title3)
+                                }
+                                Text("Or equal to \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: items.first?.totalCalories ?? 0)) teaspoon.").font(.body)
+                                HStack {
+                                    Image("spoon")
+                                        .resizable()
+                                        .frame(width: 46, height: 28)
+                                    Text("x \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: items.first?.totalCalories ?? 0))")
+                                }
+                            }
+                            Spacer()
+                            Image(sugarCondition == 0 ? "smily_sugar" : sugarCondition == 1 ? "panic_sugar" : "sad_sugar")
+                                    .resizable()
+                                    .frame(width: 107, height: 138)
+                        }
+                        Text("*Based on the ministry of health of Indonesia, 50 gr....").multilineTextAlignment(.leading)
+                    }
+                    .padding(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
+                    .frame(width: UIScreen.main.bounds.width-40, alignment: .top)
+                    .background(sugarCondition == 0 ? Color("bg_green") : sugarCondition == 1 ? Color("bg_orange") : Color("bg_red"))
+                    .cornerRadius(30)
+                }.padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
+                VStack {
+                    HStack {
+                        Text("Calorie Count")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                        Spacer()
+                    }.padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
+                    ZStack{
+                        HStack{
+                            ProgressBarView(progress: $progressValue, total: $calNeed)
+                                .frame(width: 80.0, height: 80.0)
+                                .padding(30.0)
+                            VStack(alignment: .leading){
+                                HStack{
+                                    Text("\(items.first?.totalCalories ?? 0, specifier: "%.f") kcal/").fontWeight(.bold).foregroundColor(.black)
+                                        .bold()
+                                        .font(.title2)
+                                    Text("\(calNeed, specifier: "%.f") kcal").font(.body)
+                                }
+                                
+                                Text("*Based on your BMI, your max. calorie intake is \(calNeed, specifier: "%.f") kcal").foregroundColor(.black)
+                                    .font(.footnote)
+                                    .multilineTextAlignment(.leading).padding(.top, 5)
+                            }.padding(.trailing, 15)
+                            
+                        }
+                    }
+                    .frame(width: 359, height: 124)
+                    .background(Color("bg_blue"))
+                    .cornerRadius(29)
+                    
+                    VStack{
+                        HStack {
+                            Text("Your Food Diary")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .padding(.top, 20)
+                            Spacer()
+                        }
+                        .padding(.horizontal, 20)
+                    }
+                    if data.count > 0 {
+                        ForEach(0..<(data.count <= 3 ? data.count : 3), id: \.self) { i in
+                            FoodItemView(name: data[i].foodName ?? "-", calories: data[i].servingFood?.calories ?? "0", sugar: data[i].servingFood?.sugar ?? "0", serving: data[i].servingFood?.servingDescription ?? "-")
+                        }
+                        if data.count > 3 {
+                            HStack {
+                                Spacer()
+                                Text("Show More")
+                                    .font(.callout)
+                                    .fontWeight(.semibold)
+                                    .padding(.horizontal, 20)
+                            }
+                        }
+                    } else {
+                        EmptyListView()
+                    }
+                    VStack{
+                        HStack {
+                            Text("For Your Information")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .padding(.top, 20)
+                            Spacer()
+                        }
+                        .padding(.horizontal, 20)
+                    }
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack{
+                            ZStack{
+                                VStack(alignment: .leading){
+                                    Text("What is BMI?")
+                                        .font(.headline)
+                                        .fontWeight(.semibold)
+                                        .padding(.bottom, 9)
+                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
+                                        .font(.body)
+                                        .fontWeight(.regular)
+                                }.padding()
+                            }
+                            .frame(width: 169, height: 186)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(29)
+                            ZStack{
+                                VStack(alignment: .leading){
+                                    Text("What is BMI?")
+                                        .font(.headline)
+                                        .fontWeight(.semibold)
+                                        .padding(.bottom, 9)
+                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
+                                        .font(.body)
+                                        .fontWeight(.regular)
+                                }.padding()
+                            }
+                            .frame(width: 169, height: 186)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(29)
+                            ZStack{
+                                VStack(alignment: .leading){
+                                    Text("What is BMI?")
+                                        .font(.headline)
+                                        .fontWeight(.semibold)
+                                        .padding(.bottom, 9)
+                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
+                                        .font(.body)
+                                        .fontWeight(.regular)
+                                }.padding()
+                            }
+                            .frame(width: 169, height: 186)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(29)
+                            ZStack{
+                                VStack(alignment: .leading){
+                                    Text("What is BMI?")
+                                        .font(.headline)
+                                        .fontWeight(.semibold)
+                                        .padding(.bottom, 9)
+                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
+                                        .font(.body)
+                                        .fontWeight(.regular)
+                                }.padding()
+                            }
+                            .frame(width: 169, height: 186)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(29)
+                        }
+                    }
+                }
             }
-            .navigationBarTitle("Summary")
-            .navigationBarHidden(true)
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Button(action: {
-//
-//                    }, label: {
-//                        Image(systemName: "plus")
-//                    })
-//                }
-//            }
+            .padding(.bottom, 100)
+            .onAppear{
+                healthKitHelper.requestAuthorization()
+                data = items.first?.eatenFoodsArray ?? []
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0)
+                totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+            }
+            .onChange(of: healthKitHelper.healthApprove) { newValue in
+                calculationViewModel.height = healthKitHelper.height
+                calculationViewModel.age = Double(healthKitHelper.age)
+                calculationViewModel.sex = healthKitHelper.sex
+                calNeed = Float(calculationViewModel.calorieNeed())
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0)
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+            }
+            .onChange(of: items.first?.totalSugar ?? 0, perform: { newValue in
+                maxSugar = calculationViewModel.calculateMaxSugar(calorie: newValue)
+                totalSugar = items.first?.totalSugar ?? 0
+            })
+            .ignoresSafeArea()
+            .navigationDestination(isPresented: $isPresented) {
+                AddFoodView()
+            }
         }
-        
-    }
-}
-
-struct ProgressBar: View {
-    @Binding var progress: Float
-    
-    var body: some View {
-        ZStack {
-            Circle()
-                .stroke(lineWidth: 12.0)
-                .opacity(0.3)
-                .foregroundColor(Color.gray)
-            
-            Circle()
-                .trim(from: 0.0, to: CGFloat(min(progress, 1.0)))
-                .stroke(style: StrokeStyle(lineWidth: 12.0, lineCap: .round, lineJoin: .round))
-                .foregroundColor(Color("button_color"))
-                .rotationEffect(Angle(degrees: 270.0))
-                .animation(.linear)
-            
-            Text(String(format: "%.0f %%", min(progress, 1.0)*100.0))
-                .font(.title3)
-                .bold()
-        }
+        .ignoresSafeArea()
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
