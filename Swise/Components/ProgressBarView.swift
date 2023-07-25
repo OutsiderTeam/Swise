@@ -28,9 +28,6 @@ struct ProgressBarView: View {
             Text(String(format: "%.0f %%", min(progress, total)*100.0))
                 .font(.title3)
                 .bold()
-        }.onAppear {
-            print(progress)
-            print(total)
         }
     }
 }
