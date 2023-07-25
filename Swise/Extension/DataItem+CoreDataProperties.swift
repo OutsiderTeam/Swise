@@ -16,6 +16,7 @@ extension DataItem {
         return NSFetchRequest<DataItem>(entityName: "DataItem")
     }
 
+    @NSManaged public var sugarCondition: Double
     @NSManaged public var timestamp: Date?
     @NSManaged public var date: String?
     @NSManaged public var totalSugar: Double

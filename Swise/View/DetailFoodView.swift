@@ -13,6 +13,7 @@ struct DetailFoodView: View {
     @State var selectedServing: Serving = Serving(calcium: "", calories: "", carbohydrate: "", cholesterol: "", fat: "", fiber: "", iron: "", measurementDescription: "", metricServingAmount: "", metricServingUnit: "", monounsaturatedFat: "", numberOfUnits: "", polyunsaturatedFat: "", potassium: "", protein: "", saturatedFat: "", servingDescription: "", servingId: "", servingUrl: "", sodium: "", sugar: "", addedSugars: "", vitaminA: "", vitaminC: "", vitaminD: "", transFat: "")
     var totalSugar: Double = 0
     var totalCalories: Double = 0
+    var sugarCondition: Double = 0
     var body: some View {
         VStack {
             if !viewModel.isLoading {
@@ -81,7 +82,7 @@ struct DetailFoodView: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: totalSugar, totalCalories: totalCalories)
+                    addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: totalSugar, totalCalories: totalCalories, sugarCondition: sugarCondition)
                 } label: {
                     Label("Add Item", systemImage: "plus")
                 }

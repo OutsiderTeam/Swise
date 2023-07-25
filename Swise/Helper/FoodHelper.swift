@@ -14,7 +14,7 @@ let viewContext = PersistenceController.shared.container.viewContext
 //  This Function used for add Eaten Food to Core Data    //
 //********************************************************//
 
-func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalories: Double) {
+func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalories: Double, sugarCondition: Double) {
     let newItem = EatenFoods(context: viewContext)
     newItem.time = Date().formatted(date: .omitted, time: .shortened)
     newItem.brandName = food.brandName
@@ -24,6 +24,7 @@ func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalorie
     newItem.foodUrl = food.foodUrl
     newItem.eatenFoods = DataItem(context: viewContext)
     newItem.eatenFoods?.date = Date().formatted(date: .complete, time: .omitted)
+    newItem.eatenFoods?.sugarCondition = sugarCondition
     newItem.eatenFoods?.timestamp = Date()
     newItem.eatenFoods?.totalSugar = totalSugar + (Double(food.servings.serving![index].addedSugars ?? "0") ?? 0)
     newItem.eatenFoods?.totalCalories = totalCalories + (Double(food.servings.serving![index].calories ?? "0") ?? 0)

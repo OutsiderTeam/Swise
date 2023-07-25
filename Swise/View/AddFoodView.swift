@@ -16,6 +16,7 @@ struct AddFoodView: View {
         sortDescriptors: [],
         animation: .default)
     private var items: FetchedResults<DataItem>
+    var sugarCondition: Double = 0
     
     var body: some View {
         VStack{
@@ -121,7 +122,7 @@ struct AddFoodView: View {
                     }
                 }
                 .navigationDestination(isPresented: $isPresented) {
-                    DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories )
+                    DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories, sugarCondition: sugarCondition)
                 }
             }
             

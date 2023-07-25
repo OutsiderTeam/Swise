@@ -36,28 +36,28 @@ struct HistoryView: View {
                     ZStack {
                         ForEach(weekStore.allWeeks) { week in
                             VStack{
-                                HStack(spacing: 10) {
+                                HStack(spacing: 7) {
                                     ForEach(0..<7) { index in
-                                        VStack(spacing: 15) {
+                                        VStack(spacing: 7) {
                                             Text(weekStore.dateToString(date: week.date[index], format: "EEEEE"))
                                                 .font(.subheadline)
                                                 .fontWeight(.semibold)
                                                 .frame(maxWidth:.infinity)
-                                            
-                                            Text(weekStore.dateToString(date: week.date[index], format: "d"))
-                                                .font(.subheadline)
-                                                .frame(maxWidth:.infinity)
-                                            Text("😡")
-                                                .font(.title2)
-                                                .padding(5)
-                                                .frame(width: 40, height: 30)
-                                                .background(Color.white)
-                                                .cornerRadius(12)
                                         }
-                                        .frame(width: 43, height: 100)
-                                        .background(Calendar.current.isDate(week.date[index], inSameDayAs: weekStore.currentDate) ? Color("button_color") : Color("bg_blue"))
-                                        .foregroundColor(Calendar.current.isDate(week.date[index], inSameDayAs: weekStore.currentDate) ? Color.white : Color.black)
-                                        .cornerRadius(12)
+                                        .frame(width: 40, height: 40)
+                                        .background(Color("bg_blue"))
+                                        .overlay(
+                                            VStack {
+                                                if Calendar.current.isDate(week.date[index], inSameDayAs: weekStore.currentDate) {
+                                                    Circle()
+                                                    .stroke(Color(red: 0.23, green: 0.82, blue: 0.82), lineWidth: 3)
+                                                } else {
+                                                    EmptyView()
+                                                }
+                                            }
+                                        )
+                                        .foregroundColor(Color.black)
+                                        .cornerRadius(20)
                                         .onTapGesture {
                                             // Updating Current Day
                                             weekStore.currentDate = week.date[index]
@@ -97,16 +97,16 @@ struct HistoryView: View {
                     )
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Total added sugar")
-                            Text("Total calories")
+                            Text("Amount added sugar").font(.body)
+                            Text("Amount calories").font(.body)
                         }
                         VStack {
-                            Text(":")
-                            Text(":")
+                            Text(":").font(.body)
+                            Text(":").font(.body)
                         }
                         VStack(alignment: .leading) {
-                            Text("\(String(selectedDate.first?.totalSugar ?? 0)) gr")
-                            Text("\(String(selectedDate.first?.totalCalories ?? 0)) Kcal")
+                            Text("\(String(selectedDate.first?.totalSugar ?? 0)) gr").font(.headline)
+                            Text("\(String(selectedDate.first?.totalCalories ?? 0)) Kcal").font(.headline)
                         }
                         Spacer()
                         
