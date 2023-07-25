@@ -89,9 +89,11 @@ class DataCalculationViewModel: ObservableObject{
     }
     
     //Function to calculate max sugar intake
-    func calculateMaxSugar()->Int{
+    func calculateMaxSugar(calorie: Double)->Int{
         var maxSugar: Int = 0
-        if calorieNeed() == 0{
+        if calorie <= calorieNeed() {
+            maxSugar = Int(calorie*0.1*gramTeaSpoon/caloryTeaSpoon)
+        } else if calorieNeed() == 0 {
             maxSugar = 0
         } else{
             maxSugar = Int(calorieNeed()*0.1*gramTeaSpoon/caloryTeaSpoon)

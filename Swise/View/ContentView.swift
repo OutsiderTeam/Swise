@@ -97,7 +97,7 @@ struct ContentView: View {
             Text("Age = \(healthKitHelper.age)")
 
             Text("Calorie Need = \(calculationViewModel.calorieNeed(), specifier: "%.f")")
-            Text("Max Sugar Intake = \(calculationViewModel.calculateMaxSugar())")
+            Text("Max Sugar Intake = \(calculationViewModel.calculateMaxSugar(calorie: 10))")
             Text("Tea Spoon = \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: calculationViewModel.calorieNeed()))")
             
         }
