@@ -12,127 +12,131 @@ struct AddFoodView: View {
     @State var text: String = ""
     @State var isPresented: Bool = false
     @State private var isEditing = false
+    @State private var statusBar = UIStatusBarStyle.lightContent
     @FetchRequest(
         sortDescriptors: [],
         animation: .default)
     private var items: FetchedResults<DataItem>
     
     var body: some View {
-        VStack{
-            VStack(alignment: .leading){
-                Text("Your search history").font(.headline)
-                HStack{
-                    ZStack{
-                        Text("Roti")
-                    }.frame(width: 81, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                        .padding(.bottom, 9)
-                    ZStack{
-                        Text("Roti")
-                    }.frame(width: 81, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                        .padding(.bottom, 9)
-                    ZStack{
-                        Text("Roti")
-                    }.frame(width: 81, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                    ZStack{
-                        Text("Roti")
-                    }.frame(width: 81, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                }
-                HStack{
-                    ZStack{
-                        Text("Roti")
-                    }.frame(width: 81, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                        .padding(.bottom, 9)
-                    ZStack{
-                        Text("Roti")
-                    }.frame(width: 81, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                        .padding(.bottom, 9)
-                    ZStack{
-                        Text("Roti")
-                    }.frame(width: 81, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                    ZStack{
-                        Text("Roti")
-                    }.frame(width: 81, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                }
-                
-            }.padding(.horizontal, 16)
-          
-            VStack(alignment: .leading){
-                Text("Your recent search").font(.headline)
-                VStack{
-                    ZStack{
-                        HStack{
-                            Text("Roti").padding(.trailing, 240)
-                            Image(systemName: "chevron.right")
-                        }
-                    }.frame(width: 361, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                        .padding(.bottom, 9)
-                    ZStack{
-                        HStack{
-                            Text("Roti").padding(.trailing, 240)
-                            Image(systemName: "chevron.right")
-                        }
-                    }.frame(width: 361, height: 47)
-                        .background(Color("bg_yellow"))
-                        .cornerRadius(15)
-                        .padding(.bottom, 9)
-                }
-                
-            }.padding(.horizontal, 16)
-            Spacer()
+        NavigationView {
             
-            Button(
-                action: {
-                    
-                }){
+            VStack{
+                CustomHeaderView()
+                VStack(alignment: .leading){
+                    Text("Your search history").font(.headline)
                     HStack{
-                        Image(systemName: "plus.circle")
-                        Text("Add your food manually")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                    }.foregroundColor(.white).frame(width: 358, height: 50).background(Color("button_color")).cornerRadius(11)
+                        ZStack{
+                            Text("Roti")
+                        }.frame(width: 81, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                            .padding(.bottom, 9)
+                        ZStack{
+                            Text("Roti")
+                        }.frame(width: 81, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                            .padding(.bottom, 9)
+                        ZStack{
+                            Text("Roti")
+                        }.frame(width: 81, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                        ZStack{
+                            Text("Roti")
+                        }.frame(width: 81, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                    }
+                    HStack{
+                        ZStack{
+                            Text("Roti")
+                        }.frame(width: 81, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                            .padding(.bottom, 9)
+                        ZStack{
+                            Text("Roti")
+                        }.frame(width: 81, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                            .padding(.bottom, 9)
+                        ZStack{
+                            Text("Roti")
+                        }.frame(width: 81, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                        ZStack{
+                            Text("Roti")
+                        }.frame(width: 81, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                    }
                     
-                }.padding()
-            
-            if !viewModel.resultSearch.isEmpty {
-                List {
-                    ForEach(viewModel.resultSearch, id: \.foodId) { food in
-                        Text(food.foodName).onTapGesture {
-                            viewModel.getFood(id: Int(food.foodId)!)
-                            isPresented = true
+                }.padding(.horizontal, 16)
+                
+                VStack(alignment: .leading){
+                    Text("Your recent search").font(.headline)
+                    VStack{
+                        ZStack{
+                            HStack{
+                                Text("Roti").padding(.trailing, 240)
+                                Image(systemName: "chevron.right")
+                            }
+                        }.frame(width: 361, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                            .padding(.bottom, 9)
+                        ZStack{
+                            HStack{
+                                Text("Roti").padding(.trailing, 240)
+                                Image(systemName: "chevron.right")
+                            }
+                        }.frame(width: 361, height: 47)
+                            .background(Color("bg_yellow"))
+                            .cornerRadius(15)
+                            .padding(.bottom, 9)
+                    }
+                    
+                }.padding(.horizontal, 16)
+                Spacer()
+                
+                Button(
+                    action: {
+                        
+                    }){
+                        HStack{
+                            Image(systemName: "plus.circle")
+                            Text("Add your food manually")
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                        }.foregroundColor(.white).frame(width: 358, height: 50).background(Color("button_color")).cornerRadius(11)
+                        
+                    }.padding()
+                
+                if !viewModel.resultSearch.isEmpty {
+                    List {
+                        ForEach(viewModel.resultSearch, id: \.foodId) { food in
+                            Text(food.foodName).onTapGesture {
+                                viewModel.getFood(id: Int(food.foodId)!)
+                                isPresented = true
+                            }
                         }
                     }
+                    .navigationDestination(isPresented: $isPresented) {
+                        DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories )
+                    }
                 }
-                .navigationDestination(isPresented: $isPresented) {
-                    DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories )
-                }
+                
             }
+            .edgesIgnoringSafeArea(.top)
+        }
+            .navigationTitle("Add Food")
             
-        }
-        
-        .navigationTitle("Add Food")
-        .navigationBarTitleDisplayMode(.large)
-        .searchable(text: $text)
-        .onSubmit(of: .search) {
-            viewModel.searchFood(query: text)
-        }
+            .onSubmit(of: .search) {
+                viewModel.searchFood(query: text)
+            }
         
     }
 }

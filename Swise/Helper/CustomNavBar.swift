@@ -9,6 +9,35 @@ import Foundation
 import SwiftUI
 import UIKit
 
+struct RoundedCorner: Shape {
+
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners) )
+    }
+}
+
+struct CustomHeaderView: View {
+    var body: some View {
+        Rectangle(
+        
+        )
+        .cornerRadius(29, corners: [.bottomLeft, .bottomRight])
+            .frame(maxWidth: .infinity)
+            .foregroundColor(Color("bg_blue"))
+            .edgesIgnoringSafeArea(.top)
+    }
+}
+
 extension UINavigationController{
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,11 +46,12 @@ extension UINavigationController{
         self.navigationController?.navigationBar.layer.cornerRadius = 30
         self.navigationController?.navigationBar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         self.navigationController?.navigationBar.clipsToBounds = true
-        
-        let app = UINavigationBarAppearance()
-        self.navigationController?.navigationBar.isTranslucent = false
+
+//        self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.isOpaque = true
-        app.backgroundColor = UIColor(Color("bg_yellow"))
+        let app = UINavigationBarAppearance()
+        app.backgroundColor = UIColor(Color("bg_blue"))
+        app.backgroundImage = UIImage()
         
         self.navigationController?.navigationBar.standardAppearance = app
         self.navigationController?.navigationBar.compactAppearance = app
@@ -31,3 +61,4 @@ extension UINavigationController{
     
     
 }
+
