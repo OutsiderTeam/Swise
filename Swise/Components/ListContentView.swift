@@ -80,9 +80,9 @@ struct ListContentView: View {
                             }
                         }
                     }
-                    .navigationDestination(isPresented: $isPresented) {
-                        DetailFoodView(totalSugar: items.isEmpty || items[0].date != Date().formatted(date: .complete, time: .omitted) ? 0 : items[0].totalSugar, totalCalories: items.isEmpty || items[0].date != Date().formatted(date: .complete, time: .omitted)  ? 0 : items[0].totalCalories )
-                    }
+//                    .navigationDestination(isPresented: $isPresented) {
+//                        DetailFoodView(totalSugar: items.isEmpty || items[0].date != Date().formatted(date: .complete, time: .omitted) ? 0 : items[0].totalSugar, totalCalories: items.isEmpty || items[0].date != Date().formatted(date: .complete, time: .omitted)  ? 0 : items[0].totalCalories )
+//                    }
                 }
             }
         }

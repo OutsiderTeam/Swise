@@ -19,62 +19,11 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-//            ListContentView(isPresented: $isPresented, search: $search)
-//                .searchable(text: $search)
-//                .onSubmit(of: .search) {
-//                    viewModel.searchFood(query: search)
-//                }
-            VStack {
-                if search == "" {
-                    List {
-                        ForEach(items) { item in
-                            
-                            VStack {
-                                HStack {
-                                    Text("TotalSugar")
-                                    Spacer()
-                                    Text(item.totalSugar.description)
-                                }
-                                HStack {
-                                    Text("TotalCalories")
-                                    Spacer()
-                                    Text(item.totalCalories.description)
-                                }
-                                Section(item.wrappedDate) {
-                                    ForEach(item.eatenFoodsArray, id:\.self) { food in
-                                        VStack {
-                                            Text(food.wrappedFoodName)
-                                            Text(food.wrappedFoodType)
-                                            Text(food.servingFood?.servingDescription ?? "")
-                                        }
-                                    }
-                                }
-
-                            }
-                        }
-                        .onDelete(perform: deleteItems)
-                    }
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            EditButton()
-                        }
-                    }
-                } else {
-                    if !viewModel.resultSearch.isEmpty {
-                        List {
-                            ForEach(viewModel.resultSearch, id: \.foodId) { food in
-                                Text(food.foodName).onTapGesture {
-                                    viewModel.getFood(id: Int(food.foodId)!)
-                                    isPresented = true
-                                }
-                            }
-                        }
-//                        .navigationDestination(isPresented: $isPresented) {
-//                            DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories, maxSugar: <#Binding<Int>#> )
-//                        }
-                    }
+            ListContentView(isPresented: $isPresented, search: $search)
+                .searchable(text: $search)
+                .onSubmit(of: .search) {
+                    viewModel.searchFood(query: search)
                 }
-            }
             Spacer()
             
             // Select Activity Intensity for Calculate the calorie requirements

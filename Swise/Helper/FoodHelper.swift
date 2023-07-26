@@ -32,9 +32,9 @@ func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalorie
     newItem.eatenFoods?.date = Date().formatted(date: .complete, time: .omitted)
     newItem.eatenFoods?.sugarCondition = sugarCondition
     newItem.eatenFoods?.timestamp = Date()
-    newItem.eatenFoods?.totalSugar = totalSugar + (Double(food.servings.serving![index].sugar ?? "0") ?? 0)
     newItem.eatenFoods?.totalSugar = totalSugar
     newItem.eatenFoods?.totalCalories = totalCalories
+    newItem.servingFood = ServingFood(context: viewContext)
     newItem.servingFood?.addedSugars = food.servings.serving?[index].addedSugars
     newItem.servingFood?.calcium = food.servings.serving?[index].calcium
     newItem.servingFood?.calories = food.servings.serving?[index].calories
