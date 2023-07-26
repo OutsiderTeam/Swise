@@ -71,17 +71,10 @@ struct StepsView: View {
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                     Button {
-                        if selectedIndex >= 2 {
-                            if healthKitHelper.healthApprove{
-                                calculationViewModel.height = healthKitHelper.height
-                                calculationViewModel.age = Double(healthKitHelper.age)
-                                calculationViewModel.sex = healthKitHelper.sex
-                                print(healthKitHelper.height)
-                            }else{
+                        if selectedIndex == 2 {
+                            if !healthKitHelper.healthApprove{
                                 healthKitHelper.requestAuthorization()
-
                             }
-                            
                         } else {
                             selectedIndex += 1
                         }
@@ -97,28 +90,17 @@ struct StepsView: View {
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     
             }
-            .onChange(of: healthKitHelper.healthApprove) { newValue in
-                if healthKitHelper.healthApprove{
-                    calculationViewModel.height = healthKitHelper.height
-                    calculationViewModel.age = Double(healthKitHelper.age)
-                    calculationViewModel.sex = healthKitHelper.sex
-                    
-                }
-            }
-            .onChange(of: calculationViewModel.height) { newValue in
-//                print(healthKitHelper.weight)
-//                print(healthKitHelper.height)
-//                print(calculationViewModel.height)
-                print(calculationViewModel.age)
-                print(calculationViewModel.sex)
+            .onChange(of: healthKitHelper.height, perform: { newValue in
+                calculationViewModel.height = healthKitHelper.height
+                calculationViewModel.age = Double(healthKitHelper.age)
+                calculationViewModel.sex = healthKitHelper.sex
                 if calculationViewModel.healthChecker(){
-                    
                     showHome = true
                 } else {
                     showAlert = true
                 }
 
-            }
+            })
         }
     }
 }
