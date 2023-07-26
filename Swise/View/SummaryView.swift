@@ -74,7 +74,7 @@ struct SummaryView: View {
                             VStack(alignment: .leading) {
                                 Text("You’ve consumed").font(.body)
                                 HStack {
-                                    Text("\(items.first?.totalSugar ?? 0, specifier: "%.f") gr / \(items.first?.totalCalories ?? 0 > Double(calNeed) ? 50 : maxSugar) gr").font(.title3).bold()
+                                    Text("\(items.first?.totalSugar ?? 0, specifier: "%.f") gr / \(maxSugar) gr").font(.title3).bold()
                                     Text("sugar").font(.title3)
                                 }
                                 Text("Or equal to \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: items.first?.totalCalories ?? 0)) teaspoon.").font(.body)
@@ -231,28 +231,31 @@ struct SummaryView: View {
                 healthKitHelper.requestAuthorization()
                 data = items.first?.eatenFoodsArray ?? []
                 progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
-                maxSugar = calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0)
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
                 totalSugar = items.first?.totalSugar ?? 0
-                sugarCondition = totalSugar < Double(maxSugar) * 0.5 ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
             }
-            .onChange(of: healthKitHelper.healthApprove) { newValue in
+            .onChange(of: healthKitHelper.healthApprove) { _ in
                 calculationViewModel.height = healthKitHelper.height
                 calculationViewModel.age = Double(healthKitHelper.age)
                 calculationViewModel.sex = healthKitHelper.sex
                 calNeed = Float(calculationViewModel.calorieNeed())
                 progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
-                maxSugar = calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0)
-                sugarCondition = totalSugar < Double(maxSugar) * 0.5 ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
+                totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
             }
             .onChange(of: items.first?.totalSugar ?? 0, perform: { newValue in
                 maxSugar = calculationViewModel.calculateMaxSugar(calorie: newValue)
                 totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
             })
             .ignoresSafeArea()
             .navigationDestination(isPresented: $isPresented) {
-                AddFoodView()
+                AddFoodView(maxSugar: $maxSugar, calNeed: Double(calNeed))
             }
         }
+        .environmentObject(calculationViewModel)
         .ignoresSafeArea()
         .edgesIgnoringSafeArea(.all)
     }

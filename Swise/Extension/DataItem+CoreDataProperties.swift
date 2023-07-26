@@ -16,6 +16,7 @@ extension DataItem {
         return NSFetchRequest<DataItem>(entityName: "DataItem")
     }
 
+    @NSManaged public var sugarCondition: Double
     @NSManaged public var timestamp: Date?
     @NSManaged public var date: String?
     @NSManaged public var totalSugar: Double
@@ -34,7 +35,7 @@ extension DataItem {
         let set = eatenFoods as? Set<EatenFoods> ?? []
 
         return set.sorted {
-            $0.wrappedFoodName < $1.wrappedFoodName
+            $0.wrappedTimestamp < $1.wrappedTimestamp
         }
     }
 
