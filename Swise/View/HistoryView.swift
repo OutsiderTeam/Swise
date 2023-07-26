@@ -34,7 +34,7 @@ struct HistoryView: View {
                     .padding(.top, 20)
                     
                     ZStack {
-                        ForEach(weekStore.allWeeks) { week in
+                        ForEach(weekStore.allWeeks, id: \.id) { week in
                             VStack{
                                 HStack(spacing: 7) {
                                     ForEach(0..<7) { index in
@@ -45,12 +45,12 @@ struct HistoryView: View {
                                                 .frame(maxWidth:.infinity)
                                         }
                                         .frame(width: 40, height: 40)
-                                        .background(Color("bg_blue"))
+                                        .background(week.sugarCondition[index] == 0 ? Color("bg_green") : week.sugarCondition[index] == 1 ? Color("bg_orange") : week.sugarCondition[index] == 2 ? Color("bg_red") :  Color("bg_blue"))
                                         .overlay(
                                             VStack {
                                                 if Calendar.current.isDate(week.date[index], inSameDayAs: weekStore.currentDate) {
                                                     Circle()
-                                                    .stroke(Color(red: 0.23, green: 0.82, blue: 0.82), lineWidth: 3)
+                                                    .stroke(Color(red: 0.23, green: 0.82, blue: 0.82), lineWidth: 5)
                                                 } else {
                                                     EmptyView()
                                                 }
@@ -91,7 +91,7 @@ struct HistoryView: View {
                                     }
                                     snappedItem = draggingItem
                                     
-                                    weekStore.update(index: Int(snappedItem))
+                                    weekStore.update(index: Int(snappedItem), items: items.sorted {$0.timestamp ?? Date() < $1.timestamp ?? Date()})
                                 }
                             }
                     )
@@ -142,7 +142,10 @@ struct HistoryView: View {
                             }
                         }
                         .padding(.top, 50)
-
+                    } else {
+                        VStack {
+                            EmptyListView()
+                        }.frame(height: UIScreen.main.bounds.height / 2, alignment: .center)
                     }
                     
                 }
@@ -151,6 +154,8 @@ struct HistoryView: View {
             .onAppear {
                 selectedDate = items.filter {$0.date == weekStore.currentDate.formatted(date: .complete, time: .omitted)}
                 eatenFoods = selectedDate.first?.eatenFoodsArray ?? []
+                weekStore.fetchAll(items: items.sorted {$0.timestamp ?? Date() < $1.timestamp ?? Date()})
+                print(weekStore.allWeeks)
             }
             .onChange(of: weekStore.currentDate) { newValue in
                 selectedDate = items.filter {$0.date == newValue.formatted(date: .complete, time: .omitted)}

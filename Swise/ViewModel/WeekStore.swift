@@ -23,25 +23,34 @@ class WeekStore : ObservableObject {
     @Published var nextWeek : [Date] = []
     @Published var previousWeek : [Date] = []
     
+    @Published var currentSugarCondition: [Int] = []
+    @Published var nextSugarCondition: [Int] = []
+    @Published var previousSugarCondition: [Int] = []
+
     // Initial append of weeks
     init() {
         fetchCurrentWeek()
         fetchPreviousNextWeek()
+    }
+    
+    func fetchAll(items: [DataItem] = []) {
+        fetchCurrentWeek(items: items)
+        fetchPreviousNextWeek(items: items)
         appendAll()
     }
     
     func appendAll() {
-        var  newWeek = WeekValue(id: 0, date: currentWeek)
+        var  newWeek = WeekValue(id: 0, date: currentWeek, sugarCondition: currentSugarCondition)
         allWeeks.append(newWeek)
         
-        newWeek = WeekValue(id: 2, date: nextWeek)
+        newWeek = WeekValue(id: 2, date: nextWeek, sugarCondition: nextSugarCondition)
         allWeeks.append(newWeek)
         
-        newWeek = WeekValue(id: 1, date: previousWeek)
+        newWeek = WeekValue(id: 1, date: previousWeek, sugarCondition: previousSugarCondition)
         allWeeks.append(newWeek)
     }
     
-    func update(index : Int) {
+    func update(index : Int, items: [DataItem] = []) {
         var value : Int = 0
         if index < currentIndex {
             value = 1
@@ -59,11 +68,13 @@ class WeekStore : ObservableObject {
             }
         }
         currentIndex = index
-        addWeek(index: indexToUpdate, value: value)
+        addWeek(index: indexToUpdate, value: value, items: items)
     }
     
-    func addWeek(index: Int, value: Int) {
+    func addWeek(index: Int, value: Int, items: [DataItem] = []) {
+        print(items)
         allWeeks[index].date.removeAll()
+        allWeeks[index].sugarCondition.removeAll()
         var calendar = Calendar(identifier: .gregorian)
         let today = Calendar.current.date(byAdding: .day, value: 7 * value , to: self.currentDate)!
         self.currentDate = today
@@ -73,6 +84,7 @@ class WeekStore : ObservableObject {
         
         (1...7).forEach{ day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: startOfWeek){
+                allWeeks[index].sugarCondition.append(Int(items.filter {$0.date == weekday.formatted(date: .complete, time: .omitted)}.first?.sugarCondition ?? 3))
                 allWeeks[index].date.append(weekday)
             }
         }
@@ -90,7 +102,9 @@ class WeekStore : ObservableObject {
         return formatter.string(from: date)
     }
     
-    func fetchCurrentWeek(){
+    func fetchCurrentWeek(items: [DataItem] = []){
+        currentWeek.removeAll()
+        currentSugarCondition.removeAll()
         let today = currentDate
         var calendar = Calendar(identifier: .gregorian)
     
@@ -99,13 +113,15 @@ class WeekStore : ObservableObject {
         
         (1...7).forEach{ day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: startOfWeek){
+                currentSugarCondition.append(Int(items.filter {$0.date == weekday.formatted(date: .complete, time: .omitted)}.first?.sugarCondition ?? 3))
                 currentWeek.append(weekday)
             }
         }
     }
     
-    func fetchPreviousNextWeek(){
+    func fetchPreviousNextWeek(items: [DataItem] = []){
         nextWeek.removeAll()
+        nextSugarCondition.removeAll()
         
         let nextWeekToday = Calendar.current.date(byAdding: .day, value: 7, to: currentDate )!
         
@@ -116,18 +132,21 @@ class WeekStore : ObservableObject {
         
         (1...7).forEach{ day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: startOfWeekNext){
+                nextSugarCondition.append(Int(items.filter {$0.date == weekday.formatted(date: .complete, time: .omitted)}.first?.sugarCondition ?? 3))
                 nextWeek.append(weekday)
             }
             
         }
         
         previousWeek.removeAll()
+        previousSugarCondition.removeAll()
         let previousWeekToday = Calendar.current.date(byAdding: .day, value: -7, to: currentDate)!
         
         let startOfWeekPrev = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: previousWeekToday))!
         
         (1...7).forEach{ day in
             if let weekday = calendar.date(byAdding: .day, value: day, to: startOfWeekPrev){
+                previousSugarCondition.append(Int(items.filter {$0.date == weekday.formatted(date: .complete, time: .omitted)}.first?.sugarCondition ?? 3))
                 previousWeek.append(weekday)
             }
         }

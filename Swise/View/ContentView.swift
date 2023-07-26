@@ -70,9 +70,9 @@ struct ContentView: View {
                                 }
                             }
                         }
-                        .navigationDestination(isPresented: $isPresented) {
-                            DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories )
-                        }
+//                        .navigationDestination(isPresented: $isPresented) {
+//                            DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories, maxSugar: <#Binding<Int>#> )
+//                        }
                     }
                 }
             }
