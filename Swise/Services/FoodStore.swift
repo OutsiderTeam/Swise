@@ -47,7 +47,7 @@ class FoodStore: FoodService {
     }
     
     func searchFood(query: String, successHandler: @escaping (FoodsResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
-        FoodParams.params = ["format":String("json"), "method":String("foods.search"), "search_expression":String(query)] as Dictionary
+        FoodParams.params = ["format":String("json"), "method":String("foods.search"), "max_results":String("10"), "search_expression":String(query)] as Dictionary
         
         let components = generateSignature()
         foodRequest(with: components) { data in
