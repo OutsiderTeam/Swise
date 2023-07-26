@@ -49,7 +49,7 @@ struct StepsView: View {
     @Binding var showHome: Bool
     @Binding var showAlert: Bool
     @StateObject private var healthKitHelper = HealthKitHelper()
-    @StateObject private var calculationViewModel  = DataCalculationViewModel()
+    @EnvironmentObject var calculationViewModel: DataCalculationViewModel
     
     var body: some View {
         NavigationStack {
@@ -72,7 +72,16 @@ struct StepsView: View {
                         .multilineTextAlignment(.center)
                     Button {
                         if selectedIndex >= 2 {
-                            healthKitHelper.requestAuthorization()
+                            if healthKitHelper.healthApprove{
+                                calculationViewModel.height = healthKitHelper.height
+                                calculationViewModel.age = Double(healthKitHelper.age)
+                                calculationViewModel.sex = healthKitHelper.sex
+                                print(healthKitHelper.height)
+                            }else{
+                                healthKitHelper.requestAuthorization()
+
+                            }
+                            
                         } else {
                             selectedIndex += 1
                         }
@@ -93,19 +102,22 @@ struct StepsView: View {
                     calculationViewModel.height = healthKitHelper.height
                     calculationViewModel.age = Double(healthKitHelper.age)
                     calculationViewModel.sex = healthKitHelper.sex
-                    print(healthKitHelper.weight)
-                    print(healthKitHelper.height)
-                    print(calculationViewModel.height)
-                    print(calculationViewModel.age)
-                    print(calculationViewModel.sex)
-                    if calculationViewModel.healthChecker(){
-                        
-                        showHome = true
-                    } else {
-                        showAlert = true
-                    }
                     
                 }
+            }
+            .onChange(of: calculationViewModel.height) { newValue in
+//                print(healthKitHelper.weight)
+//                print(healthKitHelper.height)
+//                print(calculationViewModel.height)
+                print(calculationViewModel.age)
+                print(calculationViewModel.sex)
+                if calculationViewModel.healthChecker(){
+                    
+                    showHome = true
+                } else {
+                    showAlert = true
+                }
+
             }
         }
     }

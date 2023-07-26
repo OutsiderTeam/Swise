@@ -10,12 +10,14 @@ import SwiftUI
 @main
 struct SwiseApp: App {
     let persistenceController = PersistenceController.shared
+    @StateObject private var dataCalculation = DataCalculationViewModel()
 
     var body: some Scene {
         WindowGroup {
 //            TabNavView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            OnBoardingView()
+            OnBoardingView().environmentObject(dataCalculation)
+            
         }
     }
 }

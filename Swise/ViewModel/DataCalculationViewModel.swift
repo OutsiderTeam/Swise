@@ -27,7 +27,7 @@ class DataCalculationViewModel: ObservableObject{
     let caloryTeaSpoon: Double = 16
     
     func healthChecker()-> Bool{
-        if (height == 0 && age == 0 && (sex == .notRetrived || sex == .other)){
+        if (height == 0 || age == 0 || (sex == .notRetrived || sex == .other)){
             return false
         } else {
             return true

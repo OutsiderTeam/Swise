@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SummaryView: View {
     @StateObject private var healthKitHelper = HealthKitHelper()
-    @StateObject private var calculationViewModel  = DataCalculationViewModel()
+    @EnvironmentObject var calculationViewModel: DataCalculationViewModel
 
     @State var progressValue: Float = 1
     @State var isPresented: Bool = false
@@ -255,7 +255,6 @@ struct SummaryView: View {
                 AddFoodView(maxSugar: $maxSugar, calNeed: Double(calNeed))
             }
         }
-        .environmentObject(calculationViewModel)
         .ignoresSafeArea()
         .edgesIgnoringSafeArea(.all)
     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExcerciseLevelView: View {
     @State private var activityIntensity: Activity = .no
-    @StateObject private var calculationViewModel  = DataCalculationViewModel()
+    @EnvironmentObject var calculationViewModel: DataCalculationViewModel
     @State private var selectedActivity = 0
     
     @State var activityIntens = [
