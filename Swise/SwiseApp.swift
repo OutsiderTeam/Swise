@@ -13,8 +13,9 @@ struct SwiseApp: App {
 
     var body: some Scene {
         WindowGroup {
-            TabNavView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//            TabNavView()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            OnBoardingView()
         }
     }
 }
