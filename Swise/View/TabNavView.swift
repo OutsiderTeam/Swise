@@ -19,7 +19,7 @@ struct TabNavView: View {
                     }.toolbarBackground(Color.white, for: .tabBar)
                 
                 // Second Tab
-                Text("Second Tab")
+                HistoryView()
                     .tabItem {
                         Image(systemName: "clock")
                         Text("History")
