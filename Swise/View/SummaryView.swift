@@ -13,11 +13,13 @@ struct SummaryView: View {
 
     @State var progressValue: Float = 1
     @State var isPresented: Bool = false
+    @State var isNavigate: Bool = false
     @State var calNeed: Float = 0.0
     @State var data: [EatenFoods] = []
     @State var maxSugar: Int = 0
     @State var totalSugar: Double = 0
     @State var sugarCondition: Int = 0
+    @State var selectedFYI: FYIModel = FYIModel(title: "", shortDesc: "", image: "", desc: [])
     @FetchRequest(
         sortDescriptors: [],
         predicate: NSPredicate(format: "date == %@", Date().formatted(date: .complete, time: .omitted)),
@@ -165,63 +167,28 @@ struct SummaryView: View {
                         .padding(.horizontal, 20)
                     }
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack{
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    Text("What is BMI?")
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                        .padding(.bottom, 9)
-                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                        .font(.body)
-                                        .fontWeight(.regular)
-                                }.padding()
+                        HStack(alignment: .top) {
+                            ForEach(FYIViewModel().fyi, id: \.self) {fyi in
+                                ZStack{
+                                    VStack(alignment: .leading){
+                                        Text(fyi.title)
+                                            .font(.headline)
+                                            .fontWeight(.semibold)
+                                            .padding(.bottom, 9)
+                                        Text(fyi.shortDesc)
+                                            .font(.body)
+                                            .fontWeight(.regular)
+                                        Spacer()
+                                    }.padding()
+                                }
+                                .frame(width: 169, height: 186)
+                                .background(Color("bg_yellow"))
+                                .cornerRadius(29)
+                                .onTapGesture {
+                                    selectedFYI = fyi
+                                    isNavigate = true
+                                }
                             }
-                            .frame(width: 169, height: 186)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(29)
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    Text("What is BMI?")
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                        .padding(.bottom, 9)
-                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                        .font(.body)
-                                        .fontWeight(.regular)
-                                }.padding()
-                            }
-                            .frame(width: 169, height: 186)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(29)
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    Text("What is BMI?")
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                        .padding(.bottom, 9)
-                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                        .font(.body)
-                                        .fontWeight(.regular)
-                                }.padding()
-                            }
-                            .frame(width: 169, height: 186)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(29)
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    Text("What is BMI?")
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                        .padding(.bottom, 9)
-                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                        .font(.body)
-                                        .fontWeight(.regular)
-                                }.padding()
-                            }
-                            .frame(width: 169, height: 186)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(29)
                         }
                     }
                 }
@@ -251,6 +218,9 @@ struct SummaryView: View {
                 sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
             })
             .ignoresSafeArea()
+            .navigationDestination(isPresented: $isNavigate) {
+                InformationView(fyiData: $selectedFYI)
+            }
             .navigationDestination(isPresented: $isPresented) {
                 AddFoodView(maxSugar: $maxSugar, calNeed: Double(calNeed))
             }

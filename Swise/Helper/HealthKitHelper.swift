@@ -21,7 +21,7 @@ class HealthKitHelper: ObservableObject{
     @Published var height: Double = 0
     @Published var healthApprove: Bool = false
     
-    @StateObject private var calculationViewModel  = DataCalculationViewModel()
+//    @StateObject private var calculationViewModel  = DataCalculationViewModel()
     
     
     // Request authorization to access Healthkit.
