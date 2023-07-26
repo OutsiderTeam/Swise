@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="DataItem" representedClassName="DataItem" syncable="YES">
         <attribute name="date" optional="YES" attributeType="String"/>
+        <attribute name="sugarCondition" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="totalCalories" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="totalSugar" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -18,6 +19,7 @@
         <attribute name="foodName" optional="YES" attributeType="String"/>
         <attribute name="foodType" optional="YES" attributeType="String"/>
         <attribute name="foodUrl" optional="YES" attributeType="String"/>
+        <attribute name="time" optional="YES" attributeType="String"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="eatenFoods" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DataItem" inverseName="eatenFoods" inverseEntity="DataItem"/>
         <relationship name="servingFood" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ServingFood" inverseName="servingFood" inverseEntity="ServingFood"/>

@@ -11,25 +11,103 @@ import CoreData
 struct ContentView: View {
     @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
     @StateObject private var healthKitHelper = HealthKitHelper()
+    @StateObject private var calculationViewModel  = DataCalculationViewModel()
 
     @State private var search: String = ""
     @State var isPresented: Bool = false
+    @State var calNeed: Double = 0
 
     var body: some View {
         NavigationStack {
-            ListContentView(isPresented: $isPresented, search: $search)
-                .searchable(text: $search)
-                .onSubmit(of: .search) {
-                    viewModel.searchFood(query: search)
+//            ListContentView(isPresented: $isPresented, search: $search)
+//                .searchable(text: $search)
+//                .onSubmit(of: .search) {
+//                    viewModel.searchFood(query: search)
+//                }
+            VStack {
+                if search == "" {
+                    List {
+                        ForEach(items) { item in
+                            
+                            VStack {
+                                HStack {
+                                    Text("TotalSugar")
+                                    Spacer()
+                                    Text(item.totalSugar.description)
+                                }
+                                HStack {
+                                    Text("TotalCalories")
+                                    Spacer()
+                                    Text(item.totalCalories.description)
+                                }
+                                Section(item.wrappedDate) {
+                                    ForEach(item.eatenFoodsArray, id:\.self) { food in
+                                        VStack {
+                                            Text(food.wrappedFoodName)
+                                            Text(food.wrappedFoodType)
+                                            Text(food.servingFood?.servingDescription ?? "")
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                        .onDelete(perform: deleteItems)
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            EditButton()
+                        }
+                    }
+                } else {
+                    if !viewModel.resultSearch.isEmpty {
+                        List {
+                            ForEach(viewModel.resultSearch, id: \.foodId) { food in
+                                Text(food.foodName).onTapGesture {
+                                    viewModel.getFood(id: Int(food.foodId)!)
+                                    isPresented = true
+                                }
+                            }
+                        }
+//                        .navigationDestination(isPresented: $isPresented) {
+//                            DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories, maxSugar: <#Binding<Int>#> )
+//                        }
+                    }
                 }
-            Text("Height = \(healthKitHelper.height)")
-            Text("Weight = \(healthKitHelper.weight)")
-            Text("Sex = \(healthKitHelper.sex)")
+            }
+            Spacer()
+            
+            // Select Activity Intensity for Calculate the calorie requirements
+            VStack {
+                    Section(header: Text("Select an Activity Intensity")) {
+                        Picker(selection: $calculationViewModel.activityIntensity, label: Text("Option")) {
+                            ForEach(Activity.allCases) { activity in
+                                Text((activity.rawValue)).tag(activity)
+                            }
+                        }
+                        .pickerStyle(MenuPickerStyle())
+                    }
+                Text("Activity Intensity: \(calculationViewModel.activityIntensity.rawValue)")
+            }
+
+            Text("Height = \(Int(healthKitHelper.height))")
+            Text("Weight = \(healthKitHelper.weight, specifier: "%.2f")")
+            Text("Sex = \(healthKitHelper.sex.rawValue)")
             Text("Age = \(healthKitHelper.age)")
+
+            Text("Calorie Need = \(calculationViewModel.calorieNeed(), specifier: "%.f")")
+            Text("Max Sugar Intake = \(calculationViewModel.calculateMaxSugar(calorie: 10))")
+            Text("Tea Spoon = \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: calculationViewModel.calorieNeed()))")
             
         }
         .onAppear{
             healthKitHelper.requestAuthorization()
+            
+        }
+        .onChange(of: healthKitHelper.healthApprove) { newValue in
+            calculationViewModel.height = healthKitHelper.height
+            calculationViewModel.age = Double(healthKitHelper.age)
+            calculationViewModel.sex = healthKitHelper.sex
         }
         .environmentObject(viewModel)
 

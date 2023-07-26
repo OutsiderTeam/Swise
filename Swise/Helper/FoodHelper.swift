@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 let viewContext = PersistenceController.shared.container.viewContext
 
@@ -14,7 +13,7 @@ let viewContext = PersistenceController.shared.container.viewContext
 //  This Function used for add Eaten Food to Core Data    //
 //********************************************************//
 
-func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalories: Double) {
+func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalories: Double, sugarCondition: Double) {
     let historyFood = HistoryFoods(context: viewContext)
     historyFood.foodId = food.foodId
     historyFood.brandName = food.brandName
@@ -22,6 +21,7 @@ func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalorie
     historyFood.foodUrl = food.foodUrl
     historyFood.foodName = food.foodName
     let newItem = EatenFoods(context: viewContext)
+    newItem.time = Date().formatted(date: .omitted, time: .shortened)
     newItem.brandName = food.brandName
     newItem.foodId = food.foodId
     newItem.foodName = food.foodName
@@ -30,10 +30,11 @@ func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalorie
     newItem.timestamp = Date()
     newItem.eatenFoods = DataItem(context: viewContext)
     newItem.eatenFoods?.date = Date().formatted(date: .complete, time: .omitted)
+    newItem.eatenFoods?.sugarCondition = sugarCondition
     newItem.eatenFoods?.timestamp = Date()
     newItem.eatenFoods?.totalSugar = totalSugar + (Double(food.servings.serving![index].sugar ?? "0") ?? 0)
-    newItem.eatenFoods?.totalCalories = totalCalories + (Double(food.servings.serving![index].calories ?? "0") ?? 0)
-    newItem.servingFood = ServingFood(context: viewContext)
+    newItem.eatenFoods?.totalSugar = totalSugar
+    newItem.eatenFoods?.totalCalories = totalCalories
     newItem.servingFood?.addedSugars = food.servings.serving?[index].addedSugars
     newItem.servingFood?.calcium = food.servings.serving?[index].calcium
     newItem.servingFood?.calories = food.servings.serving?[index].calories
