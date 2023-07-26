@@ -72,7 +72,6 @@ class WeekStore : ObservableObject {
     }
     
     func addWeek(index: Int, value: Int, items: [DataItem] = []) {
-        print(items)
         allWeeks[index].date.removeAll()
         allWeeks[index].sugarCondition.removeAll()
         var calendar = Calendar(identifier: .gregorian)

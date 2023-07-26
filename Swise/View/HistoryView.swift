@@ -155,7 +155,6 @@ struct HistoryView: View {
                 selectedDate = items.filter {$0.date == weekStore.currentDate.formatted(date: .complete, time: .omitted)}
                 eatenFoods = selectedDate.first?.eatenFoodsArray ?? []
                 weekStore.fetchAll(items: items.sorted {$0.timestamp ?? Date() < $1.timestamp ?? Date()})
-                print(weekStore.allWeeks)
             }
             .onChange(of: weekStore.currentDate) { newValue in
                 selectedDate = items.filter {$0.date == newValue.formatted(date: .complete, time: .omitted)}
