@@ -17,6 +17,7 @@ extension EatenFoods {
     }
 
     @NSManaged public var time: String?
+    @NSManaged public var timestamp: Date?
     @NSManaged public var brandName: String?
     @NSManaged public var foodName: String?
     @NSManaged public var foodId: String?
@@ -28,8 +29,12 @@ extension EatenFoods {
     public var wrappedTime: String {
         time ?? Date().formatted(date: .omitted, time: .shortened)
     }
+
+    public var wrappedTimestamp: Date {
+        timestamp ?? Date()
+    }
     
-    public var wrappedDate: String {
+    public var wrappedBrandName: String {
         brandName ?? "Unknown Brand Name"
     }
     public var wrappedFoodId: String {
