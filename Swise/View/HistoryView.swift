@@ -147,7 +147,6 @@ struct HistoryView: View {
                             EmptyListView()
                         }.frame(height: UIScreen.main.bounds.height / 2, alignment: .center)
                     }
-                    
                 }
             }
 
