@@ -13,6 +13,7 @@ struct SummaryView: View {
 
     @State var progressValue: Float = 1
     @State var isPresented: Bool = false
+    @State var isNavigateDiary: Bool = false
     @State var calNeed: Float = 0.0
     @State var data: [EatenFoods] = []
     @State var maxSugar: Int = 0
@@ -143,12 +144,17 @@ struct SummaryView: View {
                             FoodItemView(name: data[i].foodName ?? "-", calories: data[i].servingFood?.calories ?? "0", sugar: data[i].servingFood?.sugar ?? "0", serving: data[i].servingFood?.servingDescription ?? "-")
                         }
                         if data.count > 3 {
-                            HStack {
-                                Spacer()
-                                Text("Show More")
-                                    .font(.callout)
-                                    .fontWeight(.semibold)
-                                    .padding(.horizontal, 20)
+                            Button {
+                                isNavigateDiary = true
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Show More")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                        .padding(.horizontal, 20)
+                                }
+                                .foregroundColor(Color.black)
                             }
                         }
                     } else {
@@ -253,6 +259,9 @@ struct SummaryView: View {
             .ignoresSafeArea()
             .navigationDestination(isPresented: $isPresented) {
                 AddFoodView(maxSugar: $maxSugar, calNeed: Double(calNeed))
+            }
+            .navigationDestination(isPresented: $isNavigateDiary) {
+                HistoryView(isFoodDiary: true)
             }
         }
         .environmentObject(calculationViewModel)
