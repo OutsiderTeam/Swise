@@ -10,7 +10,6 @@ import CoreData
 
 struct ContentView: View {
     @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
-    @StateObject private var healthKitHelper = HealthKitHelper()
     @StateObject private var calculationViewModel  = DataCalculationViewModel()
 
     @State private var search: String = ""
@@ -39,10 +38,10 @@ struct ContentView: View {
                 Text("Activity Intensity: \(calculationViewModel.activityIntensity.rawValue)")
             }
 
-            Text("Height = \(Int(healthKitHelper.height))")
-            Text("Weight = \(healthKitHelper.weight, specifier: "%.2f")")
-            Text("Sex = \(healthKitHelper.sex.rawValue)")
-            Text("Age = \(healthKitHelper.age)")
+            Text("Height = \(Int(calculationViewModel.height))")
+            Text("Weight = \(calculationViewModel.weight, specifier: "%.2f")")
+            Text("Sex = \(calculationViewModel.sex.rawValue)")
+            Text("Age = \(calculationViewModel.age)")
 
             Text("Calorie Need = \(calculationViewModel.calorieNeed(), specifier: "%.f")")
             Text("Max Sugar Intake = \(calculationViewModel.calculateMaxSugar(calorie: 10))")
@@ -50,14 +49,14 @@ struct ContentView: View {
             
         }
         .onAppear{
-            healthKitHelper.requestAuthorization()
+            calculationViewModel.healthRequest()
             
         }
-        .onChange(of: healthKitHelper.healthApprove) { newValue in
-            calculationViewModel.height = healthKitHelper.height
-            calculationViewModel.age = Double(healthKitHelper.age)
-            calculationViewModel.sex = healthKitHelper.sex
-        }
+//        .onChange(of: healthKitHelper.healthApprove) { newValue in
+//            calculationViewModel.height = healthKitHelper.height
+//            calculationViewModel.age = Double(healthKitHelper.age)
+//            calculationViewModel.sex = healthKitHelper.sex
+//        }
         .environmentObject(viewModel)
 
     }
