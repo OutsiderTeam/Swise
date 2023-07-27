@@ -67,9 +67,6 @@ struct AddNewFoodView: View {
             
         }
         .navigationTitle("Add New Food")
-        .navigationDestination(isPresented: $isPresented) {
-            FoodInformationView()
-        }
         
     }
 }
