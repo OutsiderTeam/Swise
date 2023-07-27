@@ -69,9 +69,6 @@ struct OnBoardingPageView: View {
                     showHome = true
                 }
             }
-            .onAppear {
-                print("†est")
-            }
             
         }
     }

@@ -6,68 +6,68 @@
 //
 
 struct FoodsResponse: Codable {
-    public let foods: Foods
+    public var foods: Foods
 }
 
 struct Foods: Codable {
-    public let maxResults: String?
-    public let pageNumber: String?
-    public let totalResults: String?
-    public let food: [Food]?
+    public var maxResults: String?
+    public var pageNumber: String?
+    public var totalResults: String?
+    public var food: [Food]?
 }
 
 struct Food: Codable {
-    public let foodDescription: String
-    public let foodId: String
-    public let foodName: String
-    public let foodType: String
-    public let foodUrl: String
+    public var foodDescription: String
+    public var foodId: String
+    public var foodName: String
+    public var foodType: String
+    public var foodUrl: String
 }
 
 struct FoodDetailResponse: Codable {
-    public let food: FoodDetail
+    public var food: FoodDetail
 }
 
 struct FoodDetail: Codable {
-    public let brandName: String?
-    public let foodId: String
-    public let foodName: String
-    public let foodType: String
-    public let foodUrl: String
-    public let servings: Servings
+    public var brandName: String?
+    public var foodId: String
+    public var foodName: String
+    public var foodType: String
+    public var foodUrl: String
+    public var servings: Servings
 }
 
 struct Servings: Codable {
-    public let serving: [Serving]?
+    public var serving: [Serving]?
 }
 
 struct Serving: Codable {
-    public let calcium: String?
-    public let calories: String?
-    public let carbohydrate: String?
-    public let cholesterol: String?
-    public let fat: String?
-    public let fiber: String?
-    public let iron: String?
-    public let measurementDescription: String?
-    public let metricServingAmount: String?
-    public let metricServingUnit: String?
-    public let monounsaturatedFat: String?
-    public let numberOfUnits: String?
-    public let polyunsaturatedFat: String?
-    public let potassium: String?
-    public let protein: String?
-    public let saturatedFat: String?
-    public let servingDescription: String
-    public let servingId: String
-    public let servingUrl: String
-    public let sodium: String?
-    public let sugar: String?
-    public let addedSugars: String?
-    public let vitaminA: String?
-    public let vitaminC: String?
-    public let vitaminD: String?
-    public let transFat: String?
+    public var calcium: String?
+    public var calories: String?
+    public var carbohydrate: String?
+    public var cholesterol: String?
+    public var fat: String?
+    public var fiber: String?
+    public var iron: String?
+    public var measurementDescription: String?
+    public var metricServingAmount: String?
+    public var metricServingUnit: String?
+    public var monounsaturatedFat: String?
+    public var numberOfUnits: String?
+    public var polyunsaturatedFat: String?
+    public var potassium: String?
+    public var protein: String?
+    public var saturatedFat: String?
+    public var servingDescription: String
+    public var servingId: String
+    public var servingUrl: String
+    public var sodium: String?
+    public var sugar: String?
+    public var addedSugars: String?
+    public var vitaminA: String?
+    public var vitaminC: String?
+    public var vitaminD: String?
+    public var transFat: String?
 }
 
 public struct FSError: Codable {

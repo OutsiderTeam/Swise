@@ -11,6 +11,7 @@ struct AddFoodView: View {
     @EnvironmentObject var viewModel: FoodViewModel
     @Binding var maxSugar: Int
     @State var text: String = ""
+    @State var foodManual: Bool = false
     @State var isPresented: Bool = false
     @State private var isEditing = false
     @FetchRequest(
@@ -102,7 +103,8 @@ struct AddFoodView: View {
             
             Button(
                 action: {
-                    
+                    foodManual = true
+
                 }){
                     HStack{
                         Image(systemName: "plus.circle")
@@ -111,7 +113,8 @@ struct AddFoodView: View {
                             .fontWeight(.semibold)
                     }.foregroundColor(.white).frame(width: 358, height: 50).background(Color("button_color")).cornerRadius(11)
                     
-                }.padding()
+                }
+                .padding()
             
             if !viewModel.resultSearch.isEmpty {
                 List {
@@ -125,12 +128,14 @@ struct AddFoodView: View {
                 .navigationDestination(isPresented: $isPresented) {
                     FoodInformationView(maxSugar: $maxSugar, totalSugar: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalSugar ?? 0, totalCalories: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalCalories ?? 0, calNeed: calNeed)
                 }
+                
             }
-            
         }
-        
+        .navigationDestination(isPresented: $foodManual, destination: {
+            AddNewFoodView(maxSugar: $maxSugar, totalSugar: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalSugar ?? 0, totalCalories: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalCalories ?? 0, calNeed: calNeed)
+        })
         .navigationTitle("Add Food")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.automatic)
         .searchable(text: $text)
         .onSubmit(of: .search) {
             viewModel.searchFood(query: text)
