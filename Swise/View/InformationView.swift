@@ -12,8 +12,9 @@ struct InformationView: View {
     var body: some View {
         VStack {
             ScrollView {
+                Image(fyiData.image).padding(.bottom, 20)
                 VStack {
-                    Text(fyiData.title).font(.headline).padding(.top, 12)
+                    Text(fyiData.title).font(.headline).multilineTextAlignment(.center).padding(.top, 12)
                     VStack(alignment: .leading) {
                         ForEach(fyiData.desc, id: \.id) { desc in
                             VStack(alignment: .leading, spacing: 0) {

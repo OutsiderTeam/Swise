@@ -16,7 +16,7 @@ struct FYIModel: Identifiable, Hashable {
 }
 
 struct TextModel: Identifiable, Codable, Hashable {
-    let id = UUID()
+    var id = UUID()
     let content: String
     let styling: String
 }
