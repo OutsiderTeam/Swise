@@ -13,6 +13,7 @@ struct SummaryView: View {
 
     @State var progressValue: Float = 1
     @State var isPresented: Bool = false
+    @State var isNavigateDiary: Bool = false
     @State var calNeed: Float = 0.0
     @State var data: [EatenFoods] = []
     @State var maxSugar: Int = 0
@@ -74,7 +75,7 @@ struct SummaryView: View {
                             VStack(alignment: .leading) {
                                 Text("You’ve consumed").font(.body)
                                 HStack {
-                                    Text("\(items.first?.totalSugar ?? 0, specifier: "%.f") gr / \(items.first?.totalCalories ?? 0 > Double(calNeed) ? 50 : maxSugar) gr").font(.title3).bold()
+                                    Text("\(items.first?.totalSugar ?? 0, specifier: "%.f") gr / \(maxSugar) gr").font(.title3).bold()
                                     Text("sugar").font(.title3)
                                 }
                                 Text("Or equal to \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: items.first?.totalCalories ?? 0)) teaspoon.").font(.body)
@@ -143,12 +144,17 @@ struct SummaryView: View {
                             FoodItemView(name: data[i].foodName ?? "-", calories: data[i].servingFood?.calories ?? "0", sugar: data[i].servingFood?.sugar ?? "0", serving: data[i].servingFood?.servingDescription ?? "-")
                         }
                         if data.count > 3 {
-                            HStack {
-                                Spacer()
-                                Text("Show More")
-                                    .font(.callout)
-                                    .fontWeight(.semibold)
-                                    .padding(.horizontal, 20)
+                            Button {
+                                isNavigateDiary = true
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Show More")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                        .padding(.horizontal, 20)
+                                }
+                                .foregroundColor(Color.black)
                             }
                         }
                     } else {
@@ -231,28 +237,34 @@ struct SummaryView: View {
                 healthKitHelper.requestAuthorization()
                 data = items.first?.eatenFoodsArray ?? []
                 progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
-                maxSugar = calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0)
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
                 totalSugar = items.first?.totalSugar ?? 0
-                sugarCondition = totalSugar < Double(maxSugar) * 0.5 ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
             }
-            .onChange(of: healthKitHelper.healthApprove) { newValue in
+            .onChange(of: healthKitHelper.healthApprove) { _ in
                 calculationViewModel.height = healthKitHelper.height
                 calculationViewModel.age = Double(healthKitHelper.age)
                 calculationViewModel.sex = healthKitHelper.sex
                 calNeed = Float(calculationViewModel.calorieNeed())
                 progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
-                maxSugar = calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0)
-                sugarCondition = totalSugar < Double(maxSugar) * 0.5 ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
+                totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
             }
             .onChange(of: items.first?.totalSugar ?? 0, perform: { newValue in
                 maxSugar = calculationViewModel.calculateMaxSugar(calorie: newValue)
                 totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
             })
             .ignoresSafeArea()
             .navigationDestination(isPresented: $isPresented) {
-                AddFoodView()
+                AddFoodView(maxSugar: $maxSugar, calNeed: Double(calNeed))
+            }
+            .navigationDestination(isPresented: $isNavigateDiary) {
+                HistoryView(isFoodDiary: true)
             }
         }
+        .environmentObject(calculationViewModel)
         .ignoresSafeArea()
         .edgesIgnoringSafeArea(.all)
     }

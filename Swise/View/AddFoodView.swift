@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AddFoodView: View {
     @EnvironmentObject var viewModel: FoodViewModel
+    @Binding var maxSugar: Int
     @State var text: String = ""
     @State var isPresented: Bool = false
     @State private var isEditing = false
@@ -17,6 +18,7 @@ struct AddFoodView: View {
         sortDescriptors: [],
         animation: .default)
     private var items: FetchedResults<DataItem>
+    var calNeed: Double = 0
     
     var body: some View {
         NavigationView {
@@ -134,7 +136,7 @@ struct AddFoodView: View {
                             }
                         }
                         .navigationDestination(isPresented: $isPresented) {
-                            DetailFoodView(totalSugar: items.isEmpty ? 0 : items[0].totalSugar, totalCalories: items.isEmpty ? 0 : items[0].totalCalories )
+                            DetailFoodView(maxSugar: $maxSugar, totalSugar: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalSugar ?? 0, totalCalories: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalCalories ?? 0, calNeed: calNeed)
                         }
                     }
                 }
@@ -155,6 +157,6 @@ struct AddFoodView: View {
 
 struct AddFoodView_Previews: PreviewProvider {
     static var previews: some View {
-        AddFoodView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext).environmentObject(FoodViewModel(foodService: FoodStore.shared))
+        AddFoodView(maxSugar: .constant(0)).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext).environmentObject(FoodViewModel(foodService: FoodStore.shared))
     }
 }
