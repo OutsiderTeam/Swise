@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EmptyListView: View {
+    var background: Bool = true
     var body: some View {
         VStack {
             Image("empty_bowl")
@@ -16,7 +17,7 @@ struct EmptyListView: View {
         }
         .padding(EdgeInsets(top: 5, leading: 20, bottom: 18, trailing: 20))
         .frame(width: UIScreen.main.bounds.width-40)
-        .background(Color("bg_blue"))
+        .background(background ? Color("bg_blue") : Color.clear)
         .cornerRadius(29)
     }
 }
