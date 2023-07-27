@@ -39,13 +39,19 @@ struct OnBoardingPageView: View {
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                     Button {
-                        if selectedIndex == 2 {
-                            if !healthKitHelper.healthApprove{
-                                healthKitHelper.requestAuthorization()
+                        if lastScreen == "Health Checker"{
+                            if !calculationViewModel.healthChecker(){
+                                showAlert = true
                             }
-                            
                         } else {
-                            selectedIndex += 1
+                            if selectedIndex == 2 {
+                                if !healthKitHelper.healthApprove{
+                                    healthKitHelper.requestAuthorization()
+                                }
+                                
+                            } else {
+                                selectedIndex += 1
+                            }
                         }
                     } label: {
                         Image(systemName: "arrow.right")
@@ -55,10 +61,40 @@ struct OnBoardingPageView: View {
                             .cornerRadius(11)
                             .padding(.top,158)
                     }.padding(.bottom, 50)
+                        .alert("Fill your health data", isPresented: $showAlert) {
+                            
+                        } message: {
+                            Text("Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.")
+                        }
+
                 }.padding(.horizontal,15)
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     
             }
+            .onChange(of: healthKitHelper.age, perform: { newValue in
+                calculationViewModel.height = healthKitHelper.height
+                calculationViewModel.age = Double(healthKitHelper.age)
+                calculationViewModel.sex = healthKitHelper.sex
+                if calculationViewModel.healthChecker(){
+//                    lastScreen = "Excercise Screen"
+                    showHome = true
+                } else {
+                    lastScreen = "Health Checker"
+                    showAlert = true
+                }
+            })
+            .onChange(of: healthKitHelper.sex, perform: { newValue in
+                calculationViewModel.height = healthKitHelper.height
+                calculationViewModel.age = Double(healthKitHelper.age)
+                calculationViewModel.sex = healthKitHelper.sex
+                if calculationViewModel.healthChecker(){
+//                    lastScreen = "Excercise Screen"
+                    showHome = true
+                } else {
+                    lastScreen = "Health Checker"
+                    showAlert = true
+                }
+            })
             .onChange(of: healthKitHelper.height, perform: { newValue in
                 calculationViewModel.height = healthKitHelper.height
                 calculationViewModel.age = Double(healthKitHelper.age)
@@ -68,7 +104,7 @@ struct OnBoardingPageView: View {
                     showHome = true
                 } else {
                     lastScreen = "Health Checker"
-//                    showAlert = true
+                    showAlert = true
                 }
 
             })
