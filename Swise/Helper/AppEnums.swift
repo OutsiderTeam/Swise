@@ -16,11 +16,22 @@ enum Sex: String{
 }
 
 enum Activity: String, CaseIterable, Identifiable{
-    case no = "No Exercise"
-    case light = "Light"
-    case moderate = "Moderate (3-5 days/week)"
-    case very = "Very active (5-6 days/week)"
-    case extra = "Extra active (Very Active/Physical Job)"
+    case no = "Sedentary"
+    case light = "Lightly Active"
+    case moderate = "Moderately Active"
+    case very = "Very Active"
+    case extra = "Extra Active"
     
     var id : String { self.rawValue }
+}
+
+struct OnBoarding{
+    var title: String
+    var description: String
+    var icon: String
+}
+
+struct ActivityDetail{
+    var activity: Activity
+    var description: String
 }
