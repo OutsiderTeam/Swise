@@ -13,8 +13,6 @@ struct OnBoardingView: View {
     
     @AppStorage("lastScreen") var lastScreen: String = ""
     
-    @State private var showAlert = false
-    
     @State var onBoardingItem = [
         OnBoarding(title: "Keep your sugar and calories on track!", description: "Start the healthy life style with  managing your sugar intake! ", icon: "confused_sugar"),
         OnBoarding(title: "Simple!", description: "Just input your meal, and we will calculate it for you!", icon: "smily_sugar"),
@@ -26,12 +24,12 @@ struct OnBoardingView: View {
             if showHome{
                 ExcerciseLevelView()
             }else{
-                OnBoardingPageView(title: "Fill your health data", subtitle: "Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.", icon: "kcal_icon", selectedIndex: $selectedTab, showHome: $showHome, showAlert: $showAlert)
+                OnBoardingPageView(title: "Fill your health data", subtitle: "Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.", icon: "kcal_icon", selectedIndex: $selectedTab, showHome: $showHome)
             }
         } else {
             TabView(selection: $selectedTab) {
                 ForEach(0..<onBoardingItem.count, id: \.self) { item in
-                    OnBoardingPageView(title: onBoardingItem[item].title, subtitle: onBoardingItem[item].description, icon: onBoardingItem[item].icon, selectedIndex: $selectedTab, showHome: $showHome, showAlert: $showAlert)
+                    OnBoardingPageView(title: onBoardingItem[item].title, subtitle: onBoardingItem[item].description, icon: onBoardingItem[item].icon, selectedIndex: $selectedTab, showHome: $showHome)
                         .tag(item)
                     
                 }

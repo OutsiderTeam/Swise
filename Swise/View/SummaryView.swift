@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SummaryView: View {
-    @StateObject private var healthKitHelper = HealthKitHelper()
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
 
     @State var progressValue: Float = 1
@@ -228,28 +227,49 @@ struct SummaryView: View {
             }
             .padding(.bottom, 100)
             .onAppear{
-                healthKitHelper.requestAuthorization()
-                data = items.first?.eatenFoodsArray ?? []
-                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
-                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
-                totalSugar = items.first?.totalSugar ?? 0
-                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+                calculationViewModel.healthRequest()
             }
-            .onChange(of: healthKitHelper.healthApprove) { _ in
-                calculationViewModel.height = healthKitHelper.height
-                calculationViewModel.age = Double(healthKitHelper.age)
-                calculationViewModel.sex = healthKitHelper.sex
+            .onChange(of: calculationViewModel.allFilled, perform: { _ in
+                data = items.first?.eatenFoodsArray ?? []
                 calNeed = Float(calculationViewModel.calorieNeed())
                 progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
                 maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
                 totalSugar = items.first?.totalSugar ?? 0
                 sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
-            }
-            .onChange(of: items.first?.totalSugar ?? 0, perform: { newValue in
-                maxSugar = calculationViewModel.calculateMaxSugar(calorie: newValue)
+            })
+            .onChange(of: calculationViewModel.height, perform: { _ in
+                calNeed = Float(calculationViewModel.calorieNeed())
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
                 totalSugar = items.first?.totalSugar ?? 0
                 sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
             })
+            .onChange(of: calculationViewModel.age, perform: { _ in
+                calNeed = Float(calculationViewModel.calorieNeed())
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
+                totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+            })
+            .onChange(of: calculationViewModel.sex, perform: { _ in
+                calNeed = Float(calculationViewModel.calorieNeed())
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
+                totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+            })
+            .onChange(of: calculationViewModel.weight, perform: { _ in
+                calNeed = Float(calculationViewModel.calorieNeed())
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
+                totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+            })
+//            .onChange(of: items.first?.totalSugar ?? 0, perform: { newValue in
+//                maxSugar = calculationViewModel.calculateMaxSugar(calorie: newValue)
+//                totalSugar = items.first?.totalSugar ?? 0
+//                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+//            })
             .ignoresSafeArea()
             .navigationDestination(isPresented: $isPresented) {
                 AddFoodView(maxSugar: $maxSugar, calNeed: Double(calNeed))

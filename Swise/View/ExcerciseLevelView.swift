@@ -34,7 +34,7 @@ struct ExcerciseLevelView: View {
                 } label: {
                     VStack(alignment: .leading){
                         Text("\(activityIntens[index].activity.rawValue)").bold()
-                        Text("\(activityIntens[index].description)").font(.caption)
+                        Text("\(activityIntens[index].description)").font(.caption).multilineTextAlignment(.leading)
                     }.padding()
                         .frame(width: 333, alignment: .topLeading)
                         .foregroundColor(.black)
@@ -49,7 +49,6 @@ struct ExcerciseLevelView: View {
                         .stroke(Color("button_color"), lineWidth: selectedActivity==index ? 2: 0)
                 )
             }
-            Text("\(calculationViewModel.activityIntensity.rawValue)")
             Button {
                 calculationViewModel.activityIntensity = activityIntens[selectedActivity].activity
                 lastScreen = "Main Screen"

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HealthKit
 
 struct OnBoardingPageView: View {
     var title: String
@@ -13,8 +14,6 @@ struct OnBoardingPageView: View {
     var icon: String
     @Binding var selectedIndex: Int
     @Binding var showHome: Bool
-    @Binding var showAlert: Bool
-    @StateObject private var healthKitHelper = HealthKitHelper()
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
     
     @AppStorage("lastScreen") var lastScreen: String = ""
@@ -40,15 +39,9 @@ struct OnBoardingPageView: View {
                         .multilineTextAlignment(.center)
                     Button {
                         if lastScreen == "Health Checker"{
-                            if !calculationViewModel.healthChecker(){
-                                showAlert = true
-                            }
                         } else {
                             if selectedIndex == 2 {
-                                if !healthKitHelper.healthApprove{
-                                    healthKitHelper.requestAuthorization()
-                                }
-                                
+                                calculationViewModel.healthRequest()
                             } else {
                                 selectedIndex += 1
                             }
@@ -61,7 +54,7 @@ struct OnBoardingPageView: View {
                             .cornerRadius(11)
                             .padding(.top,158)
                     }.padding(.bottom, 50)
-                        .alert("Fill your health data", isPresented: $showAlert) {
+                        .alert("Fill your health data", isPresented: $calculationViewModel.showAlert) {
                             
                         } message: {
                             Text("Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.")
@@ -71,43 +64,15 @@ struct OnBoardingPageView: View {
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     
             }
-            .onChange(of: healthKitHelper.age, perform: { newValue in
-                calculationViewModel.height = healthKitHelper.height
-                calculationViewModel.age = Double(healthKitHelper.age)
-                calculationViewModel.sex = healthKitHelper.sex
-                if calculationViewModel.healthChecker(){
-//                    lastScreen = "Excercise Screen"
+            .onChange(of: calculationViewModel.allFilled) { newValue in
+                if newValue == true {
                     showHome = true
-                } else {
-                    lastScreen = "Health Checker"
-                    showAlert = true
                 }
-            })
-            .onChange(of: healthKitHelper.sex, perform: { newValue in
-                calculationViewModel.height = healthKitHelper.height
-                calculationViewModel.age = Double(healthKitHelper.age)
-                calculationViewModel.sex = healthKitHelper.sex
-                if calculationViewModel.healthChecker(){
-//                    lastScreen = "Excercise Screen"
-                    showHome = true
-                } else {
-                    lastScreen = "Health Checker"
-                    showAlert = true
-                }
-            })
-            .onChange(of: healthKitHelper.height, perform: { newValue in
-                calculationViewModel.height = healthKitHelper.height
-                calculationViewModel.age = Double(healthKitHelper.age)
-                calculationViewModel.sex = healthKitHelper.sex
-                if calculationViewModel.healthChecker(){
-//                    lastScreen = "Excercise Screen"
-                    showHome = true
-                } else {
-                    lastScreen = "Health Checker"
-                    showAlert = true
-                }
-
-            })
+            }
+            .onAppear {
+                print("†est")
+            }
+            
         }
     }
 }

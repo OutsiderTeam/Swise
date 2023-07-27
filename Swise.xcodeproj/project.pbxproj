@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A7AE89B2A657FDB0047F739 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */; };
 		5A7AE89D2A659D290047F739 /* DataCalculationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */; };
 		5AE7754B2A6E89A3003F6325 /* AppEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7754A2A6E89A3003F6325 /* AppEnums.swift */; };
 		5AED3C252A711086001A03FB /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AED3C242A711086001A03FB /* OnBoardingView.swift */; };
@@ -47,6 +46,7 @@
 		88AF47CB2A6FBF9100D9CAC2 /* FoodItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF47CA2A6FBF9100D9CAC2 /* FoodItemView.swift */; };
 		88AF47CD2A6FCB8C00D9CAC2 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF47CC2A6FCB8C00D9CAC2 /* ProgressBarView.swift */; };
 		88AF47CF2A704A3600D9CAC2 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF47CE2A704A3600D9CAC2 /* EmptyListView.swift */; };
+		88AF47D92A72834600D9CAC2 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AF47D82A72834600D9CAC2 /* HealthKitManager.swift */; };
 		B31F7B5E2A65413F00F0B507 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31F7B5D2A65413F00F0B507 /* SummaryView.swift */; };
 		B31F7B602A65453100F0B507 /* TabNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31F7B5F2A65453100F0B507 /* TabNavView.swift */; };
 		B31F7B642A67E73F00F0B507 /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31F7B632A67E73F00F0B507 /* AddFoodView.swift */; };
@@ -54,7 +54,6 @@
 
 /* Begin PBXFileReference section */
 		5A7AE8992A657E9E0047F739 /* Swise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swise.entitlements; sourceTree = "<group>"; };
-		5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
 		5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCalculationViewModel.swift; sourceTree = "<group>"; };
 		5AE7754A2A6E89A3003F6325 /* AppEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnums.swift; sourceTree = "<group>"; };
 		5AED3C242A711086001A03FB /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
@@ -94,6 +93,7 @@
 		88AF47CA2A6FBF9100D9CAC2 /* FoodItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemView.swift; sourceTree = "<group>"; };
 		88AF47CC2A6FCB8C00D9CAC2 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		88AF47CE2A704A3600D9CAC2 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
+		88AF47D82A72834600D9CAC2 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		B31F7B5D2A65413F00F0B507 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		B31F7B5F2A65453100F0B507 /* TabNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavView.swift; sourceTree = "<group>"; };
 		B31F7B632A67E73F00F0B507 /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
@@ -224,8 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				8842AA812A64D7A3001E703E /* FoodHelper.swift */,
-				5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */,
 				5AE7754A2A6E89A3003F6325 /* AppEnums.swift */,
+				88AF47D82A72834600D9CAC2 /* HealthKitManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -335,7 +335,6 @@
 				8842AA7C2A64D628001E703E /* EatenFoods+CoreDataClass.swift in Sources */,
 				B31F7B642A67E73F00F0B507 /* AddFoodView.swift in Sources */,
 				881D8BFF2A694056002D59DC /* WeekValue.swift in Sources */,
-				5A7AE89B2A657FDB0047F739 /* HealthKitHelper.swift in Sources */,
 				88AF47CF2A704A3600D9CAC2 /* EmptyListView.swift in Sources */,
 				8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */,
 				8829A0182A602AEF00C1A8BA /* FoodViewModel.swift in Sources */,
@@ -343,6 +342,7 @@
 				8829A01A2A602B1800C1A8BA /* FoodService.swift in Sources */,
 				88AF47CD2A6FCB8C00D9CAC2 /* ProgressBarView.swift in Sources */,
 				8829A02A2A602E0400C1A8BA /* FoodParams.swift in Sources */,
+				88AF47D92A72834600D9CAC2 /* HealthKitManager.swift in Sources */,
 				8829A0282A602DC700C1A8BA /* String+Utils.swift in Sources */,
 				8842AA7F2A64D628001E703E /* DataItem+CoreDataProperties.swift in Sources */,
 				8829A01C2A602B3700C1A8BA /* FoodStore.swift in Sources */,
