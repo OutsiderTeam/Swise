@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FoodInformationView: View {
+    @Environment(\.dismiss) private var dismiss
     @State private var foodName: String = "Plain Cheeseburger"
     @State private var sugarAdded: String = "12 gr"
     @State private var calories: String = "202 kcal"
@@ -80,6 +81,8 @@ struct FoodInformationView: View {
                 Button(
                     action: {
                         addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+                        dismiss()
+                        
                     }){
                         HStack{
                             Text("Done")
