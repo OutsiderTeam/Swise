@@ -11,12 +11,17 @@ import SwiftUI
 struct SwiseApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject private var dataCalculation = DataCalculationViewModel()
+    @AppStorage("lastScreen") var lastScreen: String = ""
 
     var body: some Scene {
         WindowGroup {
-//            TabNavView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            OnBoardingView().environmentObject(dataCalculation)
+            if lastScreen == "Main Screen"{
+                TabNavView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .environmentObject(dataCalculation)
+            }else{
+                OnBoardingView().environmentObject(dataCalculation)
+            }
             
         }
     }

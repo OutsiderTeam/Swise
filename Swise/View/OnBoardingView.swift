@@ -11,6 +11,8 @@ struct OnBoardingView: View {
     @State private var selectedTab = 0
     @State private var showHome = false
     
+    @AppStorage("lastScreen") var lastScreen: String = ""
+    
     @State private var showAlert = false
     
     @State var onBoardingItem = [
@@ -20,87 +22,23 @@ struct OnBoardingView: View {
     ]
     
     var body: some View {
-        if showHome {
-            ExcerciseLevelView()
+        if lastScreen == "Health Checker" || showHome{
+            if showHome{
+                ExcerciseLevelView()
+            }else{
+                OnBoardingPageView(title: "Fill your health data", subtitle: "Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.", icon: "kcal_icon", selectedIndex: $selectedTab, showHome: $showHome, showAlert: $showAlert)
+            }
         } else {
             TabView(selection: $selectedTab) {
                 ForEach(0..<onBoardingItem.count, id: \.self) { item in
-                    StepsView(title: onBoardingItem[item].title, subtitle: onBoardingItem[item].description, icon: onBoardingItem[item].icon, selectedIndex: $selectedTab, showHome: $showHome, showAlert: $showAlert)
+                    OnBoardingPageView(title: onBoardingItem[item].title, subtitle: onBoardingItem[item].description, icon: onBoardingItem[item].icon, selectedIndex: $selectedTab, showHome: $showHome, showAlert: $showAlert)
                         .tag(item)
                     
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .alert("Fill your health data", isPresented: $showAlert) {
-                Button("OK", role: .cancel) { }
-            } message: {
-                Text("Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.")
-            }
             
-        }
-    }
-}
-
-struct StepsView: View {
-    var title: String
-    var subtitle: String
-    var icon: String
-    @Binding var selectedIndex: Int
-    @Binding var showHome: Bool
-    @Binding var showAlert: Bool
-    @StateObject private var healthKitHelper = HealthKitHelper()
-    @EnvironmentObject var calculationViewModel: DataCalculationViewModel
-    
-    var body: some View {
-        NavigationStack {
-            ZStack(alignment: .bottomTrailing) {
-                VStack(alignment: .center){
-                    
-                    Image(icon)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 210)
-                    Text(title)
-                        .font(.title3)
-                        .bold()
-                        .foregroundColor(.primary)
-                        .padding(.bottom,30)
-                    
-                    Text(subtitle)
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                    Button {
-                        if selectedIndex == 2 {
-                            if !healthKitHelper.healthApprove{
-                                healthKitHelper.requestAuthorization()
-                            }
-                        } else {
-                            selectedIndex += 1
-                        }
-                    } label: {
-                        Image(systemName: "arrow.right")
-                            .font(.largeTitle).foregroundColor(.white)
-                            .frame(width: 193, height: 71)
-                            .background(Color("button_color"))
-                            .cornerRadius(11)
-                            .padding(.top,158)
-                    }.padding(.bottom, 50)
-                }.padding(.horizontal,15)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    
-            }
-            .onChange(of: healthKitHelper.height, perform: { newValue in
-                calculationViewModel.height = healthKitHelper.height
-                calculationViewModel.age = Double(healthKitHelper.age)
-                calculationViewModel.sex = healthKitHelper.sex
-                if calculationViewModel.healthChecker(){
-                    showHome = true
-                } else {
-                    showAlert = true
-                }
-
-            })
+            
         }
     }
 }

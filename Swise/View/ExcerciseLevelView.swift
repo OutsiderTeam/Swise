@@ -11,6 +11,12 @@ struct ExcerciseLevelView: View {
     @State private var activityIntensity: Activity = .no
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
     @State private var selectedActivity = 0
+    @State var isPresented: Bool = false
+    
+    @AppStorage("lastScreen") var lastScreen: String = ""
+    
+    
+    let persistenceController = PersistenceController.shared
     
     @State var activityIntens = [
         ActivityDetail(activity: .no, description: "Individuals who have a very inactive lifestyle and engage in little to no structured exercise."),
@@ -46,6 +52,8 @@ struct ExcerciseLevelView: View {
             Text("\(calculationViewModel.activityIntensity.rawValue)")
             Button {
                 calculationViewModel.activityIntensity = activityIntens[selectedActivity].activity
+                lastScreen = "Main Screen"
+                isPresented = true
             } label: {
                 Image(systemName: "arrow.right")
                     .font(.largeTitle).foregroundColor(.white)
@@ -57,6 +65,10 @@ struct ExcerciseLevelView: View {
             
         }.padding(.horizontal,15)
             .frame(maxHeight: .infinity, alignment: .bottom)
+            .navigationDestination(isPresented: $isPresented) {
+                TabNavView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            }
 
     }
 }
