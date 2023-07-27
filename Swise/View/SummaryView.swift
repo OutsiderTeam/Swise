@@ -168,25 +168,30 @@ struct SummaryView: View {
                     }
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(alignment: .top) {
-                            ForEach(FYIViewModel().fyi, id: \.self) {fyi in
-                                ZStack{
-                                    VStack(alignment: .leading){
-                                        Text(fyi.title)
-                                            .font(.headline)
-                                            .fontWeight(.semibold)
-                                            .padding(.bottom, 9)
-                                        Text(fyi.shortDesc)
-                                            .font(.body)
-                                            .fontWeight(.regular)
-                                        Spacer()
-                                    }.padding()
-                                }
-                                .frame(width: 169, height: 186)
-                                .background(Color("bg_yellow"))
-                                .cornerRadius(29)
-                                .onTapGesture {
+                            ForEach(FYIViewModel().fyi, id: \.id) {fyi in
+                                Button {
                                     selectedFYI = fyi
                                     isNavigate = true
+                                } label: {
+                                    ZStack{
+                                        VStack(alignment: .leading){
+                                            Text(fyi.title)
+                                                .font(.headline)
+                                                .fontWeight(.semibold)
+                                                .padding(.bottom, 9)
+                                                .multilineTextAlignment(.leading)
+                                                .lineLimit(2)
+                                            Text(fyi.shortDesc)
+                                                .font(.body)
+                                                .fontWeight(.regular)
+                                                .multilineTextAlignment(.leading)
+                                            Spacer()
+                                        }.padding()
+                                    }
+                                    .foregroundColor(Color.black)
+                                    .frame(width: 169, height: 186)
+                                    .background(Color("bg_yellow"))
+                                    .cornerRadius(29)
                                 }
                             }
                         }
@@ -224,6 +229,8 @@ struct SummaryView: View {
             .navigationDestination(isPresented: $isPresented) {
                 AddFoodView(maxSugar: $maxSugar, calNeed: Double(calNeed))
             }
+            .navigationTitle("Summary")
+            .toolbar(.hidden)
         }
         .environmentObject(calculationViewModel)
         .ignoresSafeArea()

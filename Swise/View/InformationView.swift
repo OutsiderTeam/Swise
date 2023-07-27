@@ -13,9 +13,9 @@ struct InformationView: View {
         VStack {
             ScrollView {
                 VStack {
-                    Text(fyiData.title).font(.headline)
+                    Text(fyiData.title).font(.headline).padding(.top, 12)
                     VStack(alignment: .leading) {
-                        ForEach(fyiData.desc, id: \.self) { desc in
+                        ForEach(fyiData.desc, id: \.id) { desc in
                             VStack(alignment: .leading, spacing: 0) {
                                 if desc.styling == "none" {
                                     Text(desc.content).font(.body)
@@ -77,11 +77,13 @@ struct InformationView: View {
                                 }
                             }
                         }
-                    }.padding(EdgeInsets(top: 30, leading: 20, bottom: 50, trailing: 20))
+                    }.padding(EdgeInsets(top: 30, leading: 12, bottom: 50, trailing: 12))
                 }
 //                .foregroundColor(Color.black)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color("bg_yellow"))
+                .cornerRadius(12)
+                .padding(.horizontal, 20)
             }
         }
     }
