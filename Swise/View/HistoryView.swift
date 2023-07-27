@@ -120,36 +120,13 @@ struct HistoryView: View {
                     if !eatenFoods.isEmpty {
                         VStack(spacing: 6) {
                             ForEach(eatenFoods, id:\.self) { food in
-                                VStack(alignment: .leading) {
-                                    HStack(alignment: .top, spacing: 10) {
-                                        HStack {
-                                            VStack(alignment: .leading, spacing: 5) {
-                                                Text(food.wrappedFoodName).font(.headline)
-                                                Text(food.servingFood?.servingDescription ?? "")
-                                            }
-                                            Spacer()
-                                        }.frame(width: UIScreen.main.bounds.width*0.4)
-                                        Text("\(food.servingFood?.calories ?? "0") Kcal")
-                                            .font(.headline)
-                                            .frame(alignment: .leading)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(width: UIScreen.main.bounds.width*0.2)
-                                        Text("\(food.servingFood?.sugar ?? "0") gr")
-                                            .font(.headline)
-                                            .frame(width: UIScreen.main.bounds.width*0.2)
-
-                                    }
-                                }
-                                .padding(15)
-                                .frame(width: UIScreen.main.bounds.width-40)
-                                .background(Color("bg_blue"))
-                                .cornerRadius(12)
+                                FoodItemView(name: food.wrappedFoodName, calories: food.servingFood?.calories ?? "0", sugar: food.servingFood?.sugar ?? "0", serving: food.servingFood?.servingDescription ?? "")
                             }
                         }
                         .padding(.top, 30)
                     } else {
                         VStack {
-                            EmptyListView()
+                            EmptyListView(background: false)
                         }.frame(height: UIScreen.main.bounds.height / 2, alignment: .center)
                     }
                 }
