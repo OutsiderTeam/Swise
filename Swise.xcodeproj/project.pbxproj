@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A0F9CB42A72826E009A4D3D /* CustomNavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F9CB32A72826E009A4D3D /* CustomNavBarView.swift */; };
+		5A0F9CB62A72828D009A4D3D /* CustomNavBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F9CB52A72828D009A4D3D /* CustomNavBarContainerView.swift */; };
 		5A7AE89B2A657FDB0047F739 /* HealthKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */; };
 		5A7AE89D2A659D290047F739 /* DataCalculationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */; };
 		5AE7754B2A6E89A3003F6325 /* AppEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7754A2A6E89A3003F6325 /* AppEnums.swift */; };
@@ -44,6 +46,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A0F9CB32A72826E009A4D3D /* CustomNavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavBarView.swift; sourceTree = "<group>"; };
+		5A0F9CB52A72828D009A4D3D /* CustomNavBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavBarContainerView.swift; sourceTree = "<group>"; };
 		5A7AE8992A657E9E0047F739 /* Swise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swise.entitlements; sourceTree = "<group>"; };
 		5A7AE89A2A657FDB0047F739 /* HealthKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitHelper.swift; sourceTree = "<group>"; };
 		5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCalculationViewModel.swift; sourceTree = "<group>"; };
@@ -143,6 +147,8 @@
 				B31F7B5D2A65413F00F0B507 /* SummaryView.swift */,
 				B31F7B5F2A65453100F0B507 /* TabNavView.swift */,
 				B31F7B632A67E73F00F0B507 /* AddFoodView.swift */,
+				5A0F9CB32A72826E009A4D3D /* CustomNavBarView.swift */,
+				5A0F9CB52A72828D009A4D3D /* CustomNavBarContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -291,12 +297,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7AE89D2A659D290047F739 /* DataCalculationViewModel.swift in Sources */,
+				5A0F9CB42A72826E009A4D3D /* CustomNavBarView.swift in Sources */,
 				5AED3C1F2A7059E9001A03FB /* CustomNavBar.swift in Sources */,
 				8829A0242A602D9200C1A8BA /* CharacterSet+Utils.swift in Sources */,
 				8829A0162A602A7200C1A8BA /* Food.swift in Sources */,
 				88AF47CB2A6FBF9100D9CAC2 /* FoodItemView.swift in Sources */,
 				8842AA842A64D815001E703E /* DetailFoodView.swift in Sources */,
 				8829A0082A6029AB00C1A8BA /* Persistence.swift in Sources */,
+				5A0F9CB62A72828D009A4D3D /* CustomNavBarContainerView.swift in Sources */,
 				8842AA822A64D7A3001E703E /* FoodHelper.swift in Sources */,
 				8829A00B2A6029AB00C1A8BA /* Swise.xcdatamodeld in Sources */,
 				8842AA7D2A64D628001E703E /* EatenFoods+CoreDataProperties.swift in Sources */,
