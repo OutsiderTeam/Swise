@@ -11,6 +11,7 @@ struct AddFoodView: View {
     @EnvironmentObject var viewModel: FoodViewModel
     @Binding var maxSugar: Int
     @State var text: String = ""
+    @State var foodManual: Bool = false
     @State var isPresented: Bool = false
     @State private var isEditing = false
     @State private var statusBar = UIStatusBarStyle.lightContent
@@ -115,7 +116,7 @@ struct AddFoodView: View {
                     
                     Button(
                         action: {
-                            
+                            foodManual = true
                         }){
                             HStack{
                                 Image(systemName: "plus.circle")
@@ -145,6 +146,9 @@ struct AddFoodView: View {
         }
             .navigationTitle("Add Food")
 //            .searchable(text: $text, placement: .navigationBarDrawer(displayMode: .always))
+            .navigationDestination(isPresented: $foodManual, destination: {
+                AddNewFoodView()
+            })
             .onChange(of: text, perform: { newValue in
                 viewModel.searchFood(query: text)
             })
