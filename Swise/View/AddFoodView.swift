@@ -133,7 +133,7 @@ struct AddFoodView: View {
             .edgesIgnoringSafeArea(.top)
         }
             .navigationTitle("Add Food")
-            
+            .searchable(text: $text, placement: .navigationBarDrawer(displayMode: .always))
             .onSubmit(of: .search) {
                 viewModel.searchFood(query: text)
             }
