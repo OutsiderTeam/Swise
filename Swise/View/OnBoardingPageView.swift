@@ -45,7 +45,7 @@ struct OnBoardingPageView: View {
                         } else {
                             if selectedIndex == 2 {
                                 calculationViewModel.healthRequest()
-                                if calculationViewModel.showAlert{
+                                if !calculationViewModel.allFilled{
                                     showAlert = true
                                 }
                             } else {
@@ -70,12 +70,11 @@ struct OnBoardingPageView: View {
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     
             }
-            .onAppear{
-                showAlert = calculationViewModel.showAlert
-            }
             .onChange(of: calculationViewModel.allFilled) { newValue in
                 if newValue == true {
                     showHome = true
+                } else{
+                    showAlert = true
                 }
             }
             .onChange(of: scenePhase) { newScenePhase in
@@ -86,11 +85,6 @@ struct OnBoardingPageView: View {
                     // Example:
                     if lastScreen == "Health Checker"{
                         calculationViewModel.healthRequest()
-                        if calculationViewModel.showAlert{
-                            showAlert = true
-                        }else{
-                            showAlert = false
-                        }
                     }
                 }
             }
