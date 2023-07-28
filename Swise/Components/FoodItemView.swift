@@ -38,7 +38,7 @@ struct FoodItemView: View {
         }
         .padding(15)
         .frame(width: UIScreen.main.bounds.width-40)
-        .background(Color("bg_blue"))
+        .background(Color("bg_yellow"))
         .cornerRadius(12)    }
 }
 

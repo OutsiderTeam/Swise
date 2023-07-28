@@ -35,7 +35,7 @@ extension DataItem {
         let set = eatenFoods as? Set<EatenFoods> ?? []
 
         return set.sorted {
-            $0.wrappedFoodName < $1.wrappedFoodName
+            $0.wrappedTimestamp < $1.wrappedTimestamp
         }
     }
 

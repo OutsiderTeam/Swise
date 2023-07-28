@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct SummaryView: View {
-    @StateObject private var healthKitHelper = HealthKitHelper()
-    @StateObject private var calculationViewModel  = DataCalculationViewModel()
+    @EnvironmentObject var calculationViewModel: DataCalculationViewModel
 
     @State var progressValue: Float = 1
     @State var isPresented: Bool = false
+    @State var isNavigateDiary: Bool = false
+    @State var isNavigate: Bool = false
     @State var calNeed: Float = 0.0
     @State var data: [EatenFoods] = []
     @State var maxSugar: Int = 0
     @State var totalSugar: Double = 0
     @State var sugarCondition: Int = 0
+    @State var selectedFYI: FYIModel = FYIModel(title: "", shortDesc: "", image: "", desc: [])
     @FetchRequest(
         sortDescriptors: [],
         predicate: NSPredicate(format: "date == %@", Date().formatted(date: .complete, time: .omitted)),
@@ -28,13 +30,8 @@ struct SummaryView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     HStack {
-                        Text("Hi user!").font(.largeTitle)
+                        Text("Hi!").font(.largeTitle)
                         Spacer()
-                        Image(systemName: "info.circle")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .background(Color("bg_blue"))
-                            .clipShape(Circle())
                     }.padding(.top, 20)
                     HStack(alignment: .top){
                         VStack(alignment: .leading){
@@ -90,7 +87,11 @@ struct SummaryView: View {
                                     .resizable()
                                     .frame(width: 107, height: 138)
                         }
-                        Text("*Based on the ministry of health of Indonesia, 50 gr....").multilineTextAlignment(.leading)
+                        if maxSugar == 50 {
+                            Text("*Based on the ministry of health of Indonesia, 50 gr....").multilineTextAlignment(.leading).font(.body)
+                        } else {
+                            Text("*The sugar limit displayed may change depending on the calorie intake of the food you consume.").multilineTextAlignment(.leading).font(.body)
+                        }
                     }
                     .padding(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
                     .frame(width: UIScreen.main.bounds.width-40, alignment: .top)
@@ -105,10 +106,10 @@ struct SummaryView: View {
                         Spacer()
                     }.padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
                     ZStack{
-                        HStack{
+                        HStack(spacing: 10) {
                             ProgressBarView(progress: $progressValue, total: $calNeed)
                                 .frame(width: 80.0, height: 80.0)
-                                .padding(30.0)
+                                .padding(10.0)
                             VStack(alignment: .leading){
                                 HStack{
                                     Text("\(items.first?.totalCalories ?? 0, specifier: "%.f") kcal/").fontWeight(.bold).foregroundColor(.black)
@@ -117,14 +118,15 @@ struct SummaryView: View {
                                     Text("\(calNeed, specifier: "%.f") kcal").font(.body)
                                 }
                                 
-                                Text("*Based on your BMI, your max. calorie intake is \(calNeed, specifier: "%.f") kcal").foregroundColor(.black)
+                                Text("*The results show a number of daily calories estimates that can be used as a guideline for maintain your weight.").foregroundColor(.black)
                                     .font(.footnote)
                                     .multilineTextAlignment(.leading).padding(.top, 5)
                             }.padding(.trailing, 15)
                             
                         }
                     }
-                    .frame(width: 359, height: 124)
+                    .padding(12)
+                    .frame(width: UIScreen.main.bounds.width - 40)
                     .background(Color("bg_blue"))
                     .cornerRadius(29)
                     
@@ -143,12 +145,17 @@ struct SummaryView: View {
                             FoodItemView(name: data[i].foodName ?? "-", calories: data[i].servingFood?.calories ?? "0", sugar: data[i].servingFood?.sugar ?? "0", serving: data[i].servingFood?.servingDescription ?? "-")
                         }
                         if data.count > 3 {
-                            HStack {
-                                Spacer()
-                                Text("Show More")
-                                    .font(.callout)
-                                    .fontWeight(.semibold)
-                                    .padding(.horizontal, 20)
+                            Button {
+                                isNavigateDiary = true
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text("Show More")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                        .padding(.horizontal, 20)
+                                }
+                                .foregroundColor(Color.black)
                             }
                         }
                     } else {
@@ -165,97 +172,95 @@ struct SummaryView: View {
                         .padding(.horizontal, 20)
                     }
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack{
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    Text("What is BMI?")
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                        .padding(.bottom, 9)
-                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                        .font(.body)
-                                        .fontWeight(.regular)
-                                }.padding()
+                        HStack(alignment: .top) {
+                            ForEach(FYIViewModel().fyi, id: \.id) {fyi in
+                                Button {
+                                    selectedFYI = fyi
+                                    isNavigate = true
+                                } label: {
+                                    ZStack{
+                                        VStack(alignment: .leading){
+                                            Text(fyi.title)
+                                                .font(.headline)
+                                                .fontWeight(.semibold)
+                                                .padding(.bottom, 9)
+                                                .multilineTextAlignment(.leading)
+                                                .lineLimit(2)
+                                            Text(fyi.shortDesc)
+                                                .font(.body)
+                                                .fontWeight(.regular)
+                                                .multilineTextAlignment(.leading)
+                                            Spacer()
+                                        }.padding()
+                                    }
+                                    .foregroundColor(Color.black)
+                                    .frame(width: 169, height: 186)
+                                    .background(Color("bg_yellow"))
+                                    .cornerRadius(29)
+                                }
                             }
-                            .frame(width: 169, height: 186)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(29)
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    Text("What is BMI?")
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                        .padding(.bottom, 9)
-                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                        .font(.body)
-                                        .fontWeight(.regular)
-                                }.padding()
-                            }
-                            .frame(width: 169, height: 186)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(29)
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    Text("What is BMI?")
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                        .padding(.bottom, 9)
-                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                        .font(.body)
-                                        .fontWeight(.regular)
-                                }.padding()
-                            }
-                            .frame(width: 169, height: 186)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(29)
-                            ZStack{
-                                VStack(alignment: .leading){
-                                    Text("What is BMI?")
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                        .padding(.bottom, 9)
-                                    Text("Do you know BMI is a measure if your weight is healthy or not.")
-                                        .font(.body)
-                                        .fontWeight(.regular)
-                                }.padding()
-                            }
-                            .frame(width: 169, height: 186)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(29)
                         }
                     }
                 }
             }
             .padding(.bottom, 100)
             .onAppear{
-                healthKitHelper.requestAuthorization()
-                data = items.first?.eatenFoodsArray ?? []
-                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
-                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
-                totalSugar = items.first?.totalSugar ?? 0
-                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+                calculationViewModel.healthRequest()
             }
-            .onChange(of: healthKitHelper.healthApprove) { _ in
-                calculationViewModel.height = healthKitHelper.height
-                calculationViewModel.age = Double(healthKitHelper.age)
-                calculationViewModel.sex = healthKitHelper.sex
+            .onChange(of: calculationViewModel.allFilled, perform: { _ in
+                data = items.first?.eatenFoodsArray ?? []
                 calNeed = Float(calculationViewModel.calorieNeed())
                 progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
                 maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
                 totalSugar = items.first?.totalSugar ?? 0
                 sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
-            }
-            .onChange(of: items.first?.totalSugar ?? 0, perform: { newValue in
-                maxSugar = calculationViewModel.calculateMaxSugar(calorie: newValue)
+            })
+            .onChange(of: calculationViewModel.height, perform: { _ in
+                calNeed = Float(calculationViewModel.calorieNeed())
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
                 totalSugar = items.first?.totalSugar ?? 0
                 sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
             })
+            .onChange(of: calculationViewModel.age, perform: { _ in
+                calNeed = Float(calculationViewModel.calorieNeed())
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
+                totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+            })
+            .onChange(of: calculationViewModel.sex, perform: { _ in
+                calNeed = Float(calculationViewModel.calorieNeed())
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
+                totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+            })
+            .onChange(of: calculationViewModel.weight, perform: { _ in
+                calNeed = Float(calculationViewModel.calorieNeed())
+                progressValue = Float((items.first?.totalCalories ?? 0) / calculationViewModel.calorieNeed())
+                maxSugar = items.first?.totalCalories ?? 0 < Double(calNeed) ? calculationViewModel.calculateMaxSugar(calorie: items.first?.totalCalories ?? 0) : 50
+                totalSugar = items.first?.totalSugar ?? 0
+                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+            })
+//            .onChange(of: items.first?.totalSugar ?? 0, perform: { newValue in
+//                maxSugar = calculationViewModel.calculateMaxSugar(calorie: newValue)
+//                totalSugar = items.first?.totalSugar ?? 0
+//                sugarCondition = totalSugar < Double(maxSugar) * 0.5 || (maxSugar == 0 && totalSugar == 0) ? 0 : totalSugar < Double(maxSugar) * 0.75 ? 1 : 2
+//            })
             .ignoresSafeArea()
+            .navigationDestination(isPresented: $isNavigate) {
+                InformationView(fyiData: $selectedFYI)
+            }
             .navigationDestination(isPresented: $isPresented) {
                 AddFoodView(maxSugar: $maxSugar, calNeed: Double(calNeed))
             }
+            .navigationDestination(isPresented: $isNavigateDiary) {
+                HistoryView(isFoodDiary: true)
+            }
+            .navigationTitle("Summary")
+            .toolbar(.hidden)
         }
-        .environmentObject(calculationViewModel)
         .ignoresSafeArea()
         .edgesIgnoringSafeArea(.all)
     }
