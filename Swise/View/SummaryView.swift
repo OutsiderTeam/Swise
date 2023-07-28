@@ -30,13 +30,8 @@ struct SummaryView: View {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
                     HStack {
-                        Text("Hi user!").font(.largeTitle)
+                        Text("Hi!").font(.largeTitle)
                         Spacer()
-                        Image(systemName: "info.circle")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .background(Color("bg_blue"))
-                            .clipShape(Circle())
                     }.padding(.top, 20)
                     HStack(alignment: .top){
                         VStack(alignment: .leading){
@@ -92,7 +87,11 @@ struct SummaryView: View {
                                     .resizable()
                                     .frame(width: 107, height: 138)
                         }
-                        Text("*Based on the ministry of health of Indonesia, 50 gr....").multilineTextAlignment(.leading)
+                        if maxSugar == 50 {
+                            Text("*Based on the ministry of health of Indonesia, 50 gr....").multilineTextAlignment(.leading).font(.body)
+                        } else {
+                            Text("*The sugar limit displayed may change depending on the calorie intake of the food you consume.").multilineTextAlignment(.leading).font(.body)
+                        }
                     }
                     .padding(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
                     .frame(width: UIScreen.main.bounds.width-40, alignment: .top)
@@ -107,10 +106,10 @@ struct SummaryView: View {
                         Spacer()
                     }.padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
                     ZStack{
-                        HStack{
+                        HStack(spacing: 10) {
                             ProgressBarView(progress: $progressValue, total: $calNeed)
                                 .frame(width: 80.0, height: 80.0)
-                                .padding(30.0)
+                                .padding(10.0)
                             VStack(alignment: .leading){
                                 HStack{
                                     Text("\(items.first?.totalCalories ?? 0, specifier: "%.f") kcal/").fontWeight(.bold).foregroundColor(.black)
@@ -119,14 +118,15 @@ struct SummaryView: View {
                                     Text("\(calNeed, specifier: "%.f") kcal").font(.body)
                                 }
                                 
-                                Text("*Based on your BMI, your max. calorie intake is \(calNeed, specifier: "%.f") kcal").foregroundColor(.black)
+                                Text("*The results show a number of daily calories estimates that can be used as a guideline for maintain your weight.").foregroundColor(.black)
                                     .font(.footnote)
                                     .multilineTextAlignment(.leading).padding(.top, 5)
                             }.padding(.trailing, 15)
                             
                         }
                     }
-                    .frame(width: 359, height: 124)
+                    .padding(12)
+                    .frame(width: UIScreen.main.bounds.width - 40)
                     .background(Color("bg_blue"))
                     .cornerRadius(29)
                     
