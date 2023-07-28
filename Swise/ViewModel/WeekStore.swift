@@ -40,6 +40,7 @@ class WeekStore : ObservableObject {
     }
     
     func appendAll() {
+        allWeeks.removeAll()
         var  newWeek = WeekValue(id: 0, date: currentWeek, sugarCondition: currentSugarCondition)
         allWeeks.append(newWeek)
         

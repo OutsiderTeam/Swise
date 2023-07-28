@@ -91,7 +91,9 @@ struct InformationView: View {
                     }
                 }
             }
-        }.navigationTitle("Information")
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Information")
     }
 }
 

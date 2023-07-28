@@ -113,6 +113,7 @@ struct AddNewFoodView: View {
             
             
         }
+        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Add New Food")
         
     }

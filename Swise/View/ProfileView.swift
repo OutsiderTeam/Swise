@@ -27,7 +27,7 @@ struct ProfileView: View {
                             .padding(.horizontal, 50)
                         HStack{
                             Text("Weight")
-                            Text(": \(calculationViewModel.weight, specifier: "%.f") gr").padding(.leading,66).bold()
+                            Text(": \(calculationViewModel.weight, specifier: "%.f") kg").padding(.leading,66).bold()
                         }.padding(.top,3)
                             .padding(.horizontal, 50)
                         HStack{
@@ -35,7 +35,7 @@ struct ProfileView: View {
                             Text(": \(calculationViewModel.sex.rawValue)").padding(.leading,90).bold()
                         }.padding(.top,3)
                             .padding(.horizontal, 50)
-                    }.padding()
+                    }.padding(EdgeInsets(top: 20, leading: 0, bottom: 20, trailing: 0))
                         .background(Color("bg_yellow"))
                         .cornerRadius(29)
                     Spacer()

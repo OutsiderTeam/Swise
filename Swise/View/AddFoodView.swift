@@ -36,52 +36,57 @@ struct AddFoodView: View {
                 ZStack{
                     CustomNavBarContainerView(isSearch: true){
                         if text == "" {
-                            VStack {
-                                VStack(alignment: .leading){
-                                    Text("Your history food")
-                                        .font(.headline)
-                                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
-                                    if historyFoods.count > 0 {
-                                        List{
-                                            ForEach(0..<(historyFoods.count <= 5 ? historyFoods.count : 5), id: \.self) { i in
-                                                HStack{
-                                                    Text("\(historyFoods[i].foodName!)")
-                                                    Spacer()
-                                                    Image(systemName: "chevron.right")
-                                                }
-                                                .onTapGesture {
-                                                    viewModel.getFood(id: Int(historyFoods[i].foodId!)!)
-                                                    isPresented = true
-                                                }
-                                                .padding()
-                                                .listRowBackground(Color("bg_yellow")
-                                                .cornerRadius(10)
-                                                .padding(3))
-                                            }.listRowSeparator(.hidden)
-                                        }.scrollContentBackground(.hidden)
-                                    } else {
-                                        VStack {
-                                            EmptyListView(background: false)
-                                        }.frame(height: UIScreen.main.bounds.height / 2, alignment: .center)
-                                    }
-                                }
-                                Button(
-                                    action: {
-                                        foodManual = true
-                                    }){
-                                        HStack{
-                                            Image(systemName: "plus.circle")
-                                            Text("Add your food manually")
-                                                .font(.headline)
-                                                .fontWeight(.semibold)
+                            ZStack {
+                                VStack {
+                                    VStack(alignment: .leading){
+                                        Text("Your history food")
+                                            .font(.headline)
+                                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
+                                        if historyFoods.count > 0 {
+                                            List{
+                                                ForEach(0..<(historyFoods.count <= 5 ? historyFoods.count : 5), id: \.self) { i in
+                                                    HStack{
+                                                        Text("\(historyFoods[i].foodName!)")
+                                                        Spacer()
+                                                        Image(systemName: "chevron.right")
+                                                    }
+                                                    .onTapGesture {
+                                                        viewModel.getFood(id: Int(historyFoods[i].foodId!)!)
+                                                        isPresented = true
+                                                    }
+                                                    .padding()
+                                                    .listRowBackground(Color("bg_yellow")
+                                                    .cornerRadius(10)
+                                                    .padding(3))
+                                                }.listRowSeparator(.hidden)
+                                            }.scrollContentBackground(.hidden)
+                                        } else {
+                                            VStack {
+                                                EmptyListView(background: false)
+                                            }
+                                            .frame(maxHeight: .infinity)
+                                            .frame(alignment: .center)
                                         }
-                                        .foregroundColor(.white)
-                                        .frame(width: 358, height: 50)
-                                        .background(Color("button_color"))
-                                        .cornerRadius(11)
-                                        
-                                    }.padding(.bottom, 20)
-                            }.frame(maxHeight: .infinity)
+                                    }
+                                    Button(
+                                        action: {
+                                            foodManual = true
+                                        }){
+                                            HStack{
+                                                Image(systemName: "plus.circle")
+                                                Text("Add your food manually")
+                                                    .font(.headline)
+                                                    .fontWeight(.semibold)
+                                            }
+                                            .foregroundColor(.white)
+                                            .frame(width: 358, height: 50)
+                                            .background(Color("button_color"))
+                                            .cornerRadius(11)
+                                            
+                                        }.padding(.bottom, 20)
+                                }
+                                .frame(maxHeight: .infinity)
+                            }
                         } else {
                             ZStack{
                                 Color.white
@@ -111,13 +116,16 @@ struct AddFoodView: View {
                         
                     }
                     VStack{
-                        CustomSearchView(text: $text).position(x:190, y: 30)
+                        CustomSearchView(text: $text).frame(alignment: .top)
                     }
+                    .padding(.top, 20)
+                    .frame(maxHeight: .infinity, alignment: .top)
                 }
                 
                 
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Add Food")
         .navigationDestination(isPresented: $isPresented) {
             FoodInformationView(maxSugar: $maxSugar, totalSugar: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalSugar ?? 0, totalCalories: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalCalories ?? 0, calNeed: calNeed)

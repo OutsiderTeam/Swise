@@ -97,6 +97,7 @@ struct FoodInformationView: View {
             }
             
         }
+        .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("New Food")
     }
 }
