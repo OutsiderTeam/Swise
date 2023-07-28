@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct FoodInformationView: View {
-    @State private var foodName: String = "Plain Cheeseburger"
-    @State private var sugarAdded: String = "12 gr"
-    @State private var calories: String = "202 kcal"
-    @State private var servingName: String = "1 Portion"
-    
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var viewModel: FoodViewModel
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
-
+    
     @Binding var maxSugar: Int
     @State var selectedIndex: Int = -1
     @State var calorieIntake: Double = 0
@@ -28,24 +24,27 @@ struct FoodInformationView: View {
     
     var body: some View {
         NavigationView {
-            VStack{
-                // Form for details of the new food
-                if !viewModel.isLoading {
-                    Form {
-                        Section{
-                            Text("\(viewModel.food.foodName)").font(.title2).bold()
-                            HStack{
-                                Text("Servings")
-                                if !viewModel.food.servings.serving!.isEmpty {
-                                    Picker("Serving", selection: $selectedIndex) {
-                                        ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
-                                            Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
-                                                .bold().padding(.leading,108)
+            CustomNavBarContainerView(isSearch: false) {
+                
+                
+                VStack{
+                    // Form for details of the new food
+                    if !viewModel.isLoading {
+                        Form {
+                            Section{
+                                Text("\(viewModel.food.foodName)").font(.title2).bold()
+                                HStack{
+                                    Text("Servings")
+                                    if !viewModel.food.servings.serving!.isEmpty {
+                                        Picker("Serving", selection: $selectedIndex) {
+                                            ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
+                                                Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
+                                                    .bold().padding(.leading,108)
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            
+                                
                                 HStack{
                                     Text("Added Sugar")
                                     if selectedServing.sugar != "" && selectedServing.addedSugars != nil {
@@ -54,40 +53,42 @@ struct FoodInformationView: View {
                                         Text(": 0 ").bold().padding(.leading,75)
                                     }
                                 }
-                            
-                            
+                                
+                                
                                 HStack{
                                     Text("Amount Calories")
                                     if selectedServing.calories != "" && selectedServing.calories != nil {
-                                    Text(": \(selectedServing.calories!)").bold().padding(.leading,48)
+                                        Text(": \(selectedServing.calories!)").bold().padding(.leading,48)
                                     }else{
                                         Text(": ").bold().padding(.leading,48)
                                     }
-                            }
-                        }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
-                        
-                        
-                    }.padding(-20)
-                        .background(Color("bg_blue"))
-                        .frame(width: 350, height: 202)
-                        .cornerRadius(29)
-                        .scrollContentBackground(.hidden)
-                    Spacer()
-                }
-                // Button for take an action to add new food
-                Button(
-                    action: {
-                        addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
-                    }){
-                        HStack{
-                            Text("Done")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                        }.foregroundColor(.white).frame(width: 261, height: 48).background(Color("button_color")).cornerRadius(11)
-                        
-                    }.padding()
+                                }
+                            }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                            
+                            
+                        }.padding(-20)
+                            .background(Color("bg_blue"))
+                            .frame(width: 350, height: 202)
+                            .cornerRadius(29)
+                            .scrollContentBackground(.hidden)
+                        Spacer()
+                    }
+                    // Button for take an action to add new food
+                    Button(
+                        action: {
+                            addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+                            presentationMode.wrappedValue.dismiss()
+                        }){
+                            HStack{
+                                Text("Done")
+                                    .font(.headline)
+                                    .fontWeight(.semibold)
+                            }.foregroundColor(.white).frame(width: 261, height: 48).background(Color("button_color")).cornerRadius(11)
+                            
+                        }.padding()
+                }.padding()
             }
             .onChange(of: selectedIndex) { newValue in
                 selectedServing = viewModel.food.servings.serving![selectedIndex]

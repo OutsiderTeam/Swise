@@ -27,7 +27,7 @@ struct TabNavView: View {
                 
                 // Third Tab
                 
-                Text("Second Tab")
+                ProfileView()
                     .tabItem {
                         Image(systemName: "person.fill")
                         Text("Profile")

@@ -13,7 +13,6 @@ struct AddFoodView: View {
     @State var text: String = ""
     @State var foodManual: Bool = false
     @State var isPresented: Bool = false
-    var isSearch: Bool = true
     @State private var isEditing = false
     @State private var statusBar = UIStatusBarStyle.lightContent
     @FetchRequest(
@@ -27,61 +26,8 @@ struct AddFoodView: View {
             
             VStack{
                 ZStack{
-                    CustomNavBarContainerView(isSearch: isSearch){
+                    CustomNavBarContainerView(isSearch: true){
                         if text == "" {
-                            VStack(alignment: .leading){
-                                Text("Your search history").font(.headline)
-                                HStack{
-                                    ZStack{
-                                        Text("Roti")
-                                    }.frame(width: 81, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                        .padding(.bottom, 9)
-                                    ZStack{
-                                        Text("Roti")
-                                    }.frame(width: 81, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                        .padding(.bottom, 9)
-                                    ZStack{
-                                        Text("Roti")
-                                    }.frame(width: 81, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                    ZStack{
-                                        Text("Roti")
-                                    }.frame(width: 81, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                }
-                                HStack{
-                                    ZStack{
-                                        Text("Roti")
-                                    }.frame(width: 81, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                        .padding(.bottom, 9)
-                                    ZStack{
-                                        Text("Roti")
-                                    }.frame(width: 81, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                        .padding(.bottom, 9)
-                                    ZStack{
-                                        Text("Roti")
-                                    }.frame(width: 81, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                    ZStack{
-                                        Text("Roti")
-                                    }.frame(width: 81, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                }
-                                
-                            }.padding(.horizontal, 16)
-                            
                             VStack(alignment: .leading){
                                 Text("Your recent search").font(.headline)
                                 VStack{
@@ -119,7 +65,7 @@ struct AddFoodView: View {
                                             .fontWeight(.semibold)
                                     }.foregroundColor(.white).frame(width: 358, height: 50).background(Color("button_color")).cornerRadius(11)
                                     
-                                }.padding()
+                                }
                         } else {
                             ZStack{
                                 Color.white
@@ -136,7 +82,7 @@ struct AddFoodView: View {
                                             }
                                             .padding()
                                             .frame(width: 361, height: 47)
-                                            .listRowBackground(Color("bg_yellow").cornerRadius(20).padding(3))
+                                            .listRowBackground(Color("bg_yellow").cornerRadius(10).padding(3))
                                         }
                                         .listRowSeparator(.hidden)
                                     }

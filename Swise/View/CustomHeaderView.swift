@@ -41,13 +41,13 @@ extension UINavigationController{
 
         self.navigationController?.navigationBar.prefersLargeTitles = false
 //        self.navigationController?.navigationBar.barTintColor = .black
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+        self.navigationController?.navigationBar.tintColor = .black
 //        self.navigationController?.navigationBar.layer.cornerRadius = 30
 //        self.navigationController?.navigationBar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
 //        self.navigationController?.navigationBar.clipsToBounds = true
 //
 //        self.navigationController?.navigationBar.isTranslucent = false
-//        self.navigationController?.navigationBar.isOpaque = true
+        self.navigationController?.navigationBar.isOpaque = true
 //        let app = UINavigationBarAppearance()
 //        app.backgroundColor = UIColor(Color("bg_blue"))
 //        app.backgroundImage = UIImage()
