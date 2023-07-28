@@ -27,19 +27,20 @@ struct FoodInformationView: View {
             CustomNavBarContainerView(isSearch: false) {
                 
                 
-                VStack{
+                VStack(){
                     // Form for details of the new food
                     if !viewModel.isLoading {
-                        Form {
-                            Section{
-                                Text("\(viewModel.food.foodName)").font(.title2).bold()
+                        VStack(alignment: .leading){
+                            Text("\(viewModel.food.foodName)").font(.title2).bold()
+                            VStack(alignment: .leading){
                                 HStack{
                                     Text("Servings")
+                                    Spacer()
                                     if !viewModel.food.servings.serving!.isEmpty {
                                         Picker("Serving", selection: $selectedIndex) {
                                             ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
                                                 Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
-                                                    .bold().padding(.leading,108)
+                                                    .bold()
                                             }
                                         }
                                     }
@@ -48,31 +49,27 @@ struct FoodInformationView: View {
                                 HStack{
                                     Text("Added Sugar")
                                     if selectedServing.sugar != "" && selectedServing.addedSugars != nil {
-                                        Text(": \(selectedServing.sugar!) ").bold().padding(.leading,75)
+                                        Text(": \(selectedServing.sugar!) ").bold().padding(.leading,98)
                                     } else {
-                                        Text(": 0 ").bold().padding(.leading,75)
+                                        Text(": 0 ").bold().padding(.leading, 98)
                                     }
-                                }
+                                }.padding(.top,1)
+                                
                                 
                                 
                                 HStack{
                                     Text("Amount Calories")
                                     if selectedServing.calories != "" && selectedServing.calories != nil {
-                                        Text(": \(selectedServing.calories!)").bold().padding(.leading,48)
+                                        Text(": \(selectedServing.calories!)").bold().padding(.leading,71)
                                     }else{
-                                        Text(": ").bold().padding(.leading,48)
+                                        Text(": ").bold().padding(.leading,71)
                                     }
-                                }
-                            }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .listRowBackground(Color("bg_blue"))
-                                .listRowSeparator(.hidden)
-                            
-                            
-                        }.padding(-20)
-//                            .background(Color("bg_blue"))
-                            .frame(width: 350)
-//                            .cornerRadius(29)
-                            .scrollContentBackground(.hidden)
+                                }.padding(.top,1)
+                            }.padding(.top)
+                        }.padding()
+                            .background(Color("bg_blue"))
+                            .cornerRadius(29)
+                        
                         Spacer()
                     }
                     // Button for take an action to add new food
@@ -89,6 +86,7 @@ struct FoodInformationView: View {
                             
                         }.padding()
                 }.padding()
+                    
             }
             .onChange(of: selectedIndex) { newValue in
                 selectedServing = viewModel.food.servings.serving![selectedIndex]
