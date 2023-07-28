@@ -187,8 +187,6 @@
 				5AED3C202A70629C001A03FB /* AddNewFoodView.swift */,
 				5AED3C222A706440001A03FB /* FoodInformationView.swift */,
 				88AF47D42A7195D400D9CAC2 /* InformationView.swift */,
-				5A0F9CB32A72826E009A4D3D /* CustomSearchView.swift */,
-				5A0F9CB52A72828D009A4D3D /* CustomNavBarContainerView.swift */,
 				5A0F9CB72A738132009A4D3D /* ProfileView.swift */,
 			);
 			path = View;
@@ -264,6 +262,8 @@
 				88AF47CC2A6FCB8C00D9CAC2 /* ProgressBarView.swift */,
 				88AF47CE2A704A3600D9CAC2 /* EmptyListView.swift */,
 				8842AA982A6835E4001E703E /* ListContentView.swift */,
+				5A0F9CB32A72826E009A4D3D /* CustomSearchView.swift */,
+				5A0F9CB52A72828D009A4D3D /* CustomNavBarContainerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

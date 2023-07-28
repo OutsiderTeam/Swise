@@ -12,6 +12,7 @@ struct AddFoodView: View {
     @Binding var maxSugar: Int
     @State var text: String = ""
     @State var foodManual: Bool = false
+    @State var isDetailed: Bool = false
     @State var isPresented: Bool = false
     @State private var isEditing = false
     @State private var statusBar = UIStatusBarStyle.lightContent
@@ -20,6 +21,7 @@ struct AddFoodView: View {
         animation: .default)
     private var items: FetchedResults<DataItem>
     var calNeed: Double = 0
+    @State var data: [EatenFoods] = []
     
     var body: some View {
         NavigationView {
@@ -29,30 +31,26 @@ struct AddFoodView: View {
                     CustomNavBarContainerView(isSearch: true){
                         if text == "" {
                             VStack(alignment: .leading){
-                                Text("Your recent search").font(.headline)
-                                VStack{
-                                    ZStack{
-                                        HStack{
-                                            Text("Roti").padding(.trailing, 240)
-                                            Image(systemName: "chevron.right")
-                                        }
-                                    }.frame(width: 361, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                        .padding(.bottom, 9)
-                                    ZStack{
-                                        HStack{
-                                            Text("Roti").padding(.trailing, 240)
-                                            Image(systemName: "chevron.right")
-                                        }
-                                    }.frame(width: 361, height: 47)
-                                        .background(Color("bg_yellow"))
-                                        .cornerRadius(15)
-                                        .padding(.bottom, 9)
-                                }
-                                
-                            }.padding(.horizontal, 16)
-                            Spacer()
+                                Text("Your recent search").font(.headline).padding()
+                                    if data.count > 0 {
+                                        List{
+                                            ForEach(0..<(data.count <= 5 ? data.count : 5), id: \.self) { i in
+                                                
+                                                HStack{
+                                                    Text("\(data[i].foodName!)")
+                                                    Spacer()
+                                                    Image(systemName: "chevron.right")
+                                                }
+                                                .padding()
+                                                .listRowBackground(Color("bg_yellow").cornerRadius(10).padding(3))
+                                            }.listRowSeparator(.hidden)
+                                        }.scrollContentBackground(.hidden)
+                                            .frame(maxHeight: .infinity)
+                                    } else {
+                                        EmptyListView()
+                                    }
+                            }
+                            
                             
                             Button(
                                 action: {
@@ -98,8 +96,7 @@ struct AddFoodView: View {
                         
                     }
                     VStack{
-                        CustomSearchView(text: $text)
-                        Spacer()
+                        CustomSearchView(text: $text).position(x:190, y: 30)
                     }
                 }
                 
@@ -108,16 +105,16 @@ struct AddFoodView: View {
         }
             .navigationTitle("Add Food")
             
-//            .searchable(text: $text, placement: .navigationBarDrawer(displayMode: .always))
             .navigationDestination(isPresented: $foodManual, destination: {
                 AddNewFoodView(maxSugar: $maxSugar, totalSugar: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalSugar ?? 0, totalCalories: items.isEmpty ? 0 : items.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first?.totalCalories ?? 0, calNeed: calNeed)
             })
             .onChange(of: text, perform: { newValue in
+                
                 viewModel.searchFood(query: text)
             })
-//            .onSubmit(of: .search) {
-//                viewModel.searchFood(query: text)
-//            }
+            .onAppear{
+                data = items.first?.eatenFoodsArray ?? []
+            }
         
     }
 }
