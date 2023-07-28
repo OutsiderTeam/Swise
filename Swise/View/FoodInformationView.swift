@@ -64,14 +64,14 @@ struct FoodInformationView: View {
                                     }
                                 }
                             }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .listRowBackground(Color.clear)
+                                .listRowBackground(Color("bg_blue"))
                                 .listRowSeparator(.hidden)
                             
                             
                         }.padding(-20)
-                            .background(Color("bg_blue"))
-                            .frame(width: 350, height: 202)
-                            .cornerRadius(29)
+//                            .background(Color("bg_blue"))
+                            .frame(width: 350)
+//                            .cornerRadius(29)
                             .scrollContentBackground(.hidden)
                         Spacer()
                     }
