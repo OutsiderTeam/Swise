@@ -79,10 +79,6 @@ struct OnBoardingPageView: View {
             }
             .onChange(of: scenePhase) { newScenePhase in
                 if newScenePhase == .inactive || newScenePhase == .active {
-                    // Perform your auto-refresh action here
-                    // For example, update the data or fetch new data
-                    // After updating the data, you can also reset the scenePhase to avoid multiple refreshes
-                    // Example:
                     if lastScreen == "Health Checker"{
                         calculationViewModel.healthRequest()
                     }
