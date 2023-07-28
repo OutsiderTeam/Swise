@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A0F9CB42A72826E009A4D3D /* CustomSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F9CB32A72826E009A4D3D /* CustomSearchView.swift */; };
+		5A0F9CB62A72828D009A4D3D /* CustomNavBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F9CB52A72828D009A4D3D /* CustomNavBarContainerView.swift */; };
+		5A0F9CB82A738132009A4D3D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F9CB72A738132009A4D3D /* ProfileView.swift */; };
 		5A7AE89D2A659D290047F739 /* DataCalculationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */; };
 		5AE7754B2A6E89A3003F6325 /* AppEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7754A2A6E89A3003F6325 /* AppEnums.swift */; };
+		5AED3C1F2A7059E9001A03FB /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AED3C1E2A7059E9001A03FB /* CustomHeaderView.swift */; };
 		5AED3C212A70629C001A03FB /* AddNewFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AED3C202A70629C001A03FB /* AddNewFoodView.swift */; };
 		5AED3C232A706440001A03FB /* FoodInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AED3C222A706440001A03FB /* FoodInformationView.swift */; };
 		5AED3C252A711086001A03FB /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AED3C242A711086001A03FB /* OnBoardingView.swift */; };
@@ -58,9 +62,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A0F9CB32A72826E009A4D3D /* CustomSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchView.swift; sourceTree = "<group>"; };
+		5A0F9CB52A72828D009A4D3D /* CustomNavBarContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavBarContainerView.swift; sourceTree = "<group>"; };
+		5A0F9CB72A738132009A4D3D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		5A7AE8992A657E9E0047F739 /* Swise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swise.entitlements; sourceTree = "<group>"; };
 		5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCalculationViewModel.swift; sourceTree = "<group>"; };
 		5AE7754A2A6E89A3003F6325 /* AppEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnums.swift; sourceTree = "<group>"; };
+		5AED3C1E2A7059E9001A03FB /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		5AED3C202A70629C001A03FB /* AddNewFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFoodView.swift; sourceTree = "<group>"; };
 		5AED3C222A706440001A03FB /* FoodInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodInformationView.swift; sourceTree = "<group>"; };
 		5AED3C242A711086001A03FB /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
@@ -168,6 +176,7 @@
 		8829A0112A6029EF00C1A8BA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5AED3C1E2A7059E9001A03FB /* CustomHeaderView.swift */,
 				8829A0002A6029AA00C1A8BA /* ContentView.swift */,
 				8842AA832A64D815001E703E /* DetailFoodView.swift */,
 				B31F7B5D2A65413F00F0B507 /* SummaryView.swift */,
@@ -180,6 +189,7 @@
 				5AED3C202A70629C001A03FB /* AddNewFoodView.swift */,
 				5AED3C222A706440001A03FB /* FoodInformationView.swift */,
 				88AF47D42A7195D400D9CAC2 /* InformationView.swift */,
+				5A0F9CB72A738132009A4D3D /* ProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -254,6 +264,8 @@
 				88AF47CC2A6FCB8C00D9CAC2 /* ProgressBarView.swift */,
 				88AF47CE2A704A3600D9CAC2 /* EmptyListView.swift */,
 				8842AA982A6835E4001E703E /* ListContentView.swift */,
+				5A0F9CB32A72826E009A4D3D /* CustomSearchView.swift */,
+				5A0F9CB52A72828D009A4D3D /* CustomNavBarContainerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -335,12 +347,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7AE89D2A659D290047F739 /* DataCalculationViewModel.swift in Sources */,
+				5A0F9CB42A72826E009A4D3D /* CustomSearchView.swift in Sources */,
+				5AED3C1F2A7059E9001A03FB /* CustomHeaderView.swift in Sources */,
 				8829A0242A602D9200C1A8BA /* CharacterSet+Utils.swift in Sources */,
 				8829A0162A602A7200C1A8BA /* Food.swift in Sources */,
 				88AF47CB2A6FBF9100D9CAC2 /* FoodItemView.swift in Sources */,
 				8842AA842A64D815001E703E /* DetailFoodView.swift in Sources */,
 				881D8C012A69407C002D59DC /* WeekStore.swift in Sources */,
 				8829A0082A6029AB00C1A8BA /* Persistence.swift in Sources */,
+				5A0F9CB62A72828D009A4D3D /* CustomNavBarContainerView.swift in Sources */,
 				8842AA822A64D7A3001E703E /* FoodHelper.swift in Sources */,
 				8829A00B2A6029AB00C1A8BA /* Swise.xcdatamodeld in Sources */,
 				881D8C032A6940BC002D59DC /* HistoryView.swift in Sources */,
@@ -357,6 +372,7 @@
 				881D8BFF2A694056002D59DC /* WeekValue.swift in Sources */,
 				88AF47CF2A704A3600D9CAC2 /* EmptyListView.swift in Sources */,
 				8829A0012A6029AA00C1A8BA /* ContentView.swift in Sources */,
+				5A0F9CB82A738132009A4D3D /* ProfileView.swift in Sources */,
 				8829A0182A602AEF00C1A8BA /* FoodViewModel.swift in Sources */,
 				88299FFF2A6029AA00C1A8BA /* SwiseApp.swift in Sources */,
 				88AF47D52A7195D400D9CAC2 /* InformationView.swift in Sources */,
@@ -526,7 +542,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.agfiddprsty.Outsider.Swise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -565,7 +581,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.agfiddprsty.Outsider.Swise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
