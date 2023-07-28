@@ -31,34 +31,35 @@ struct CustomHeaderView: View {
         Rectangle()
         .cornerRadius(29, corners: [.bottomLeft, .bottomRight])
             .frame(maxWidth: .infinity, maxHeight: 150)
-            .foregroundColor(Color("bg_blue"))
-            .ignoresSafeArea()
+            .foregroundColor(Color("bg_blue")).edgesIgnoringSafeArea(.top)
     }
 }
 
-//extension UINavigationController{
-//    open override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        self.navigationController?.navigationBar.prefersLargeTitles = false
+extension UINavigationController{
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+//        self.navigationController?.navigationBar.barTintColor = .black
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
 //        self.navigationController?.navigationBar.layer.cornerRadius = 30
 //        self.navigationController?.navigationBar.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
 //        self.navigationController?.navigationBar.clipsToBounds = true
 //
-////        self.navigationController?.navigationBar.isTranslucent = false
+//        self.navigationController?.navigationBar.isTranslucent = false
 //        self.navigationController?.navigationBar.isOpaque = true
 //        let app = UINavigationBarAppearance()
 //        app.backgroundColor = UIColor(Color("bg_blue"))
 //        app.backgroundImage = UIImage()
-//
+
 //        self.navigationController?.navigationBar.standardAppearance = app
 //        self.navigationController?.navigationBar.compactAppearance = app
 //        self.navigationController?.navigationBar.scrollEdgeAppearance = app
-//    }
-//
-//
-//
-//}
+    }
+
+
+
+}
 
 //struct CustomNavigationBarShape: Shape {
 //    var cornerRadius: CGFloat
