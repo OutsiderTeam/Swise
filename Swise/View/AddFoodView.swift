@@ -60,10 +60,11 @@ struct AddFoodView: View {
                                             }.listRowSeparator(.hidden)
                                         }.scrollContentBackground(.hidden)
                                     } else {
-                                        EmptyListView()
+                                        VStack {
+                                            EmptyListView(background: false)
+                                        }.frame(height: UIScreen.main.bounds.height / 2, alignment: .center)
                                     }
                                 }
-                                
                                 Button(
                                     action: {
                                         foodManual = true
