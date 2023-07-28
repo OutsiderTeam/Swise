@@ -16,7 +16,7 @@ struct OnBoardingView: View {
     @State var onBoardingItem = [
         OnBoarding(title: "Keep your sugar and calories on track!", description: "Start the healthy life style with  managing your sugar intake! ", icon: "confused_sugar"),
         OnBoarding(title: "Simple!", description: "Just input your meal, and we will calculate it for you!", icon: "smily_sugar"),
-        OnBoarding(title: "Keep track of your calorie count", description: "Maintain your ideal calorie intake based on your needs using your BMI.", icon: "kcal_icon")
+        OnBoarding(title: "Keep track of your calorie count", description: "Maintain your ideal calorie intake based on your needs using your BMI.", icon: "bowl")
     ]
     
     var body: some View {
@@ -24,7 +24,7 @@ struct OnBoardingView: View {
             if showHome{
                 ExcerciseLevelView()
             }else{
-                OnBoardingPageView(title: "Fill your health data", subtitle: "Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.", icon: "kcal_icon", selectedIndex: $selectedTab, showHome: $showHome)
+                OnBoardingPageView(title: "Fill your health data", subtitle: "Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.", icon: "bowl", selectedIndex: $selectedTab, showHome: $showHome)
             }
         } else {
             TabView(selection: $selectedTab) {
