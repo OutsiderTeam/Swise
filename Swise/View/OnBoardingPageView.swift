@@ -12,9 +12,11 @@ struct OnBoardingPageView: View {
     var title: String
     var subtitle: String
     var icon: String
+    @State private var showAlert = false
     @Binding var selectedIndex: Int
     @Binding var showHome: Bool
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
+    @Environment(\.scenePhase) var scenePhase
     
     @AppStorage("lastScreen") var lastScreen: String = ""
     
@@ -39,9 +41,13 @@ struct OnBoardingPageView: View {
                         .multilineTextAlignment(.center)
                     Button {
                         if lastScreen == "Health Checker"{
+                            
                         } else {
                             if selectedIndex == 2 {
                                 calculationViewModel.healthRequest()
+                                if calculationViewModel.showAlert{
+                                    showAlert = true
+                                }
                             } else {
                                 selectedIndex += 1
                             }
@@ -54,7 +60,7 @@ struct OnBoardingPageView: View {
                             .cornerRadius(11)
                             .padding(.top,158)
                     }.padding(.bottom, 50)
-                        .alert("Fill your health data", isPresented: $calculationViewModel.showAlert) {
+                        .alert("Fill your health data", isPresented: $showAlert) {
                             
                         } message: {
                             Text("Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.")
@@ -64,9 +70,28 @@ struct OnBoardingPageView: View {
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     
             }
+            .onAppear{
+                showAlert = calculationViewModel.showAlert
+            }
             .onChange(of: calculationViewModel.allFilled) { newValue in
                 if newValue == true {
                     showHome = true
+                }
+            }
+            .onChange(of: scenePhase) { newScenePhase in
+                if newScenePhase == .inactive || newScenePhase == .active {
+                    // Perform your auto-refresh action here
+                    // For example, update the data or fetch new data
+                    // After updating the data, you can also reset the scenePhase to avoid multiple refreshes
+                    // Example:
+                    if lastScreen == "Health Checker"{
+                        calculationViewModel.healthRequest()
+                        if calculationViewModel.showAlert{
+                            showAlert = true
+                        }else{
+                            showAlert = false
+                        }
+                    }
                 }
             }
             
