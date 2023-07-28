@@ -13,14 +13,16 @@ struct SwiseApp: App {
     @StateObject private var dataCalculation = DataCalculationViewModel()
     @AppStorage("lastScreen") var lastScreen: String = ""
 
+    
     var body: some Scene {
         WindowGroup {
             if lastScreen == "Main Screen"{
                 TabNavView()
+                    .preferredColorScheme(.light)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .environmentObject(dataCalculation)
             }else{
-                OnBoardingView().environmentObject(dataCalculation)
+                OnBoardingView().environmentObject(dataCalculation).preferredColorScheme(.light)
             }
             
         }
