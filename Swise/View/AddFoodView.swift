@@ -43,23 +43,26 @@ struct AddFoodView: View {
                                             .font(.headline)
                                             .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
                                         if historyFoods.count > 0 {
-                                            List{
+                                            ScrollView(showsIndicators: false){
                                                 ForEach(0..<(historyFoods.count <= 5 ? historyFoods.count : 5), id: \.self) { i in
                                                     HStack{
                                                         Text("\(historyFoods[i].foodName!)")
                                                         Spacer()
                                                         Image(systemName: "chevron.right")
                                                     }
+                                                    .padding(20)
+                                                    .background(Color("bg_yellow"))
+                                                    .cornerRadius(10)
                                                     .onTapGesture {
                                                         viewModel.getFood(id: Int(historyFoods[i].foodId!)!)
                                                         isPresented = true
                                                     }
-                                                    .padding()
-                                                    .listRowBackground(Color("bg_yellow")
-                                                    .cornerRadius(10)
-                                                    .padding(3))
-                                                }.listRowSeparator(.hidden)
-                                            }.scrollContentBackground(.hidden)
+
+                                                }
+                                            }
+                                            .padding(.horizontal, 20)
+                                            .frame(alignment: .top)
+                                            .frame(maxHeight: .infinity)
                                         } else {
                                             VStack {
                                                 EmptyListView(background: false)
@@ -92,26 +95,31 @@ struct AddFoodView: View {
                         } else {
                             ZStack{
                                 Color.white
-                                if !viewModel.resultSearch.isEmpty {
-                                    List {
+                                if viewModel.isLoading {
+                                    VStack {
+                                        Text("Loading Bro")
+                                    }.frame(maxHeight: .infinity)
+                                } else if !viewModel.resultSearch.isEmpty {
+                                    ScrollView(showsIndicators: false) {
                                         ForEach(viewModel.resultSearch, id: \.foodId) { food in
                                             HStack{
                                                 Text(food.foodName)
                                                 Spacer()
                                                 Image(systemName: "chevron.right")
-                                            }.onTapGesture {
+                                            }
+                                            .padding(20)
+                                            .background(Color("bg_yellow")
+                                            .cornerRadius(10)
+                                            .padding(3))
+                                            .onTapGesture {
                                                 viewModel.getFood(id: Int(food.foodId)!)
                                                 isPresented = true
                                             }
-                                            .padding()
-                                            .frame(width: 361, height: 47)
-                                            .listRowBackground(Color("bg_yellow").cornerRadius(10).padding(3))
                                         }
-                                        .listRowSeparator(.hidden)
                                     }
-                                    
-                                    
-                                    .scrollContentBackground(.hidden)
+                                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+                                    .frame(alignment: .top)
+                                    .frame(maxHeight: .infinity)
                                 }
                             }
                         }

@@ -17,7 +17,7 @@ struct HistoryView: View {
     @State var eatenFoods: [EatenFoods] = []
     
     @FetchRequest(
-        sortDescriptors: [],
+        sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)],
         animation: .default)
     private var items: FetchedResults<DataItem>
     var isFoodDiary = false
