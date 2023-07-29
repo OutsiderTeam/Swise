@@ -41,9 +41,9 @@ struct FoodInformationView: View {
                                         Picker("Serving", selection: $selectedIndex) {
                                             ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
                                                 Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
-                                                    .bold()
                                             }
-                                        }
+                                        }.accentColor(.blue)
+                                        
                                     }
                                 }
                                 
@@ -66,10 +66,12 @@ struct FoodInformationView: View {
                                         Text(": ").bold().padding(.leading,71)
                                     }
                                 }.padding(.top,1)
-                            }.padding(.top)
+                            }
                         }.padding()
-                            .background(Color("bg_blue"))
+                            .padding(.vertical, 10)
+                            .background(Color("bg_yellow"))
                             .cornerRadius(29)
+                            .padding(30)
                         
                         Spacer()
                     }
@@ -88,7 +90,7 @@ struct FoodInformationView: View {
                         .shadow(color: .black.opacity(0.25), radius: 2, x: 1, y: 1)
                         .padding()
                 }.padding()
-                    
+                
             }
             .alert(isPresented: $isSuccess) {
                 Alert(title: Text("Success"), message: Text("Success add food to eaten food"), dismissButton: .default(Text("OK"), action: {
