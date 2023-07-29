@@ -31,7 +31,7 @@ struct FoodInformationView: View {
                 
                 VStack(){
                     // Form for details of the new food
-                    VStack {
+//                    if !viewModel.isLoading {
                         VStack(alignment: .leading){
                             Text("\(viewModel.food.foodName)").font(.title2).bold()
                             VStack(alignment: .leading){
@@ -42,9 +42,9 @@ struct FoodInformationView: View {
                                         Picker("Serving", selection: $selectedIndex) {
                                             ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
                                                 Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
-                                                    .bold()
                                             }
-                                        }
+                                        }.accentColor(.blue)
+                                        
                                     }
                                 }
                                 
@@ -68,6 +68,7 @@ struct FoodInformationView: View {
                             }.padding(.top)
                         }
                         .padding()
+                        .padding(.vertical, 10)
                         .background(Color("bg_blue"))
                         .cornerRadius(29)
                         .skeleton(with: viewModel.isLoading, size: CGSize(width: UIScreen.main.bounds.width-40, height: 200))
@@ -78,6 +79,7 @@ struct FoodInformationView: View {
 
                         
                         Spacer()
+//                    }
                     // Button for take an action to add new food
                     Button(
                         action: {
@@ -93,7 +95,7 @@ struct FoodInformationView: View {
                         .shadow(color: .black.opacity(0.25), radius: 2, x: 1, y: 1)
                         .padding()
                 }.padding()
-                    
+                
             }
             .alert(isPresented: $isSuccess) {
                 Alert(title: Text("Success"), message: Text("Success add food to eaten food"), dismissButton: .default(Text("OK"), action: {
