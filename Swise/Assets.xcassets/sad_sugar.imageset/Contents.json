@@ -1,11 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "Character_red 1.png",
+      "filename" : "Character_red 2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Character_red 4.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

@@ -83,7 +83,9 @@ struct AddFoodView: View {
                                             .background(Color("button_color"))
                                             .cornerRadius(11)
                                             
-                                        }.padding(.bottom, 20)
+                                        }
+                                        .shadow(color: .black.opacity(0.25), radius: 2, x: 1, y: 1)
+                                        .padding(.bottom, 20)
                                 }
                                 .frame(maxHeight: .infinity)
                             }
@@ -118,7 +120,7 @@ struct AddFoodView: View {
                     VStack{
                         CustomSearchView(text: $text).frame(alignment: .top)
                     }
-                    .padding(.top, 20)
+                    .padding(.top, 15)
                     .frame(maxHeight: .infinity, alignment: .top)
                 }
                 

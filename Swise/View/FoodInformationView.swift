@@ -82,9 +82,11 @@ struct FoodInformationView: View {
                                 Text("Done")
                                     .font(.headline)
                                     .fontWeight(.semibold)
-                            }.foregroundColor(.white).frame(width: 261, height: 48).background(Color("button_color")).cornerRadius(11)
+                            }.foregroundColor(.white).frame(width: UIScreen.main.bounds.width-40, height: 48).background(Color("button_color")).cornerRadius(11)
                             
-                        }.padding()
+                        }
+                        .shadow(color: .black.opacity(0.25), radius: 2, x: 1, y: 1)
+                        .padding()
                 }.padding()
                     
             }
