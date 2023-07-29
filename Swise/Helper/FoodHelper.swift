@@ -13,7 +13,7 @@ let viewContext = PersistenceController.shared.container.viewContext
 //  This Function used for add Eaten Food to Core Data    //
 //********************************************************//
 
-func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalories: Double, sugarCondition: Double) -> Bool {
+func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalories: Double, sugarCondition: Double) -> String {
     let i = index >= 0 ? index : 0
     if index >= 0 {
         let historyFood = HistoryFoods(context: viewContext)
@@ -66,13 +66,12 @@ func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalorie
     newItem.servingFood?.vitaminD = food.servings.serving?[i].vitaminD
     do {
         try viewContext.save()
-        return true
+        return "Success add food to eaten food"
     } catch {
         // Replace this implementation with code to handle the error appropriately.
         // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         let nsError = error as NSError
-        print("Unresolved error \(nsError), \(nsError.userInfo)")
-        return false
+        return "Unresolved error \(nsError), \(nsError.userInfo)"
     }
     
 }

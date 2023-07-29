@@ -24,8 +24,9 @@ struct AddNewFoodView: View {
     @State var sugarIntake: Double = 0
     @State var sugarCondition: Double = 3
     @State var isPresented: Bool = false
+    @State var message: String = ""
     @State var isError: Bool = false
-    @State var isSuccess: Bool = false
+    @State var status: Bool = false
     var totalSugar: Double = 0
     var totalCalories: Double = 0
     var calNeed: Double = 0
@@ -111,7 +112,8 @@ struct AddNewFoodView: View {
                                 serving.calories = calories
                                 serving.servingDescription = servingName
                                 food.servings.serving?.append(serving)
-                                isSuccess = addEatenFood(food: food, index: -1, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+                                message = addEatenFood(food: food, index: -1, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+                                status = true
                             }
                         }){
                             HStack{
@@ -128,9 +130,11 @@ struct AddNewFoodView: View {
                         .shadow(color: .black.opacity(0.25), radius: 2, x: 1, y: 1)
                         .padding()
                 }
-                .alert(isPresented: $isSuccess) {
-                    Alert(title: Text("Success"), message: Text("Success add food to eaten food"), dismissButton: .default(Text("OK"), action: {
-                        presentationMode.wrappedValue.dismiss()
+                .alert(isPresented: $status) {
+                    Alert(title: Text(message == "Success add food to eaten food" ? "Success" : "Error"), message: Text(message), dismissButton: .default(Text("OK"), action: {
+                        if message == "Success add food to eaten food" {
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     }))
                 }
 
