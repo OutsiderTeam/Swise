@@ -25,6 +25,7 @@ struct AddNewFoodView: View {
     @State var sugarCondition: Double = 3
     @State var isPresented: Bool = false
     @State var isError: Bool = false
+    @State var isSuccess: Bool = false
     var totalSugar: Double = 0
     var totalCalories: Double = 0
     var calNeed: Double = 0
@@ -32,7 +33,7 @@ struct AddNewFoodView: View {
     var body: some View {
         NavigationView {
             CustomNavBarContainerView(isSearch: false) {
-                VStack{
+                VStack(alignment: .leading){
                     if isError {
                         VStack {
                             HStack {
@@ -46,24 +47,40 @@ struct AddNewFoodView: View {
                     // Form for details of the new food
                     Form {
                         Section{
-                            HStack{
-                                Text("Food Name")
-                                TextField("Value",text: $foodName).padding(.leading,112)
+                            HStack(alignment: .top){
+                                HStack {
+                                    Text("Food Name")
+                                    Spacer()
+                                }.frame(width: (UIScreen.main.bounds.width-40)/2).frame(alignment: .leading)
+                                TextField("Food name",text: $foodName)
                             }.listRowBackground(Color("bg_yellow").padding(.bottom,3))
                             Group {
                                 HStack{
-                                    Text("Sugar Added (g)")
-                                    TextField("Value",text: $sugarAdded).padding(.leading,74)
+                                    HStack {
+                                        Text("Added Sugar")
+                                        Spacer()
+                                    }.frame(width: (UIScreen.main.bounds.width-40)/2).frame(alignment: .leading)
+                                    TextField("0",text: $sugarAdded).keyboardType(.numberPad)
+//                                    Spacer()
+                                    Text("grams")
                                 }
                                 
                                 HStack{
-                                    Text("Amount Calories (kcal)").padding(.trailing,-21)
-                                    TextField("Value",text: $calories).padding(.leading,48)
+                                    HStack {
+                                        Text("Amount Calories")
+                                        Spacer()
+                                    }.frame(width: (UIScreen.main.bounds.width-40)/2).frame(alignment: .leading)
+                                    TextField("0",text: $calories).keyboardType(.numberPad)
+                                    Text("kcal")
                                 }
                             }.listRowBackground(Color("bg_yellow").padding(.vertical,3))
-                            HStack{
-                                Text("Serving Size")
-                                TextField("Value",text: $servingName).padding(.leading,112)
+                                HStack{
+                                    HStack {
+                                    Text("Serving Size")
+                                    Spacer()
+                                }.frame(width: (UIScreen.main.bounds.width-40)/2).frame(alignment: .leading)
+
+                                TextField("1 bowl",text: $servingName)
                             }.listRowBackground(Color("bg_yellow").padding(.top,3))
                         }
                         .listRowSeparator(.hidden)
@@ -94,24 +111,30 @@ struct AddNewFoodView: View {
                                 serving.calories = calories
                                 serving.servingDescription = servingName
                                 food.servings.serving?.append(serving)
-                                addEatenFood(food: food, index: -1, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    presentationMode.wrappedValue.dismiss()
-                                }
+                                isSuccess = addEatenFood(food: food, index: -1, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
                             }
                         }){
                             HStack{
                                 Text("Add food")
                                     .font(.headline)
                                     .fontWeight(.semibold)
-                            }.foregroundColor(.white).frame(width: 261, height: 48).background(Color("button_color")).cornerRadius(11)
+                            }
+                            .foregroundColor(.white)
+                            .frame(width: UIScreen.main.bounds.width-40, height: 50)
+                            .background(Color("button_color"))
+                            .cornerRadius(11)
                             
-                        }.padding()
+                        }
+                        .shadow(color: .black.opacity(0.25), radius: 2, x: 1, y: 1)
+                        .padding()
                 }
+                .alert(isPresented: $isSuccess) {
+                    Alert(title: Text("Success"), message: Text("Success add food to eaten food"), dismissButton: .default(Text("OK"), action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }))
+                }
+
             }
-            
-            
-            
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Add New Food")

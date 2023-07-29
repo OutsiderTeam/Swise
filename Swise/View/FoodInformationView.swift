@@ -17,6 +17,7 @@ struct FoodInformationView: View {
     @State var calorieIntake: Double = 0
     @State var sugarIntake: Double = 0
     @State var sugarCondition: Double = 3
+    @State var isSuccess: Bool = false
     @State var selectedServing: Serving = Serving(calcium: "", calories: "", carbohydrate: "", cholesterol: "", fat: "", fiber: "", iron: "", measurementDescription: "", metricServingAmount: "", metricServingUnit: "", monounsaturatedFat: "", numberOfUnits: "", polyunsaturatedFat: "", potassium: "", protein: "", saturatedFat: "", servingDescription: "", servingId: "", servingUrl: "", sodium: "", sugar: "", addedSugars: "", vitaminA: "", vitaminC: "", vitaminD: "", transFat: "")
     var totalSugar: Double = 0
     var totalCalories: Double = 0
@@ -75,18 +76,24 @@ struct FoodInformationView: View {
                     // Button for take an action to add new food
                     Button(
                         action: {
-                            addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
-                            presentationMode.wrappedValue.dismiss()
+                            isSuccess = addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
                         }){
                             HStack{
                                 Text("Done")
                                     .font(.headline)
                                     .fontWeight(.semibold)
-                            }.foregroundColor(.white).frame(width: 261, height: 48).background(Color("button_color")).cornerRadius(11)
+                            }.foregroundColor(.white).frame(width: UIScreen.main.bounds.width-40, height: 48).background(Color("button_color")).cornerRadius(11)
                             
-                        }.padding()
+                        }
+                        .shadow(color: .black.opacity(0.25), radius: 2, x: 1, y: 1)
+                        .padding()
                 }.padding()
                     
+            }
+            .alert(isPresented: $isSuccess) {
+                Alert(title: Text("Success"), message: Text("Success add food to eaten food"), dismissButton: .default(Text("OK"), action: {
+                    presentationMode.wrappedValue.dismiss()
+                }))
             }
             .onChange(of: selectedIndex) { newValue in
                 selectedServing = viewModel.food.servings.serving![selectedIndex]
