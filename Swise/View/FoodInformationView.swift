@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SkeletonUI
 
 struct FoodInformationView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -30,7 +31,7 @@ struct FoodInformationView: View {
                 
                 VStack(){
                     // Form for details of the new food
-                    if !viewModel.isLoading {
+                    VStack {
                         VStack(alignment: .leading){
                             Text("\(viewModel.food.foodName)").font(.title2).bold()
                             VStack(alignment: .leading){
@@ -56,8 +57,6 @@ struct FoodInformationView: View {
                                     }
                                 }.padding(.top,1)
                                 
-                                
-                                
                                 HStack{
                                     Text("Amount Calories")
                                     if selectedServing.calories != "" && selectedServing.calories != nil {
@@ -67,12 +66,18 @@ struct FoodInformationView: View {
                                     }
                                 }.padding(.top,1)
                             }.padding(.top)
-                        }.padding()
-                            .background(Color("bg_blue"))
-                            .cornerRadius(29)
+                        }
+                        .padding()
+                        .background(Color("bg_blue"))
+                        .cornerRadius(29)
+                        .skeleton(with: viewModel.isLoading, size: CGSize(width: UIScreen.main.bounds.width-40, height: 200))
+                        .shape(type: .rounded(.radius(20, style: .circular)))
+                        .animation(type: .linear())
+
+                    }.padding(.horizontal, 20)
+
                         
                         Spacer()
-                    }
                     // Button for take an action to add new food
                     Button(
                         action: {
