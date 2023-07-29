@@ -30,7 +30,7 @@ struct FoodInformationView: View {
                 
                 VStack(){
                     // Form for details of the new food
-                    if !viewModel.isLoading {
+//                    if !viewModel.isLoading {
                         VStack(alignment: .leading){
                             Text("\(viewModel.food.foodName)").font(.title2).bold()
                             VStack(alignment: .leading){
@@ -74,7 +74,7 @@ struct FoodInformationView: View {
                             .padding(30)
                         
                         Spacer()
-                    }
+//                    }
                     // Button for take an action to add new food
                     Button(
                         action: {
