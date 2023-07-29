@@ -73,8 +73,8 @@ struct FoodInformationView: View {
                             }.padding(.top,1)
                         }.padding(.top)
                     }
-                    .padding()
-                    .padding(.vertical, 10)
+                    .frame(width: UIScreen.main.bounds.width-40)
+                    .padding(.vertical, 20)
                     .background(Color("bg_blue"))
                     .cornerRadius(29)
                     .skeleton(with: viewModel.isLoading, size: CGSize(width: UIScreen.main.bounds.width-40, height: 200))

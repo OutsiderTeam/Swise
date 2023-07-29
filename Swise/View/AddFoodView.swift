@@ -121,16 +121,20 @@ struct AddFoodView: View {
                                     .frame(maxHeight: .infinity)
                                 if viewModel.isEmpty {
                                     VStack {
-                                        Text("Empty")
-                                    }.frame(maxHeight: .infinity)
+                                        Image("empty_bowl")
+                                        Text("Nothing to see here").font(.body)
+                                    }
+                                    .padding(EdgeInsets(top: 5, leading: 20, bottom: 18, trailing: 20))
+                                    .frame(width: UIScreen.main.bounds.width-40)
+                                    .background(Color.clear)
+                                    .cornerRadius(29)
                                 }
-
-                                }
+                            }
                         }
                         
                     }
                     VStack{
-                        CustomSearchView(text: $text).frame(alignment: .top)
+                        CustomSearchView(text: $text, placeholder: "Search for a food").frame(alignment: .top)
                     }
                     .padding(.top, 15)
                     .frame(maxHeight: .infinity, alignment: .top)

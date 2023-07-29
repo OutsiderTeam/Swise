@@ -13,10 +13,11 @@ struct CustomSearchView: View {
     @Binding var text: String
     @State private var isEditing = false
     @FocusState var isFocused: Bool
+    var placeholder: String = "Search...."
     
     var body: some View {
         HStack{
-            TextField("Search....", text: $text)
+            TextField(placeholder, text: $text)
                 .focused($isFocused)
                 .padding(7)
                 .padding(.horizontal, 25)
