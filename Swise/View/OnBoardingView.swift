@@ -20,11 +20,11 @@ struct OnBoardingView: View {
     ]
     
     var body: some View {
-        if lastScreen == "Health Checker" || showHome{
-            if showHome{
+        if lastScreen == "Health Checker" || lastScreen == "Excercise"{
+            if lastScreen == "Excercise"{
                 ExcerciseLevelView()
             }else{
-                OnBoardingPageView(title: "Fill your health data", subtitle: "Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.", icon: "bowl", selectedIndex: $selectedTab, showHome: $showHome)
+                NoFilledHealthView()
             }
         } else {
             TabView(selection: $selectedTab) {

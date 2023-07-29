@@ -11,6 +11,7 @@
 		5A0F9CB62A72828D009A4D3D /* CustomNavBarContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F9CB52A72828D009A4D3D /* CustomNavBarContainerView.swift */; };
 		5A0F9CB82A738132009A4D3D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0F9CB72A738132009A4D3D /* ProfileView.swift */; };
 		5A7AE89D2A659D290047F739 /* DataCalculationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */; };
+		5AC278882A756E3000C484AD /* NoFilledHealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC278872A756E3000C484AD /* NoFilledHealthView.swift */; };
 		5AE7754B2A6E89A3003F6325 /* AppEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE7754A2A6E89A3003F6325 /* AppEnums.swift */; };
 		5AED3C1F2A7059E9001A03FB /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AED3C1E2A7059E9001A03FB /* CustomHeaderView.swift */; };
 		5AED3C212A70629C001A03FB /* AddNewFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AED3C202A70629C001A03FB /* AddNewFoodView.swift */; };
@@ -69,6 +70,7 @@
 		5A0F9CB72A738132009A4D3D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		5A7AE8992A657E9E0047F739 /* Swise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Swise.entitlements; sourceTree = "<group>"; };
 		5A7AE89C2A659D290047F739 /* DataCalculationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCalculationViewModel.swift; sourceTree = "<group>"; };
+		5AC278872A756E3000C484AD /* NoFilledHealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoFilledHealthView.swift; sourceTree = "<group>"; };
 		5AE7754A2A6E89A3003F6325 /* AppEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnums.swift; sourceTree = "<group>"; };
 		5AED3C1E2A7059E9001A03FB /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		5AED3C202A70629C001A03FB /* AddNewFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFoodView.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				5AED3C222A706440001A03FB /* FoodInformationView.swift */,
 				88AF47D42A7195D400D9CAC2 /* InformationView.swift */,
 				5A0F9CB72A738132009A4D3D /* ProfileView.swift */,
+				5AC278872A756E3000C484AD /* NoFilledHealthView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				88299FFF2A6029AA00C1A8BA /* SwiseApp.swift in Sources */,
 				88AF47D52A7195D400D9CAC2 /* InformationView.swift in Sources */,
 				8829A01A2A602B1800C1A8BA /* FoodService.swift in Sources */,
+				5AC278882A756E3000C484AD /* NoFilledHealthView.swift in Sources */,
 				88AF47CD2A6FCB8C00D9CAC2 /* ProgressBarView.swift in Sources */,
 				8829A02A2A602E0400C1A8BA /* FoodParams.swift in Sources */,
 				88AF47D92A72834600D9CAC2 /* HealthKitManager.swift in Sources */,

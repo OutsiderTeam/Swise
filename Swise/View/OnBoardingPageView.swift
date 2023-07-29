@@ -40,18 +40,14 @@ struct OnBoardingPageView: View {
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                     Button {
-                        if lastScreen == "Health Checker"{
-                            
-                        } else {
                             if selectedIndex == 2 {
                                 calculationViewModel.healthRequest()
                                 if !calculationViewModel.allFilled{
-                                    showAlert = true
+                                    lastScreen = "Health Checker"
                                 }
                             } else {
                                 selectedIndex += 1
                             }
-                        }
                     } label: {
                         Image(systemName: "arrow.right")
                             .font(.largeTitle).foregroundColor(.white)
@@ -60,11 +56,6 @@ struct OnBoardingPageView: View {
                             .cornerRadius(11)
                             .padding(.top,158)
                     }.padding(.bottom, 50)
-                        .alert("Fill your health data", isPresented: $showAlert) {
-                            
-                        } message: {
-                            Text("Please fill your health data in settings. Health data is for determine your ideal calorie intake based on your BMI.")
-                        }
 
                 }.padding(.horizontal,15)
                     .frame(maxHeight: .infinity, alignment: .bottom)
@@ -72,16 +63,9 @@ struct OnBoardingPageView: View {
             }
             .onChange(of: calculationViewModel.allFilled) { newValue in
                 if newValue == true {
-                    showHome = true
-                } else{
-                    showAlert = true
-                }
-            }
-            .onChange(of: scenePhase) { newScenePhase in
-                if newScenePhase == .inactive || newScenePhase == .active {
-                    if lastScreen == "Health Checker"{
-                        calculationViewModel.healthRequest()
-                    }
+                    lastScreen = "Excercise"
+                } else {
+                    lastScreen = "Health Checker"
                 }
             }
             
