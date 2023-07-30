@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SkeletonUI
 
 struct AddFoodView: View {
     @EnvironmentObject var viewModel: FoodViewModel
@@ -95,11 +96,6 @@ struct AddFoodView: View {
                         } else {
                             ZStack{
                                 Color.white
-                                if viewModel.isLoading {
-                                    VStack {
-                                        Text("Loading Bro")
-                                    }.frame(maxHeight: .infinity)
-                                } else if !viewModel.resultSearch.isEmpty {
                                     ScrollView(showsIndicators: false) {
                                         ForEach(viewModel.resultSearch, id: \.foodId) { food in
                                             HStack{
@@ -111,6 +107,9 @@ struct AddFoodView: View {
                                             .background(Color("bg_yellow")
                                             .cornerRadius(10)
                                             .padding(3))
+                                            .skeleton(with: viewModel.isLoading, size: CGSize(width: UIScreen.main.bounds.width-40, height: 50))
+                                            .shape(type: .rounded(.radius(5, style: .circular)))
+                                            .animation(type: .linear())
                                             .onTapGesture {
                                                 viewModel.getFood(id: Int(food.foodId)!)
                                                 isPresented = true
@@ -120,13 +119,22 @@ struct AddFoodView: View {
                                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
                                     .frame(alignment: .top)
                                     .frame(maxHeight: .infinity)
+                                if viewModel.isEmpty {
+                                    VStack {
+                                        Image("empty_bowl")
+                                        Text("Nothing to see here").font(.body)
+                                    }
+                                    .padding(EdgeInsets(top: 5, leading: 20, bottom: 18, trailing: 20))
+                                    .frame(width: UIScreen.main.bounds.width-40)
+                                    .background(Color.clear)
+                                    .cornerRadius(29)
                                 }
                             }
                         }
                         
                     }
                     VStack{
-                        CustomSearchView(text: $text).frame(alignment: .top)
+                        CustomSearchView(text: $text, placeholder: "Search for a food").frame(alignment: .top)
                     }
                     .padding(.top, 15)
                     .frame(maxHeight: .infinity, alignment: .top)

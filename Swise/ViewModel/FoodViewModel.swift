@@ -10,6 +10,7 @@ import Foundation
 class FoodViewModel: ObservableObject {
     private let foodService: FoodService
     @Published var isLoading: Bool = false
+    @Published var isEmpty: Bool = false
     @Published var foods: [Food] = []
     @Published var food: FoodDetail = FoodDetail(brandName: "", foodId: "", foodName: "", foodType: "", foodUrl: "", servings: Servings(serving: []))
     @Published var resultSearch: [Food] = []
@@ -46,11 +47,15 @@ class FoodViewModel: ObservableObject {
         let group = DispatchGroup()
         let queue = DispatchQueue.global(qos: .background)
         isLoading = true
+        isEmpty = false
         queue.async(group: group) {
             group.enter()
             self.foodService.searchFood(query: query) { response in
                 DispatchQueue.main.async {
                     self.resultSearch = response.foods.food ?? []
+                    if response.foods.food == nil || response.foods.food!.isEmpty == true {
+                        self.isEmpty = true
+                    }
                 }
                 group.leave()
             } errorHandler: { error in

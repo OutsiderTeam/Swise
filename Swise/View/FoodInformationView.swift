@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SkeletonUI
 
 struct FoodInformationView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -17,7 +18,8 @@ struct FoodInformationView: View {
     @State var calorieIntake: Double = 0
     @State var sugarIntake: Double = 0
     @State var sugarCondition: Double = 3
-    @State var isSuccess: Bool = false
+    @State var status: Bool = false
+    @State var message: String = ""
     @State var selectedServing: Serving = Serving(calcium: "", calories: "", carbohydrate: "", cholesterol: "", fat: "", fiber: "", iron: "", measurementDescription: "", metricServingAmount: "", metricServingUnit: "", monounsaturatedFat: "", numberOfUnits: "", polyunsaturatedFat: "", potassium: "", protein: "", saturatedFat: "", servingDescription: "", servingId: "", servingUrl: "", sodium: "", sugar: "", addedSugars: "", vitaminA: "", vitaminC: "", vitaminD: "", transFat: "")
     var totalSugar: Double = 0
     var totalCalories: Double = 0
@@ -26,84 +28,95 @@ struct FoodInformationView: View {
     var body: some View {
         NavigationView {
             CustomNavBarContainerView(isSearch: false) {
-                
-                
                 VStack(){
                     // Form for details of the new food
-//                    if !viewModel.isLoading {
+                    VStack(alignment: .leading){
+                        Text("\(viewModel.food.foodName)").font(.title2).bold()
                         VStack(alignment: .leading){
-                            Text("\(viewModel.food.foodName)").font(.title2).bold()
-                            VStack(alignment: .leading){
-                                HStack{
+                            HStack{
+                                HStack {
                                     Text("Servings")
                                     Spacer()
-                                    if !viewModel.food.servings.serving!.isEmpty {
-                                        Picker("Serving", selection: $selectedIndex) {
-                                            ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
-                                                Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
-                                            }
-                                        }.accentColor(.blue)
-                                        
-                                    }
+                                }.frame(width: UIScreen.main.bounds.width*0.35)
+                                if !viewModel.food.servings.serving!.isEmpty {
+                                    Picker("Serving", selection: $selectedIndex) {
+                                        ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
+                                            Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
+                                        }
+                                    }.accentColor(.blue)
+                                    
                                 }
-                                
-                                HStack{
-                                    Text("Added Sugar")
-                                    if selectedServing.sugar != "" && selectedServing.addedSugars != nil {
-                                        Text(": \(selectedServing.sugar!) ").bold().padding(.leading,98)
-                                    } else {
-                                        Text(": 0 ").bold().padding(.leading, 98)
-                                    }
-                                }.padding(.top,1)
-                                
-                                
-                                
-                                HStack{
-                                    Text("Amount Calories")
-                                    if selectedServing.calories != "" && selectedServing.calories != nil {
-                                        Text(": \(selectedServing.calories!)").bold().padding(.leading,71)
-                                    }else{
-                                        Text(": ").bold().padding(.leading,71)
-                                    }
-                                }.padding(.top,1)
                             }
-                        }.padding()
-                            .padding(.vertical, 10)
-                            .background(Color("bg_yellow"))
-                            .cornerRadius(29)
-                            .padding(30)
-                        
-                        Spacer()
-//                    }
-                    // Button for take an action to add new food
-                    Button(
-                        action: {
-                            isSuccess = addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
-                        }){
-                            HStack{
-                                Text("Done")
-                                    .font(.headline)
-                                    .fontWeight(.semibold)
-                            }.foregroundColor(.white).frame(width: UIScreen.main.bounds.width-40, height: 48).background(Color("button_color")).cornerRadius(11)
                             
-                        }
-                        .shadow(color: .black.opacity(0.25), radius: 2, x: 1, y: 1)
-                        .padding()
-                }.padding()
-                
+                            HStack{
+                                HStack {
+                                    Text("Added Sugar")
+                                    Spacer()
+                                }.frame(width: UIScreen.main.bounds.width*0.35)
+                                if selectedServing.sugar != "" && selectedServing.addedSugars != nil {
+                                    Text(": \(selectedServing.sugar!) gr").bold()
+                                } else {
+                                    Text(": 0 gr").bold()
+                                }
+                            }.padding(.top,1)
+                            
+                            HStack{
+                                HStack {
+                                    Text("Amount Calories")
+                                    Spacer()
+                                }.frame(width: UIScreen.main.bounds.width*0.35)
+                                if selectedServing.calories != "" && selectedServing.calories != nil {
+                                    Text(": \(selectedServing.calories!) kcal").bold()
+                                }else{
+                                    Text(": 0 kcal").bold()
+                                }
+                            }.padding(.top,1)
+                        }.padding(.top)
+                    }
+                    .frame(width: UIScreen.main.bounds.width-40)
+                    .padding(.vertical, 20)
+                    .background(Color("bg_blue"))
+                    .cornerRadius(29)
+                    .skeleton(with: viewModel.isLoading, size: CGSize(width: UIScreen.main.bounds.width-40, height: 200))
+                    .shape(type: .rounded(.radius(20, style: .circular)))
+                    .animation(type: .linear())
+                    
+                }.padding(.horizontal, 20)
+                // Button for take an action to add new food
+                ZStack {
+                    VStack {
+                        Spacer()
+                        Button(
+                            action: {
+                                message = addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+                                status = true
+                            }){
+                                HStack{
+                                    Text("Done")
+                                        .font(.headline)
+                                        .fontWeight(.semibold)
+                                }.foregroundColor(.white).frame(width: UIScreen.main.bounds.width-40, height: 48).background(Color("button_color")).cornerRadius(11)
+                                
+                            }
+                            .shadow(color: .black.opacity(0.25), radius: 2, x: 1, y: 1)
+                            .padding()
+                    }
+                }
             }
-            .alert(isPresented: $isSuccess) {
-                Alert(title: Text("Success"), message: Text("Success add food to eaten food"), dismissButton: .default(Text("OK"), action: {
+        }
+        .alert(isPresented: $status) {
+            Alert(title: Text(message == "Success add food to eaten food" ? "Success" : "Error"), message: Text(message), dismissButton: .default(Text("OK"), action: {
+                if message == "Success add food to eaten food" {
                     presentationMode.wrappedValue.dismiss()
-                }))
-            }
-            .onChange(of: selectedIndex) { newValue in
-                selectedServing = viewModel.food.servings.serving![selectedIndex]
-                calorieIntake = totalCalories + (Double(viewModel.food.servings.serving![selectedIndex].calories ?? "0") ?? 0)
-                sugarIntake = totalSugar + (Double(viewModel.food.servings.serving![selectedIndex].sugar ?? "0") ?? 0)
-                maxSugar = calorieIntake < calNeed ? calculationViewModel.calculateMaxSugar(calorie: calorieIntake) : 50
-                sugarCondition = sugarIntake < Double(maxSugar) * 0.5 || (maxSugar == 0 && sugarIntake == 0) ? 0 : sugarIntake < Double(maxSugar) * 0.75 ? 1 : 2
-            }
+                }
+            }))
+        }
+        .onChange(of: selectedIndex) { newValue in
+            selectedServing = viewModel.food.servings.serving![selectedIndex]
+            calorieIntake = totalCalories + (Double(viewModel.food.servings.serving![selectedIndex].calories ?? "0") ?? 0)
+            sugarIntake = totalSugar + (Double(viewModel.food.servings.serving![selectedIndex].sugar ?? "0") ?? 0)
+            maxSugar = calorieIntake < calNeed ? calculationViewModel.calculateMaxSugar(calorie: calorieIntake) : 50
+            sugarCondition = sugarIntake < Double(maxSugar) * 0.5 || (maxSugar == 0 && sugarIntake == 0) ? 0 : sugarIntake < Double(maxSugar) * 0.75 ? 1 : 2
             
         }
         .navigationBarTitleDisplayMode(.inline)

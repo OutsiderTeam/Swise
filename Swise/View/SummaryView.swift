@@ -170,7 +170,7 @@ struct SummaryView: View {
                                         .frame(width: 169, height: 186)
                                         .background(Color("bg_yellow"))
                                         .cornerRadius(29)
-                                    }.shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
+                                    }.shadow(color: .black.opacity(0.25), radius: 3, x: 1, y: 0)
                                 }
                             }
                         }
