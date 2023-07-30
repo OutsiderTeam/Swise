@@ -47,12 +47,12 @@ struct SummaryView: View {
                                         Text("\(items.first?.totalSugar ?? 0, specifier: "%.f") gr / \(maxSugar) gr").font(.title3).bold()
                                         Text("sugar").font(.title3)
                                     }
-                                    Text("Or equal to \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: items.first?.totalCalories ?? 0)) teaspoon.").font(.body)
+                                    Text("Or equal to \(calculationViewModel.calculateTeaSpoonOfSugar(sugar: items.first?.totalSugar ?? 0)) teaspoon.").font(.body)
                                     HStack {
                                         Image("spoon")
                                             .resizable()
                                             .frame(width: 46, height: 28)
-                                        Text("x \(calculationViewModel.calculateTeaSpoonOfSugar(calorie: items.first?.totalCalories ?? 0))")
+                                        Text("x \(calculationViewModel.calculateTeaSpoonOfSugar(sugar: items.first?.totalSugar ?? 0))")
                                     }
                                 }
                                 Spacer()
