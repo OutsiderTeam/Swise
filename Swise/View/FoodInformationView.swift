@@ -75,7 +75,7 @@ struct FoodInformationView: View {
                     }
                     .padding(20)
                     .frame(maxWidth: UIScreen.main.bounds.width-40)
-                    .background(Color("bg_blue"))
+                    .background(Color("bg_yellow"))
                     .cornerRadius(29)
                     .skeleton(with: viewModel.isLoading, size: CGSize(width: UIScreen.main.bounds.width-40, height: 200))
                     .shape(type: .rounded(.radius(20, style: .circular)))
