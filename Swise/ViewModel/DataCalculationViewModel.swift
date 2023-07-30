@@ -19,7 +19,7 @@ class DataCalculationViewModel: ObservableObject{
     private var healthKitManager = HealthKitManager()
     private var healthStore = HKHealthStore()
     // variable for retrieve user's exercise info
-    @Published var activityIntensity: Activity = .no
+    @AppStorage("activityIntensity") var activityIntensity: Activity = .no
     @Published var height: Double = 0
     @Published var weight: Double = 0
     @Published var age: Double = 0

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExcerciseLevelView: View {
-    @State private var activityIntensity: Activity = .no
+    @AppStorage("activityIntensity") var activityIntensity: Activity = .no
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
     @State private var selectedActivity = 0
     @State var isPresented: Bool = false
@@ -50,7 +50,7 @@ struct ExcerciseLevelView: View {
                 )
             }
             Button {
-                calculationViewModel.activityIntensity = activityIntens[selectedActivity].activity
+                activityIntensity = activityIntens[selectedActivity].activity
                 lastScreen = "Main Screen"
                 isPresented = true
             } label: {
