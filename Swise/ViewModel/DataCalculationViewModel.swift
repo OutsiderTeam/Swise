@@ -28,9 +28,9 @@ class DataCalculationViewModel: ObservableObject{
     @Published var showAlert: Bool = false
     
     // Every 1 tea spoon sugar = 5 gram sugar
-    let gramTeaSpoon: Double = 5
+    let gramTeaSpoon: Double = 4
     // Every 1 tea spoon sugar = 16 kkal
-    let caloryTeaSpoon: Double = 17
+    let caloryTeaSpoon: Double = 16
     
     func healthRequest() {
         allFilled = false
@@ -215,12 +215,12 @@ class DataCalculationViewModel: ObservableObject{
     }
     
     // Function to calculate sugar as a tea spoon
-    func calculateTeaSpoonOfSugar(calorie:Double)->Int{
+    func calculateTeaSpoonOfSugar(sugar:Double)->Int{
         var teaSpoonSugar: Int = 0
-        if calorie == 0{
+        if sugar == 0{
             teaSpoonSugar = 0
         } else {
-            teaSpoonSugar = Int(calorie*0.1/caloryTeaSpoon)
+            teaSpoonSugar = Int(sugar/gramTeaSpoon)
         }
         return teaSpoonSugar
         
