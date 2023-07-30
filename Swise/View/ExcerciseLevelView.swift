@@ -11,7 +11,7 @@ struct ExcerciseLevelView: View {
     @AppStorage("activityIntensity") var activityIntensity: Activity = .no
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
     @State private var selectedActivity = 0
-    @State var isPresented: Bool = false
+    @Binding var isPresented: Bool
     
     @AppStorage("lastScreen") var lastScreen: String = ""
     
@@ -38,11 +38,11 @@ struct ExcerciseLevelView: View {
                     }.padding()
                         .frame(width: 333, alignment: .topLeading)
                         .foregroundColor(.black)
-                    .background(Color("bg_yellow"))
-                    .cornerRadius(11)
-                    .onTapGesture {
-                        selectedActivity = index
-                    }
+                        .background(Color("bg_yellow"))
+                        .cornerRadius(11)
+                        .onTapGesture {
+                            selectedActivity = index
+                        }
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 11)
@@ -52,7 +52,7 @@ struct ExcerciseLevelView: View {
             Button {
                 activityIntensity = activityIntens[selectedActivity].activity
                 lastScreen = "Main Screen"
-                isPresented = true
+                isPresented = true                
             } label: {
                 Image(systemName: "arrow.right")
                     .font(.largeTitle).foregroundColor(.white)
@@ -64,16 +64,11 @@ struct ExcerciseLevelView: View {
             
         }.padding(.horizontal,15)
             .frame(maxHeight: .infinity, alignment: .bottom)
-            .navigationDestination(isPresented: $isPresented) {
-                TabNavView()
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            }
-
     }
 }
 
 struct ExcerciseLevelView_Previews: PreviewProvider {
     static var previews: some View {
-        ExcerciseLevelView()
+        ExcerciseLevelView(isPresented: .constant(false))
     }
 }

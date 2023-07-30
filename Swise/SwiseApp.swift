@@ -9,18 +9,19 @@ import SwiftUI
 
 @main
 struct SwiseApp: App {
+    @AppStorage("lastScreen") var lastScreen: String = ""
     let persistenceController = PersistenceController.shared
     @StateObject private var dataCalculation = DataCalculationViewModel()
-    @AppStorage("lastScreen") var lastScreen: String = ""
+    @StateObject private var viewModel = FoodViewModel(foodService: FoodStore.shared)
 
-    
     var body: some Scene {
         WindowGroup {
 //            if lastScreen == "Main Screen"{
                 SplashscreenView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(dataCalculation)
+                .environmentObject(viewModel)
                     .preferredColorScheme(.light)
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                    .environmentObject(dataCalculation)
 //            }else{
 //                OnBoardingView().environmentObject(dataCalculation).preferredColorScheme(.light)
 //            }

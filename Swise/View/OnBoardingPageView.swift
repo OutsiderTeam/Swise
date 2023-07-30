@@ -21,7 +21,7 @@ struct OnBoardingPageView: View {
     @AppStorage("lastScreen") var lastScreen: String = ""
     
     var body: some View {
-//        NavigationStack {
+        NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 VStack(alignment: .center){
                     
@@ -40,14 +40,14 @@ struct OnBoardingPageView: View {
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                     Button {
-                            if selectedIndex == 2 {
-                                calculationViewModel.healthRequest()
-                                if !calculationViewModel.allFilled{
-                                    lastScreen = "Health Checker"
-                                }
-                            } else {
-                                selectedIndex += 1
+                        if selectedIndex == 2 {
+                            calculationViewModel.healthRequest()
+                            if !calculationViewModel.allFilled{
+                                lastScreen = "Health Checker"
                             }
+                        } else {
+                            selectedIndex += 1
+                        }
                     } label: {
                         Image(systemName: "arrow.right")
                             .font(.largeTitle).foregroundColor(.white)
@@ -56,23 +56,21 @@ struct OnBoardingPageView: View {
                             .cornerRadius(11)
                             .padding(.top,158)
                     }.padding(.bottom, 50)
-
+                    
                 }.padding(.horizontal,15)
                     .frame(maxHeight: .infinity, alignment: .bottom)
-                    
-//            }
-            .onChange(of: calculationViewModel.allFilled) { newValue in
-                if newValue == true {
-                    lastScreen = "Excercise"
-                } else {
-                    lastScreen = "Health Checker"
-                }
+                
+                    .onChange(of: calculationViewModel.allFilled) { newValue in
+                        if newValue == true {
+                            lastScreen = "Excercise"
+                        } else {
+                            lastScreen = "Health Checker"
+                        }
+                    }
             }
-            
-        }
-//            .
             .toolbar(.hidden)
             .navigationBarBackButtonHidden()
+        }
     }
 }
 

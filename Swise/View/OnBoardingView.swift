@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct OnBoardingView: View {
+    //    @EnvironmentObject var calculationViewModel: DataCalculationViewModel
+    
     @State private var selectedTab = 0
     @State private var showHome = false
+    @State var isPresented: Bool = false
     
     @AppStorage("lastScreen") var lastScreen: String = ""
-    
+    let persistenceController = PersistenceController.shared
     @State var onBoardingItem = [
         OnBoarding(title: "Keep your sugar and calories on track!", description: "Start the healthy life style with  managing your sugar intake! ", icon: "confused_sugar"),
         OnBoarding(title: "Simple!", description: "Just input your meal, and we will calculate it for you!", icon: "smily_sugar"),
@@ -20,28 +23,35 @@ struct OnBoardingView: View {
     ]
     
     var body: some View {
-        if lastScreen == "Health Checker" || lastScreen == "Excercise"{
-            if lastScreen == "Excercise"{
-                ExcerciseLevelView()
-                    .toolbar(.hidden)
-                    .navigationBarBackButtonHidden()
-            }else{
-                NoFilledHealthView()
-                    .toolbar(.hidden)
-                    .navigationBarBackButtonHidden()
-            }
-        } else {
-            TabView(selection: $selectedTab) {
-                ForEach(0..<onBoardingItem.count, id: \.self) { item in
-                    OnBoardingPageView(title: onBoardingItem[item].title, subtitle: onBoardingItem[item].description, icon: onBoardingItem[item].icon, selectedIndex: $selectedTab, showHome: $showHome)
-                        .tag(item)
+        ZStack {
+            if lastScreen == "Health Checker" || lastScreen == "Excercise"{
+                if lastScreen == "Excercise"{
+                    ExcerciseLevelView(isPresented: $isPresented)
+                        .toolbar(.hidden)
+                        .navigationBarBackButtonHidden()
+                    
+                }else{
+                    NoFilledHealthView()
+                        .toolbar(.hidden)
+                        .navigationBarBackButtonHidden()
                     
                 }
+            } else if lastScreen != "Main Screen" {
+                TabView(selection: $selectedTab) {
+                    ForEach(0..<onBoardingItem.count, id: \.self) { item in
+                        OnBoardingPageView(title: onBoardingItem[item].title, subtitle: onBoardingItem[item].description, icon: onBoardingItem[item].icon, selectedIndex: $selectedTab, showHome: $showHome)
+                            .tag(item)
+                        
+                    }
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            
-            
         }
+        .navigationDestination(isPresented: $isPresented) {
+            TabNavView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        }
+        
     }
 }
 
