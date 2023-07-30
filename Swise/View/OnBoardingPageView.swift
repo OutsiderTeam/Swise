@@ -21,7 +21,7 @@ struct OnBoardingPageView: View {
     @AppStorage("lastScreen") var lastScreen: String = ""
     
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             ZStack(alignment: .bottomTrailing) {
                 VStack(alignment: .center){
                     
@@ -60,7 +60,7 @@ struct OnBoardingPageView: View {
                 }.padding(.horizontal,15)
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     
-            }
+//            }
             .onChange(of: calculationViewModel.allFilled) { newValue in
                 if newValue == true {
                     lastScreen = "Excercise"
@@ -70,6 +70,9 @@ struct OnBoardingPageView: View {
             }
             
         }
+//            .
+            .toolbar(.hidden)
+            .navigationBarBackButtonHidden()
     }
 }
 

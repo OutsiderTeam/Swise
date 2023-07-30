@@ -66,7 +66,7 @@ func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalorie
     newItem.servingFood?.vitaminD = food.servings.serving?[i].vitaminD
     do {
         try viewContext.save()
-        return "Success add food to eaten food"
+        return "Your food sucessfully added"
     } catch {
         // Replace this implementation with code to handle the error appropriately.
         // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

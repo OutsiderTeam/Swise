@@ -9,11 +9,16 @@ import SwiftUI
 
 struct EmptyListView: View {
     var background: Bool = true
+    var titleMessage: String = "Nothing to see here,"
+    var bodyMessage: String = "You haven’t input your meal."
+    var image: String = "empty_bowl"
     var body: some View {
         VStack {
-            Image("empty_bowl")
-            Text("Nothing to see here,").font(.body)
-            Text("You haven’t input your meal.").font(.body)
+            Image(image)
+            Text(titleMessage).font(.body)
+            if bodyMessage != "" {
+                Text(bodyMessage ).font(.body)
+            }
         }
         .padding(EdgeInsets(top: 5, leading: 20, bottom: 18, trailing: 20))
         .frame(width: UIScreen.main.bounds.width-40)

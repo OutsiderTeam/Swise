@@ -66,7 +66,7 @@ struct AddFoodView: View {
                                             .frame(maxHeight: .infinity)
                                         } else {
                                             VStack {
-                                                EmptyListView(background: false)
+                                                EmptyListView(background: false, titleMessage: "Search for food or input food manually.", bodyMessage: "", image: "bowl")
                                             }
                                             .frame(maxHeight: .infinity)
                                             .frame(alignment: .center)
@@ -119,10 +119,10 @@ struct AddFoodView: View {
                                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
                                     .frame(alignment: .top)
                                     .frame(maxHeight: .infinity)
-                                if viewModel.isEmpty {
+                                if viewModel.isEmpty && viewModel.isLoading != true {
                                     VStack {
                                         Image("empty_bowl")
-                                        Text("Nothing to see here").font(.body)
+                                        Text("Sorry, the food you are looking for is not available.").font(.body)
                                     }
                                     .padding(EdgeInsets(top: 5, leading: 20, bottom: 18, trailing: 20))
                                     .frame(width: UIScreen.main.bounds.width-40)

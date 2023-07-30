@@ -131,8 +131,8 @@ struct AddNewFoodView: View {
                         .padding()
                 }
                 .alert(isPresented: $status) {
-                    Alert(title: Text(message == "Success add food to eaten food" ? "Success" : "Error"), message: Text(message), dismissButton: .default(Text("OK"), action: {
-                        if message == "Success add food to eaten food" {
+                    Alert(title: Text(message == "Your food sucessfully added" ? "Success" : "Error"), message: Text(message), dismissButton: .default(Text("OK"), action: {
+                        if message == "Your food sucessfully added" {
                             presentationMode.wrappedValue.dismiss()
                         }
                     }))

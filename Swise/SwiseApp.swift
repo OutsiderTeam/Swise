@@ -16,14 +16,14 @@ struct SwiseApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if lastScreen == "Main Screen"{
-                TabNavView()
+//            if lastScreen == "Main Screen"{
+                SplashscreenView()
                     .preferredColorScheme(.light)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .environmentObject(dataCalculation)
-            }else{
-                OnBoardingView().environmentObject(dataCalculation).preferredColorScheme(.light)
-            }
+//            }else{
+//                OnBoardingView().environmentObject(dataCalculation).preferredColorScheme(.light)
+//            }
             
         }
     }

@@ -23,8 +23,12 @@ struct OnBoardingView: View {
         if lastScreen == "Health Checker" || lastScreen == "Excercise"{
             if lastScreen == "Excercise"{
                 ExcerciseLevelView()
+                    .toolbar(.hidden)
+                    .navigationBarBackButtonHidden()
             }else{
                 NoFilledHealthView()
+                    .toolbar(.hidden)
+                    .navigationBarBackButtonHidden()
             }
         } else {
             TabView(selection: $selectedTab) {

@@ -28,60 +28,60 @@ struct FoodInformationView: View {
     var body: some View {
         NavigationView {
             CustomNavBarContainerView(isSearch: false) {
-                VStack(){
+//                VStack(){
                     // Form for details of the new food
                     VStack(alignment: .leading){
-                        Text("\(viewModel.food.foodName)").font(.title2).bold()
-                        VStack(alignment: .leading){
-                            HStack{
+                        Text("\(viewModel.food.foodName)")
+                            .font(.title2)
+                            .bold()
+                        VStack(alignment: .leading) {
+                            HStack {
                                 HStack {
                                     Text("Servings")
                                     Spacer()
-                                }.frame(width: UIScreen.main.bounds.width*0.35)
+                                }.frame(maxWidth: UIScreen.main.bounds.width*0.4)
                                 if !viewModel.food.servings.serving!.isEmpty {
                                     Picker("Serving", selection: $selectedIndex) {
                                         ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
                                             Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
                                         }
                                     }.accentColor(.blue)
-                                    
+
                                 }
                             }
-                            
-                            HStack{
+                            HStack {
                                 HStack {
                                     Text("Added Sugar")
                                     Spacer()
-                                }.frame(width: UIScreen.main.bounds.width*0.35)
+                                }.frame(maxWidth: UIScreen.main.bounds.width*0.4)
                                 if selectedServing.sugar != "" && selectedServing.addedSugars != nil {
                                     Text(": \(selectedServing.sugar!) gr").bold()
                                 } else {
                                     Text(": 0 gr").bold()
                                 }
-                            }.padding(.top,1)
-                            
-                            HStack{
+                            }
+                            HStack {
                                 HStack {
                                     Text("Amount Calories")
                                     Spacer()
-                                }.frame(width: UIScreen.main.bounds.width*0.35)
+                                }.frame(maxWidth: UIScreen.main.bounds.width*0.4)
                                 if selectedServing.calories != "" && selectedServing.calories != nil {
                                     Text(": \(selectedServing.calories!) kcal").bold()
-                                }else{
+                                } else {
                                     Text(": 0 kcal").bold()
                                 }
-                            }.padding(.top,1)
-                        }.padding(.top)
+                            }
+                        }
                     }
-                    .frame(width: UIScreen.main.bounds.width-40)
-                    .padding(.vertical, 20)
+                    .padding(20)
+                    .frame(maxWidth: UIScreen.main.bounds.width-40)
                     .background(Color("bg_blue"))
                     .cornerRadius(29)
                     .skeleton(with: viewModel.isLoading, size: CGSize(width: UIScreen.main.bounds.width-40, height: 200))
                     .shape(type: .rounded(.radius(20, style: .circular)))
                     .animation(type: .linear())
                     
-                }.padding(.horizontal, 20)
+//                }.padding(.horizontal, 20)
                 // Button for take an action to add new food
                 ZStack {
                     VStack {
@@ -105,8 +105,8 @@ struct FoodInformationView: View {
             }
         }
         .alert(isPresented: $status) {
-            Alert(title: Text(message == "Success add food to eaten food" ? "Success" : "Error"), message: Text(message), dismissButton: .default(Text("OK"), action: {
-                if message == "Success add food to eaten food" {
+            Alert(title: Text(message == "Your food sucessfully added" ? "Success" : "Error"), message: Text(message), dismissButton: .default(Text("OK"), action: {
+                if message == "Your food sucessfully added" {
                     presentationMode.wrappedValue.dismiss()
                 }
             }))
