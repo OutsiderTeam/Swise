@@ -26,9 +26,9 @@ class FoodViewModel: ObservableObject {
         isLoading = true
         queue.async(group: group) {
             group.enter()
-            self.foodService.fetchFood(id: id) { response in
+            self.foodService.fetchFood(id: id) { [weak self] response in
                 DispatchQueue.main.async {
-                    self.food = response.food
+                    self?.food = response.food
                 }
                 group.leave()
             } errorHandler: { error in
@@ -50,11 +50,11 @@ class FoodViewModel: ObservableObject {
         isEmpty = false
         queue.async(group: group) {
             group.enter()
-            self.foodService.searchFood(query: query) { response in
+            self.foodService.searchFood(query: query) { [weak self] response in
                 DispatchQueue.main.async {
-                    self.resultSearch = response.foods.food ?? []
-                    if self.resultSearch.isEmpty == true {
-                        self.isEmpty = true
+                    self?.resultSearch = response.foods.food ?? []
+                    if self?.resultSearch.isEmpty == true {
+                        self?.isEmpty = true
                     }
                 }
                 group.leave()

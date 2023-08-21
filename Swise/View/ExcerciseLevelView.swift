@@ -10,13 +10,12 @@ import SwiftUI
 struct ExcerciseLevelView: View {
     @AppStorage("activityIntensity") var activityIntensity: Activity = .no
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
+    @EnvironmentObject var persistenceController: PersistenceController
     @State private var selectedActivity = 0
     @Binding var isPresented: Bool
-    
     @AppStorage("lastScreen") var lastScreen: String = ""
     
-    
-    let persistenceController = PersistenceController.shared
+    //    let persistenceController = PersistenceController.shared
     
     @State var activityIntens = [
         ActivityDetail(activity: .no, description: "Individuals who have a very inactive lifestyle and engage in little to no structured exercise."),
@@ -52,7 +51,7 @@ struct ExcerciseLevelView: View {
             Button {
                 activityIntensity = activityIntens[selectedActivity].activity
                 lastScreen = "Main Screen"
-                isPresented = true                
+                isPresented = true
             } label: {
                 Image(systemName: "arrow.right")
                     .font(.largeTitle).foregroundColor(.white)

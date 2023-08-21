@@ -9,10 +9,11 @@ import SwiftUI
 
 struct AddNewFoodView: View {
     @Environment(\.presentationMode) var presentationMode
-
+    
     @EnvironmentObject var viewModel: FoodViewModel
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
-
+    @EnvironmentObject var persistenceController: PersistenceController
+    
     @Binding var maxSugar: Int
     @State var food: FoodDetail = FoodDetail(brandName: "", foodId: "\(UUID())", foodName: "", foodType: "manual", foodUrl: "", servings: Servings(serving: []))
     @State var serving: Serving = Serving(calcium: "", calories: "", carbohydrate: "", cholesterol: "", fat: "", fiber: "", iron: "", measurementDescription: "", metricServingAmount: "", metricServingUnit: "", monounsaturatedFat: "", numberOfUnits: "", polyunsaturatedFat: "", potassium: "", protein: "", saturatedFat: "", servingDescription: "", servingId: "", servingUrl: "", sodium: "", sugar: "", addedSugars: "", vitaminA: "", vitaminC: "", vitaminD: "", transFat: "")
@@ -30,8 +31,8 @@ struct AddNewFoodView: View {
     var totalSugar: Double = 0
     var totalCalories: Double = 0
     var calNeed: Double = 0
-    let persistenceController = PersistenceController.shared
-
+    //    let persistenceController = PersistenceController.shared
+    
     var body: some View {
         NavigationView {
             CustomNavBarContainerView(isSearch: false) {
@@ -63,7 +64,6 @@ struct AddNewFoodView: View {
                                         Spacer()
                                     }.frame(width: (UIScreen.main.bounds.width-40)/2).frame(alignment: .leading)
                                     TextField("0",text: $sugarAdded).keyboardType(.numberPad)
-//                                    Spacer()
                                     Text("grams")
                                 }
                                 
@@ -76,12 +76,12 @@ struct AddNewFoodView: View {
                                     Text("kcal")
                                 }
                             }.listRowBackground(Color("bg_yellow").padding(.vertical,3))
-                                HStack{
-                                    HStack {
+                            HStack{
+                                HStack {
                                     Text("Serving Size")
                                     Spacer()
                                 }.frame(width: (UIScreen.main.bounds.width-40)/2).frame(alignment: .leading)
-
+                                
                                 TextField("1 bowl",text: $servingName)
                             }.listRowBackground(Color("bg_yellow").padding(.top,3))
                         }
@@ -104,6 +104,9 @@ struct AddNewFoodView: View {
                                 calorieIntake = totalCalories + (Double(calories) ?? 0)
                                 maxSugar = calorieIntake < calNeed ? calculationViewModel.calculateMaxSugar(calorie: calorieIntake) : 50
                                 sugarCondition = sugarIntake < Double(maxSugar) * 0.5 || (maxSugar == 0 && sugarIntake == 0) ? 0 : sugarIntake < Double(maxSugar) * 0.75 ? 1 : 2
+                                persistenceController.totalSugar = sugarIntake
+                                persistenceController.totalCalories = calorieIntake
+                                persistenceController.sugarCondition = sugarCondition
                                 food.foodName = foodName
                                 food.brandName = ""
                                 food.foodId = ""
@@ -113,7 +116,7 @@ struct AddNewFoodView: View {
                                 serving.calories = calories
                                 serving.servingDescription = servingName
                                 food.servings.serving?.append(serving)
-                                message = persistenceController.addEatenFood(food: food, index: -1, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+                                message = PersistenceController.shared.addEatenFood(food: food, index: -1)
                                 status = true
                             }
                         }){
@@ -138,7 +141,7 @@ struct AddNewFoodView: View {
                         }
                     }))
                 }
-
+                
             }
         }
         .navigationBarTitleDisplayMode(.inline)

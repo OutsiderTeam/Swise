@@ -12,6 +12,7 @@ struct FoodInformationView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var viewModel: FoodViewModel
     @EnvironmentObject var calculationViewModel: DataCalculationViewModel
+    @EnvironmentObject var persistenceController: PersistenceController
     
     @Binding var maxSugar: Int
     @State var selectedIndex: Int = -1
@@ -24,72 +25,72 @@ struct FoodInformationView: View {
     var totalSugar: Double = 0
     var totalCalories: Double = 0
     var calNeed: Double = 0
-    let persistenceController = PersistenceController.shared
-
+    //    let persistenceController = PersistenceController.shared
+    
     var body: some View {
         NavigationView {
             CustomNavBarContainerView(isSearch: false) {
-//                VStack(){
-                    // Form for details of the new food
-                    VStack(alignment: .leading){
-                        Text("\(viewModel.food.foodName)")
-                            .font(.title2)
-                            .bold()
-                        VStack(alignment: .leading) {
+                //                VStack(){
+                // Form for details of the new food
+                VStack(alignment: .leading){
+                    Text("\(viewModel.food.foodName)")
+                        .font(.title2)
+                        .bold()
+                    VStack(alignment: .leading) {
+                        HStack {
                             HStack {
-                                HStack {
-                                    Text("Servings")
-                                    Spacer()
-                                }.frame(maxWidth: UIScreen.main.bounds.width*0.4)
-                                if !viewModel.food.servings.serving!.isEmpty {
-                                    Picker("Serving", selection: $selectedIndex) {
-                                        ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
-                                            Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
-                                        }
-                                    }.accentColor(.blue)
-
-                                }
+                                Text("Servings")
+                                Spacer()
+                            }.frame(maxWidth: UIScreen.main.bounds.width*0.4)
+                            if !viewModel.food.servings.serving!.isEmpty {
+                                Picker("Serving", selection: $selectedIndex) {
+                                    ForEach(viewModel.food.servings.serving!.indices, id: \.self) { i in
+                                        Text(" \(viewModel.food.servings.serving![i].servingDescription) ").tag(i)
+                                    }
+                                }.accentColor(.blue)
+                                
                             }
+                        }
+                        HStack {
                             HStack {
-                                HStack {
-                                    Text("Added Sugar")
-                                    Spacer()
-                                }.frame(maxWidth: UIScreen.main.bounds.width*0.4)
-                                if selectedServing.sugar != "" && selectedServing.addedSugars != nil {
-                                    Text(": \(selectedServing.sugar!) gr").bold()
-                                } else {
-                                    Text(": 0 gr").bold()
-                                }
+                                Text("Added Sugar")
+                                Spacer()
+                            }.frame(maxWidth: UIScreen.main.bounds.width*0.4)
+                            if selectedServing.sugar != "" && selectedServing.addedSugars != nil {
+                                Text(": \(selectedServing.sugar!) gr").bold()
+                            } else {
+                                Text(": 0 gr").bold()
                             }
+                        }
+                        HStack {
                             HStack {
-                                HStack {
-                                    Text("Amount Calories")
-                                    Spacer()
-                                }.frame(maxWidth: UIScreen.main.bounds.width*0.4)
-                                if selectedServing.calories != "" && selectedServing.calories != nil {
-                                    Text(": \(selectedServing.calories!) kcal").bold()
-                                } else {
-                                    Text(": 0 kcal").bold()
-                                }
+                                Text("Amount Calories")
+                                Spacer()
+                            }.frame(maxWidth: UIScreen.main.bounds.width*0.4)
+                            if selectedServing.calories != "" && selectedServing.calories != nil {
+                                Text(": \(selectedServing.calories!) kcal").bold()
+                            } else {
+                                Text(": 0 kcal").bold()
                             }
                         }
                     }
-                    .padding(20)
-                    .frame(maxWidth: UIScreen.main.bounds.width-40)
-                    .background(Color("bg_yellow"))
-                    .cornerRadius(29)
-                    .skeleton(with: viewModel.isLoading, size: CGSize(width: UIScreen.main.bounds.width-40, height: 200))
-                    .shape(type: .rounded(.radius(20, style: .circular)))
-                    .animation(type: .linear())
-                    
-//                }.padding(.horizontal, 20)
+                }
+                .padding(20)
+                .frame(maxWidth: UIScreen.main.bounds.width-40)
+                .background(Color("bg_yellow"))
+                .cornerRadius(29)
+                .skeleton(with: viewModel.isLoading, size: CGSize(width: UIScreen.main.bounds.width-40, height: 200))
+                .shape(type: .rounded(.radius(20, style: .circular)))
+                .animation(type: .linear())
+                
+                //                }.padding(.horizontal, 20)
                 // Button for take an action to add new food
                 ZStack {
                     VStack {
                         Spacer()
                         Button(
                             action: {
-                                message = persistenceController.addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+                                message = PersistenceController.shared.addEatenFood(food: viewModel.food, index: selectedIndex)
                                 status = true
                             }){
                                 HStack{
@@ -118,6 +119,9 @@ struct FoodInformationView: View {
             sugarIntake = totalSugar + (Double(viewModel.food.servings.serving![selectedIndex].sugar ?? "0") ?? 0)
             maxSugar = calorieIntake < calNeed ? calculationViewModel.calculateMaxSugar(calorie: calorieIntake) : 50
             sugarCondition = sugarIntake < Double(maxSugar) * 0.5 || (maxSugar == 0 && sugarIntake == 0) ? 0 : sugarIntake < Double(maxSugar) * 0.75 ? 1 : 2
+            persistenceController.totalSugar = sugarIntake
+            persistenceController.totalCalories = calorieIntake
+            persistenceController.sugarCondition = sugarCondition
             
         }
         .navigationBarTitleDisplayMode(.inline)

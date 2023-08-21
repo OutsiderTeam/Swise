@@ -7,7 +7,11 @@
 
 import CoreData
 
-struct PersistenceController {
+class PersistenceController: ObservableObject {
+    @Published var totalSugar: Double = 0
+    @Published var totalCalories: Double = 0
+    @Published var sugarCondition: Double = 0
+    let container: NSPersistentContainer
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {
@@ -26,41 +30,59 @@ struct PersistenceController {
         return result
     }()
 
-    let container: NSPersistentContainer
-
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Swise")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
+        container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        container.viewContext.automaticallyMergesChangesFromParent = true
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 print("Unresolved error \(error.localizedDescription), \(error.userInfo)")
             }
         })
-        container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
-        container.viewContext.automaticallyMergesChangesFromParent = true
     }
 
     func count<T>(for fetchRequest: NSFetchRequest<T>) -> Int {
         (try? container.viewContext.count(for: fetchRequest)) ?? 0
     }
     
-    //********************************************************//
-    //  This Function used for add Eaten Food to Core Data    //
-    //********************************************************//
-
-    func addEatenFood(food: FoodDetail, index: Int, totalSugar: Double, totalCalories: Double, sugarCondition: Double) -> String {
+    func save() -> String {
+        let viewContext = container.viewContext
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+                return "Your food sucessfully added"
+            } catch {
+                let nsError = error as NSError
+                return "Unresolved error \(nsError), \(nsError.userInfo)"
+            }
+        } else {
+            return "No Changed"
+        }
+    }
+        
+    /// Function Add Eaten Food to Core Data
+    /// - Parameters:
+    ///   - food: eaten food
+    ///   - index: index of serving
+    ///   - totalSugar: total sugar
+    ///   - totalCalories: total calories
+    ///   - sugarCondition: sugar condition 0 = good, 1 = warning, 2 = danger
+    /// - Returns: string message
+    func addEatenFood(food: FoodDetail, index: Int) -> String {
+        let viewContext = container.viewContext
         let i = index >= 0 ? index : 0
         if index > 0 {
-            let historyFood = HistoryFoods(context: container.viewContext)
+            let historyFood = HistoryFoods(context: viewContext)
             historyFood.foodId = food.foodId
             historyFood.brandName = food.brandName
             historyFood.foodType = food.foodType
             historyFood.foodUrl = food.foodUrl
             historyFood.foodName = food.foodName
         }
-        let newItem = EatenFoods(context: container.viewContext)
+        let newItem = EatenFoods(context: viewContext)
         newItem.time = Date().formatted(date: .omitted, time: .shortened)
         newItem.brandName = food.brandName
         newItem.foodId = food.foodId
@@ -68,13 +90,13 @@ struct PersistenceController {
         newItem.foodType = food.foodType
         newItem.foodUrl = food.foodUrl
         newItem.timestamp = Date()
-        newItem.eatenFoods = DataItem(context: container.viewContext)
+        newItem.eatenFoods = DataItem(context: viewContext)
         newItem.eatenFoods?.date = Date().formatted(date: .complete, time: .omitted)
         newItem.eatenFoods?.sugarCondition = sugarCondition
         newItem.eatenFoods?.timestamp = Date()
         newItem.eatenFoods?.totalSugar = totalSugar
         newItem.eatenFoods?.totalCalories = totalCalories
-        newItem.servingFood = ServingFood(context: container.viewContext)
+        newItem.servingFood = ServingFood(context: viewContext)
         newItem.servingFood?.addedSugars = food.servings.serving?[i].addedSugars
         newItem.servingFood?.calories = food.servings.serving?[i].calories
         newItem.servingFood?.measurementDescription = food.servings.serving?[i].measurementDescription
@@ -85,15 +107,16 @@ struct PersistenceController {
         newItem.servingFood?.servingId = food.servings.serving?[i].servingId
         newItem.servingFood?.servingUrl = food.servings.serving?[i].servingUrl
         newItem.servingFood?.sugar = food.servings.serving?[i].sugar
-        do {
-            try container.viewContext.save()
-            return "Your food sucessfully added"
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            return "Unresolved error \(nsError), \(nsError.userInfo)"
-        }
+        return save()
+//        do {
+//            try container.viewContext.save()
+//            return "Your food sucessfully added"
+//        } catch {
+//            // Replace this implementation with code to handle the error appropriately.
+//            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//            let nsError = error as NSError
+//            return "Unresolved error \(nsError), \(nsError.userInfo)"
+//        }
         
     }
 

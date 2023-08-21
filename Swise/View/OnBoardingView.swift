@@ -9,13 +9,14 @@ import SwiftUI
 
 struct OnBoardingView: View {
     //    @EnvironmentObject var calculationViewModel: DataCalculationViewModel
+    @EnvironmentObject var persistenceController: PersistenceController
     
     @State private var selectedTab = 0
     @State private var showHome = false
     @State var isPresented: Bool = false
     
     @AppStorage("lastScreen") var lastScreen: String = ""
-    let persistenceController = PersistenceController.shared
+    //    let persistenceController = PersistenceController.shared
     @State var onBoardingItem = [
         OnBoarding(title: "Keep your sugar and calories on track!", description: "Start the healthy life style with  managing your sugar intake! ", icon: "confused_sugar"),
         OnBoarding(title: "Simple!", description: "Just input your meal, and we will calculate it for you!", icon: "smily_sugar"),
