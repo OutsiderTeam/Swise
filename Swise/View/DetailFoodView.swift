@@ -92,7 +92,7 @@ struct DetailFoodView: View {
         .toolbar {
             ToolbarItem {
                 Button {
-                    addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+//                    addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
                 } label: {
                     Label("Add Item", systemImage: "plus")
                 }

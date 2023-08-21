@@ -253,8 +253,8 @@ struct SummaryView: View {
         }
         .navigationTitle("Summary")
         .toolbar(.hidden)
-        .ignoresSafeArea()
-        .edgesIgnoringSafeArea(.all)
+//        .ignoresSafeArea()
+//        .edgesIgnoringSafeArea(.all)
     }
 }
 
