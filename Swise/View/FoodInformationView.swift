@@ -24,7 +24,8 @@ struct FoodInformationView: View {
     var totalSugar: Double = 0
     var totalCalories: Double = 0
     var calNeed: Double = 0
-    
+    let persistenceController = PersistenceController.shared
+
     var body: some View {
         NavigationView {
             CustomNavBarContainerView(isSearch: false) {
@@ -88,7 +89,7 @@ struct FoodInformationView: View {
                         Spacer()
                         Button(
                             action: {
-                                message = addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+                                message = persistenceController.addEatenFood(food: viewModel.food, index: selectedIndex, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
                                 status = true
                             }){
                                 HStack{

@@ -53,7 +53,7 @@ class FoodViewModel: ObservableObject {
             self.foodService.searchFood(query: query) { response in
                 DispatchQueue.main.async {
                     self.resultSearch = response.foods.food ?? []
-                    if response.foods.food == nil || response.foods.food!.isEmpty == true {
+                    if self.resultSearch.isEmpty == true {
                         self.isEmpty = true
                     }
                 }

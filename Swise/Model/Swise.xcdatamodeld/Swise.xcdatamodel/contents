@@ -38,31 +38,15 @@
     </entity>
     <entity name="ServingFood" representedClassName="ServingFood" syncable="YES">
         <attribute name="addedSugars" optional="YES" attributeType="String"/>
-        <attribute name="calcium" optional="YES" attributeType="String"/>
         <attribute name="calories" optional="YES" attributeType="String"/>
-        <attribute name="carbohydrate" optional="YES" attributeType="String"/>
-        <attribute name="cholesterol" optional="YES" attributeType="String"/>
-        <attribute name="fat" optional="YES" attributeType="String"/>
-        <attribute name="fiber" optional="YES" attributeType="String"/>
-        <attribute name="iron" optional="YES" attributeType="String"/>
         <attribute name="measurementDescription" optional="YES" attributeType="String"/>
         <attribute name="metricServingAmount" optional="YES" attributeType="String"/>
         <attribute name="metricServingUnit" optional="YES" attributeType="String"/>
-        <attribute name="monounsaturatedFat" optional="YES" attributeType="String"/>
         <attribute name="numberOfUnits" optional="YES" attributeType="String"/>
-        <attribute name="polyunsaturatedFat" optional="YES" attributeType="String"/>
-        <attribute name="potassium" optional="YES" attributeType="String"/>
-        <attribute name="protein" optional="YES" attributeType="String"/>
-        <attribute name="saturatedFat" optional="YES" attributeType="String"/>
         <attribute name="servingDescription" optional="YES" attributeType="String"/>
         <attribute name="servingId" optional="YES" attributeType="String"/>
         <attribute name="servingUrl" optional="YES" attributeType="String"/>
-        <attribute name="sodium" optional="YES" attributeType="String"/>
         <attribute name="sugar" optional="YES" attributeType="String"/>
-        <attribute name="transFat" optional="YES" attributeType="String"/>
-        <attribute name="vitaminA" optional="YES" attributeType="String"/>
-        <attribute name="vitaminC" optional="YES" attributeType="String"/>
-        <attribute name="vitaminD" optional="YES" attributeType="String"/>
         <relationship name="servingFood" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EatenFoods" inverseName="servingFood" inverseEntity="EatenFoods"/>
     </entity>
 </model>

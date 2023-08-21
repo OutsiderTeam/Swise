@@ -217,7 +217,7 @@ class DataCalculationViewModel: ObservableObject{
     // Function to calculate sugar as a tea spoon
     func calculateTeaSpoonOfSugar(sugar:Double)->Int{
         var teaSpoonSugar: Int = 0
-        if sugar == 0{
+        if sugar <= 0{
             teaSpoonSugar = 0
         } else {
             teaSpoonSugar = Int(sugar/gramTeaSpoon)

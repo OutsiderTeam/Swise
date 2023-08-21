@@ -30,6 +30,7 @@ struct AddNewFoodView: View {
     var totalSugar: Double = 0
     var totalCalories: Double = 0
     var calNeed: Double = 0
+    let persistenceController = PersistenceController.shared
 
     var body: some View {
         NavigationView {
@@ -112,7 +113,7 @@ struct AddNewFoodView: View {
                                 serving.calories = calories
                                 serving.servingDescription = servingName
                                 food.servings.serving?.append(serving)
-                                message = addEatenFood(food: food, index: -1, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
+                                message = persistenceController.addEatenFood(food: food, index: -1, totalSugar: sugarIntake, totalCalories: calorieIntake, sugarCondition: sugarCondition)
                                 status = true
                             }
                         }){
