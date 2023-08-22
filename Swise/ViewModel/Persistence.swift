@@ -44,6 +44,18 @@ class PersistenceController: ObservableObject {
         })
     }
 
+    func fetchAll() -> [DataItem] {
+        let fetchRequest = DataItem.fetchRequest()
+        let dataItems = try? container.viewContext.fetch(fetchRequest)
+        if dataItems?.isEmpty != true {
+            let dataOnThisDay = dataItems?.filter {$0.date == Date().formatted(date: .complete, time: .omitted)}.first
+            self.totalSugar = dataOnThisDay?.totalSugar ?? 0
+            self.totalCalories = dataOnThisDay?.totalCalories ?? 0
+            self.sugarCondition = dataOnThisDay?.sugarCondition ?? 0
+        }
+        return dataItems ?? []
+    }
+    
     func count<T>(for fetchRequest: NSFetchRequest<T>) -> Int {
         (try? container.viewContext.count(for: fetchRequest)) ?? 0
     }
